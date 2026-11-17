@@ -210,8 +210,18 @@
   function searchText(p, extra){
     return [p.n,p.t,p.lv,p.nj,p.ed,p.cv,p.g,extra].join(' ');
   }
+  function ageOf(b){
+    var m = /^(\d{4})(?:\.(\d{1,2}))?/.exec(String(b||''));
+    if(!m) return '';
+    var now = new Date();
+    var by = parseInt(m[1],10), bm = m[2]? parseInt(m[2],10) : 1;
+    var age = now.getFullYear() - by;
+    if(now.getMonth()+1 < bm) age -= 1;
+    return (age >= 0 && age < 120) ? age+'岁' : '';
+  }
   function card(p, extra){
     var gender = (p.g && p.g!=='—') ? p.g : '—';
+    var ageStr = ageOf(p.b);
     var html = '<div class="card" data-s="'+esc(searchText(p,extra))+'">'
       + '<div class="row-top"><div class="avatar">'+esc((p.n||'?').charAt(0))+'</div>'
       + '<div class="who"><div class="name">'+esc(p.n)
@@ -219,7 +229,7 @@
       + '<div class="post">'+esc(p.t)+'</div></div></div>'
       + '<div class="meta">'
       + '<div class="m-item"><span class="k">性别</span><span class="v">'+esc(gender)+'</span></div>'
-      + '<div class="m-item"><span class="k">出生</span><span class="v">'+esc(p.b||'—')+'</span></div>'
+      + '<div class="m-item"><span class="k">出生</span><span class="v">'+(p.b ? esc(p.b)+(ageStr?'（'+ageStr+'）':'') : '—')+'</span></div>'
       + '<div class="m-item"><span class="k">籍贯</span><span class="v">'+esc(p.nj||'—')+'</span></div>'
       + '<div class="m-item"><span class="k">学历</span><span class="v">'+esc(p.ed||'—')+'</span></div>'
       + '</div>';
