@@ -1,0 +1,16 @@
+{
+  "name": "苏州政要·国资人事看板",
+  "short_name": "苏州政要人事",
+  "description": "苏州市委、市政府及市国资委主要领导职务调整、籍贯、年龄速览",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4efe6",
+  "theme_color": "#0e2a47",
+  "lang": "zh-CN",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
