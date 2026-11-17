@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>客脉·客户关系看板</title>
+<meta name="description" content="苏州政企客户关系管理与商机速览">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="客脉看板">
+<meta name="theme-color" content="#0e4736">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<style>
+  :root{
+    --ink:#173a30; --gold:#b98a3d; --bg:#f2f5ef; --card:#fff; --line:#dde5d8;
+    --shadow:0 10px 26px rgba(20,60,45,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg)}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+    color:var(--ink);line-height:1.55;padding-bottom:60px;
+    background:radial-gradient(1200px 500px at 10% -5%, rgba(23,90,66,.14), transparent 60%),
+      radial-gradient(900px 500px at 110% 0%, rgba(185,142,61,.10), transparent 55%), var(--bg);}
+  .wrap{max-width:680px;margin:0 auto;padding:16px 16px 0}
+
+  header{position:relative;border-radius:22px;padding:26px 22px 22px;color:#fff;
+    background:linear-gradient(135deg,#0e4736 0%,#1c6b4f 45%,#0a3828 100%);box-shadow:var(--shadow);overflow:hidden}
+  header::before{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;
+    background:radial-gradient(circle, rgba(232,200,122,.35), transparent 70%);border-radius:50%}
+  header::after{content:"客";position:absolute;right:14px;top:2px;font-size:96px;color:rgba(232,200,122,.12);font-family:serif;line-height:1}
+  .kicker{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:2px;color:var(--gold,#e8c97f);opacity:.95;margin-bottom:10px}
+  .kicker::before{content:"";width:18px;height:2px;background:var(--gold,#e8c97f)}
+  h1{font-size:25px;font-weight:800;letter-spacing:1px;position:relative;z-index:1}
+  .sub{font-size:13px;color:#d3e6db;margin-top:6px;position:relative;z-index:1}
+  .badge-row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;position:relative;z-index:1}
+  .badge{font-size:11px;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.14);color:#eef7f0;border:1px solid rgba(255,255,255,.2)}
+  .badge.hl{background:var(--gold,#e8c97f);color:#0e4736;font-weight:700;border:none}
+  .stats{display:flex;gap:14px;margin-top:14px;position:relative;z-index:1}
+  .stat b{font-size:20px;color:var(--gold,#e8c97f);font-weight:800}
+  .stat span{font-size:11px;color:#bfd8c8;display:block}
+  .linkback{position:relative;z-index:1;display:inline-block;margin-top:12px;font-size:11.5px;color:#bfd8c8;
+    background:rgba(255,255,255,.12);padding:5px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.18);text-decoration:none}
+
+  .sticky{position:sticky;top:0;z-index:20;padding:10px 0 8px;margin-top:8px;
+    background:linear-gradient(var(--bg) 78%, rgba(242,245,239,0))}
+  .searchbox{position:relative}
+  .searchbox input{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;
+    padding:12px 40px 12px 42px;font-size:14px;color:var(--ink);outline:none;box-shadow:0 4px 14px rgba(20,60,45,.06)}
+  .searchbox input:focus{border-color:var(--gold)}
+  .searchbox .ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px;color:#8fa392}
+  .searchbox .clr{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:16px;color:#a0b3a3;cursor:pointer;display:none}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:10px 2px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;font-size:12.5px;padding:7px 14px;border-radius:20px;background:#fff;border:1px solid var(--line);
+    color:#54685c;font-weight:600;white-space:nowrap;cursor:pointer;transition:.15s}
+  .chip.active{background:linear-gradient(135deg,#0e4736,#1c6b4f);color:#fff;border-color:transparent}
+
+  .section{margin-top:22px;scroll-margin-top:120px}
+  .sec-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .sec-title .num{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:15px;font-weight:800;box-shadow:var(--shadow);flex-shrink:0}
+  .sec-title h2{font-size:19px;font-weight:800;letter-spacing:1px}
+  .sec-title small{display:block;font-size:11px;color:#8a9a8d;font-weight:500}
+  .n1{background:linear-gradient(135deg,#a33b2f,#d0693f)}
+  .n2{background:linear-gradient(135deg,#1b7a5c,#3fae86)}
+  .n3{background:linear-gradient(135deg,#7a4fa3,#a97ccf)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 15px 12px;
+    margin-bottom:11px;box-shadow:0 4px 14px rgba(20,60,45,.05);position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#3fae86,#1b7a5c)}
+  .row-top{display:flex;align-items:center;gap:11px}
+  .avatar{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#fff;font-size:20px;font-weight:800;flex-shrink:0;font-family:serif;background:linear-gradient(135deg,#3fae86,#1b5c40);box-shadow:0 4px 10px rgba(27,92,64,.35)}
+  .who{flex:1;min-width:0}
+  .name{font-size:17px;font-weight:800;letter-spacing:.5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .post{font-size:12px;color:#4a5f53;margin-top:2px;font-weight:600}
+  .pill{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;white-space:nowrap}
+  .pill.opp{background:#fdeee6;color:#b04a17}
+  .pill.hot{background:#fdf3d9;color:#9a6b1e}
+  .pill.cold{background:#eef1f4;color:#54646f}
+
+  .meta{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:10px}
+  .m-item{font-size:12px;color:#4a5f53;display:flex;gap:6px;align-items:baseline}
+  .m-item .k{color:#8fa392;flex-shrink:0}
+  .m-item .v{font-weight:600;color:var(--ink)}
+  .hist{margin-top:9px;border-top:1px dashed var(--line);padding-top:8px}
+  .hist .h-title{font-size:11px;color:#8fa392;margin-bottom:5px}
+  .h-item{font-size:12px;color:#4a5f53;padding-left:14px;position:relative;margin-bottom:4px}
+  .h-item::before{content:"";position:absolute;left:2px;top:7px;width:5px;height:5px;border-radius:50%;background:#bcd4c6}
+
+  .soe-head{background:linear-gradient(135deg,#14503c,#0a3828);color:#fff;border-radius:14px;
+    padding:12px 15px;margin:16px 0 9px;box-shadow:0 6px 16px rgba(10,56,40,.22);position:relative;overflow:hidden}
+  .soe-head::after{content:"客";position:absolute;right:10px;top:-8px;font-size:50px;color:rgba(232,200,122,.14);font-family:serif}
+  .soe-head .nm{font-size:15px;font-weight:800;position:relative;z-index:1}
+  .soe-head .tag{display:inline-block;font-size:10.5px;background:rgba(232,200,122,.9);color:#0e4736;padding:2px 9px;border-radius:10px;font-weight:700;margin-top:4px}
+
+  .opp-card{background:linear-gradient(135deg,#fff8ef,#fff);border:1px solid #ecd9b8;border-radius:16px;padding:14px 15px 12px;margin-bottom:11px;position:relative;overflow:hidden;box-shadow:0 4px 14px rgba(154,107,30,.08)}
+  .opp-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#d0693f,#a33b2f)}
+  .opp-name{font-size:15.5px;font-weight:800}
+  .opp-meta{margin-top:7px;font-size:12px;color:#4a5f53;display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
+  .opp-meta .k{color:#8fa392}
+  .opp-detail{margin-top:6px;font-size:12.5px;color:#4a5f53;border-top:1px dashed #ecd9b8;padding-top:6px}
+
+  .rel-line{background:#fff;border:1px dashed #c8d6cb;border-radius:12px;padding:10px 13px;margin-bottom:8px;font-size:12.5px;color:#4a5f53}
+  .rel-line b{color:var(--ink)}
+  .rel-line .rt{display:inline-block;font-size:10px;background:#e7f1eb;color:#1b6b4a;padding:1px 8px;border-radius:9px;margin-right:6px;font-weight:700}
+  .empty{text-align:center;color:#a1b3a5;font-size:13px;padding:24px}
+  footer{margin:26px 0 10px;font-size:11px;color:#8a9a8d;text-align:center;line-height:1.7}
+  .src-box{background:#eaefe7;border:1px solid #d7e0d2;border-radius:12px;padding:12px 14px;margin-top:18px;font-size:11.5px;color:#5f6f64;line-height:1.7}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">SUZHOU · 客脉速览</div>
+    <h1>客脉 · 客户关系看板</h1>
+    <div class="sub">客户 · 单位 · 互动摘要 · 商机 · 关系网络</div>
+    <div class="badge-row">
+      <span class="badge hl" id="upd">数据 —</span>
+      <span class="badge">客脉库导出</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="s-p">-</b><span>客户</span></div>
+      <div class="stat"><b id="s-c">-</b><span>单位</span></div>
+      <div class="stat"><b id="s-i">-</b><span>互动记录</span></div>
+      <div class="stat"><b id="s-o">-</b><span>商机</span></div>
+    </div>
+    <a class="linkback" href="./index.html">← 人事看板</a>
+  </header>
+
+  <div class="sticky">
+    <div class="searchbox">
+      <span class="ic">🔍</span>
+      <input id="q" type="text" placeholder="搜索姓名 / 单位 / 职务 / 互动内容…">
+      <span class="clr" id="clr">✕</span>
+    </div>
+    <div class="chips" id="chips">
+      <div class="chip active" data-go="sec-opp">活跃商机</div>
+      <div class="chip" data-go="sec-recent">最近互动</div>
+      <div class="chip" data-go="sec-cust">客户库</div>
+      <div class="chip" data-go="sec-rel">关系网络</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-opp">
+    <div class="sec-title"><div class="num n1">机</div><div><h2>活跃商机</h2><small>OPPORTUNITIES · 跟进中</small></div></div>
+    <div id="list-opp"></div>
+  </div>
+
+  <div class="section" id="sec-recent">
+    <div class="sec-title"><div class="num n3">记</div><div><h2>最近互动</h2><small>RECENT · 最新30条摘要</small></div></div>
+    <div id="list-recent"></div>
+  </div>
+
+  <div class="section" id="sec-cust">
+    <div class="sec-title"><div class="num n2">库</div><div><h2>客户库（按单位）</h2><small>CUSTOMERS · 全量客户档案</small></div></div>
+    <div id="list-cust"></div>
+  </div>
+
+  <div class="section" id="sec-rel">
+    <div class="sec-title"><div class="num n1">网</div><div><h2>关系网络</h2><small>NETWORK · 人与人连接</small></div></div>
+    <div id="list-rel"></div>
+  </div>
+
+  <div class="src-box">
+    <b>数据说明：</b>本页数据来自本地客脉库（SQLite）导出的摘要级信息，由「客脉更新」流程自动生成。数据时点 <span id="src-upd">—</span>。原始聊天记录、联系方式等敏感原文不在此页展示。
+  </div>
+  <footer>客脉 · 客户关系看板　·　导出于 <span id="foot-upd">—</span></footer>
+</div>
+
+<script src="data-kehu.js"></script>
+<script>
+(function(){
+  var D = window.KEHU_DATA || {};
+  function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function pill(cnt){
+    if(cnt>=8) return '<span class="pill opp">高频 '+cnt+'</span>';
+    if(cnt>=3) return '<span class="pill hot">常联 '+cnt+'</span>';
+    if(cnt>=1) return '<span class="pill hot">已联 '+cnt+'</span>';
+    return '<span class="pill cold">未互动</span>';
+  }
+  function daysAgo(d){
+    if(!d) return null;
+    var t = new Date(d.replace(/(\.\d+)?$/,'')), diff = Math.floor((Date.now()-t)/86400000);
+    if(isNaN(diff)) return null;
+    if(diff<=7) return diff+'天内';
+    if(diff<=30) return Math.floor(diff/7)+'周前';
+    if(diff<=365) return Math.floor(diff/30)+'个月前';
+    return '1年以上';
+  }
+
+  // 商机
+  (function(){
+    var box=document.getElementById('list-opp');
+    var arr = (D.opps||[]).filter(function(o){return o.status!=='closed';});
+    if(arr.length===0){box.innerHTML='<div class="empty">暂无活跃商机</div>';return;}
+    box.innerHTML = arr.map(function(o){
+      return '<div class="opp-card" data-s="'+esc([o.name,o.detail,o.p,o.c].join(' '))+'">'
+        +'<div class="opp-name">'+esc(o.name||'—')+'</div>'
+        +'<div class="opp-meta">'
+        +'<div class="m-item"><span class="k">客户</span><span class="v">'+esc(o.p||'—')+'</span></div>'
+        +'<div class="m-item"><span class="k">单位</span><span class="v">'+esc(o.c||'—')+'</span></div>'
+        +'</div>'
+        +(o.detail?'<div class="opp-detail">'+esc(o.detail)+'</div>':'')
+        +'</div>';
+    }).join('');
+    document.getElementById('s-o').textContent=arr.length;
+  })();
+
+  // 最近互动
+  (function(){
+    var box=document.getElementById('list-recent');
+    var arr=D.recent||[];
+    if(arr.length===0){box.innerHTML='<div class="empty">暂无互动记录</div>';return;}
+    box.innerHTML=arr.map(function(it){
+      return '<div class="card" data-s="'+esc([it.p,it.c,it.s,it.type,it.d].join(' '))+'">'
+        +'<div class="row-top"><div class="avatar">'+esc((it.p||'记').charAt(0))+'</div>'
+        +'<div class="who"><div class="name">'+esc(it.p||'—')+'</div>'
+        +'<div class="post">'+esc(it.c||'')+(it.type?(' · '+esc(it.type)):'')+' · '+esc(String(it.d||'').slice(0,10))+'</div></div></div>'
+        +(it.s?'<div class="hist"><div class="h-title">互动摘要</div>'+esc(it.s)+'</div>':'')
+        +'</div>';
+    }).join('');
+  })();
+
+  // 客户库（按单位分组）
+  (function(){
+    var box=document.getElementById('list-cust');
+    var gs=D.groups||[];
+    var html='';
+    gs.forEach(function(g){
+      html+='<div class="soe-head"><div class="nm">'+esc(g.name)+'</div><span class="tag">'+g.people.length+'人</span></div>';
+      html+=g.people.map(function(p){
+        var da=daysAgo(p.last);
+        return '<div class="card" data-s="'+esc([p.n,p.t,g.name,p.note,(p.hist||[]).join(' ')].join(' '))+'">'
+          +'<div class="row-top"><div class="avatar">'+esc((p.n||'?').charAt(0))+'</div>'
+          +'<div class="who"><div class="name">'+esc(p.n)+(p.t?' <span style="font-size:12px;color:#54685c;font-weight:600">'+esc(p.t)+'</span>':'')+'</div>'
+          +'<div class="post">'+pill(p.cnt)+(p.last?(' · 最近联系 '+esc(p.last)+(da?'（'+da+'）':'')):'')+'</div></div></div>'
+          +(p.hist&&p.hist.length?'<div class="hist"><div class="h-title">近期互动</div>'
+            +p.hist.map(function(h){return '<div class="h-item">'+esc(h)+'</div>';}).join('')+'</div>':'')
+          +(p.note?'<div class="hist"><div class="h-title">备注</div>'+esc(p.note)+'</div>':'')
+          +'</div>';
+      }).join('');
+    });
+    box.innerHTML=html||'<div class="empty">暂无客户</div>';
+  })();
+
+  // 关系网络
+  (function(){
+    var box=document.getElementById('list-rel');
+    var arr=D.rels||[];
+    if(arr.length===0){box.innerHTML='<div class="empty">暂无关系记录</div>';return;}
+    box.innerHTML=arr.map(function(r){
+      return '<div class="rel-line" data-s="'+esc([r.f,r.t,r.type,r.detail].join(' '))+'">'
+        +'<span class="rt">'+esc(r.type||'关系')+'</span>'
+        +'<b>'+esc(r.f)+'</b> ←→ <b>'+esc(r.t)+'</b>'
+        +(r.detail?('　'+esc(r.detail)):'')+'</div>';
+    }).join('');
+  })();
+
+  var st=D.stat||{};
+  document.getElementById('s-p').textContent=st.people||0;
+  document.getElementById('s-c').textContent=st.companies||0;
+  document.getElementById('s-i').textContent=st.interactions||0;
+  if(D.updated){
+    document.getElementById('upd').textContent='数据截至 '+D.updated;
+    document.getElementById('src-upd').textContent=D.updated;
+    document.getElementById('foot-upd').textContent=D.updated;
+  }
+
+  // 搜索
+  var q=document.getElementById('q'), clr=document.getElementById('clr');
+  q.addEventListener('input', function(){
+    var v=q.value.trim().toLowerCase();
+    clr.style.display=v?'block':'none';
+    document.querySelectorAll('.card,.opp-card,.rel-line,.soe-head').forEach(function(c){
+      if(c.classList.contains('soe-head')) return;
+      var s=(c.getAttribute('data-s')||'').toLowerCase();
+      c.classList.toggle('hidden', v && s.indexOf(v)<0);
+    });
+    document.querySelectorAll('.soe-head').forEach(function(h){
+      var n=h.nextElementSibling, any=false;
+      while(n && (n.classList.contains('card'))){
+        if(!n.classList.contains('hidden')) any=true;
+        n=n.nextElementSibling;
+      }
+      h.classList.toggle('hidden', v && !any);
+    });
+    ['sec-opp','sec-recent','sec-cust','sec-rel'].forEach(function(id){
+      var sec=document.getElementById(id);
+      var vis=sec.querySelectorAll('.card:not(.hidden),.opp-card:not(.hidden),.rel-line:not(.hidden)').length;
+      sec.classList.toggle('hidden', v && vis===0);
+    });
+  });
+  clr.addEventListener('click', function(){ q.value=''; q.dispatchEvent(new Event('input')); q.focus(); });
+
+  document.getElementById('chips').addEventListener('click', function(e){
+    var c=e.target.closest('.chip'); if(!c) return;
+    document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});
+    c.classList.add('active');
+    var el=document.getElementById(c.getAttribute('data-go'));
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+})();
+</script>
+</body>
+</html>
