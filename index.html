@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>苏州政要·国资人事看板</title>
+<meta name="description" content="苏州市政府、职能部门、各局办及市属国资国企领导一站式速览（含级别、籍贯、年龄、任职轨迹）">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="苏州政要人事">
+<meta name="theme-color" content="#0e2a47">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  :root{
+    --ink:#16324f; --gold:#b98a3d; --gold-soft:#e8c97a; --bg:#f4efe6;
+    --card:#fff; --line:#e5dcc8; --accent:#a33b2f;
+    --shadow:0 10px 26px rgba(20,40,60,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg)}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+    color:var(--ink);line-height:1.55;padding-bottom:60px;
+    background:radial-gradient(1200px 500px at 10% -5%, rgba(185,142,61,.16), transparent 60%),
+      radial-gradient(900px 500px at 110% 0%, rgba(22,50,79,.10), transparent 55%), var(--bg);}
+  .wrap{max-width:680px;margin:0 auto;padding:16px 16px 0}
+
+  header{position:relative;border-radius:22px;padding:26px 22px 22px;color:#fff;
+    background:linear-gradient(135deg,#123a5e 0%,#1d5177 45%,#0e2a47 100%);box-shadow:var(--shadow);overflow:hidden;}
+  header::before{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;
+    background:radial-gradient(circle, rgba(232,200,122,.35), transparent 70%);border-radius:50%;}
+  header::after{content:"苏";position:absolute;right:14px;top:2px;font-size:96px;color:rgba(232,200,122,.12);font-family:serif;line-height:1;}
+  .kicker{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:2px;color:var(--gold-soft);opacity:.95;margin-bottom:10px}
+  .kicker::before{content:"";width:18px;height:2px;background:var(--gold-soft)}
+  h1{font-size:25px;font-weight:800;letter-spacing:1px;position:relative;z-index:1}
+  .sub{font-size:13px;color:#d8e4ef;margin-top:6px;position:relative;z-index:1}
+  .badge-row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;position:relative;z-index:1}
+  .badge{font-size:11px;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.14);color:#eef4fa;border:1px solid rgba(255,255,255,.2)}
+  .badge.hl{background:var(--gold-soft);color:#123a5e;font-weight:700;border:none}
+  .stats{display:flex;gap:14px;margin-top:14px;position:relative;z-index:1}
+  .stat b{font-size:20px;color:var(--gold-soft);font-weight:800}
+  .stat span{font-size:11px;color:#c9d6e2;display:block}
+
+  /* 搜索 + 分类栏 */
+  .sticky{position:sticky;top:0;z-index:20;padding:10px 0 8px;margin-top:8px;
+    background:linear-gradient(var(--bg) 78%, rgba(244,239,230,0));}
+  .searchbox{position:relative}
+  .searchbox input{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;
+    padding:12px 40px 12px 42px;font-size:14px;color:var(--ink);outline:none;box-shadow:0 4px 14px rgba(20,40,60,.06)}
+  .searchbox input:focus{border-color:var(--gold)}
+  .searchbox .ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px;color:#a99a7d}
+  .searchbox .clr{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:16px;color:#b6a88c;cursor:pointer;display:none}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:10px 2px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;font-size:12.5px;padding:7px 14px;border-radius:20px;background:#fff;border:1px solid var(--line);
+    color:#5c6672;font-weight:600;white-space:nowrap;cursor:pointer;transition:.15s}
+  .chip.active,.chip:active{background:linear-gradient(135deg,#123a5e,#1d5177);color:#fff;border-color:transparent}
+
+  .section{margin-top:22px;scroll-margin-top:120px}
+  .sec-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .sec-title .num{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:16px;font-weight:800;box-shadow:var(--shadow);flex-shrink:0}
+  .sec-title h2{font-size:19px;font-weight:800;letter-spacing:1px}
+  .sec-title small{display:block;font-size:11px;color:#8a7d63;font-weight:500}
+  .n1{background:linear-gradient(135deg,#a33b2f,#d0693f)}
+  .n2{background:linear-gradient(135deg,#1e5aa8,#4a86cf)}
+  .n3{background:linear-gradient(135deg,#1b7a5c,#3fae86)}
+  .n4{background:linear-gradient(135deg,#7a4fa3,#a97ccf)}
+
+  /* 卡片 */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 15px 13px;
+    margin-bottom:12px;box-shadow:0 4px 14px rgba(20,40,60,.06);position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#b98e3d,#7b5f28)}
+  .row-top{display:flex;align-items:center;gap:12px}
+  .avatar{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;color:#fff;font-size:22px;font-weight:800;flex-shrink:0;font-family:serif;background:linear-gradient(135deg,#d4b060,#8a6a2c);box-shadow:0 4px 10px rgba(138,106,44,.4)}
+  .who{flex:1;min-width:0}
+  .name{font-size:18px;font-weight:800;letter-spacing:.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .post{font-size:12px;color:#4a5a6b;margin-top:3px;font-weight:600}
+  .lvl{display:inline-block;font-size:10.5px;padding:2px 9px;border-radius:10px;font-weight:700;white-space:nowrap}
+  .lv-fubu{background:#fbe3df;color:#b02b1c}
+  .lv-zhengting{background:#e2ebf6;color:#1b4a80}
+  .lv-futing{background:#e8f0fb;color:#2b5ca5}
+  .lv-zhengchu{background:#e7f4ec;color:#1b7a49}
+  .lv-fuchu{background:#eef1f4;color:#54646f}
+  .lv-other{background:#f2eddf;color:#8a7a55}
+
+  .meta{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;margin-top:11px}
+  .m-item{font-size:12px;color:#5c6672;display:flex;gap:6px;align-items:baseline}
+  .m-item .k{color:#9a8a6e;flex-shrink:0}
+  .m-item .v{font-weight:600;color:var(--ink)}
+  .m-full{grid-column:1/-1}
+  .track{margin-top:10px;border-top:1px dashed var(--line);padding-top:9px;font-size:12.5px;color:#4a5a6b}
+  .track .k{font-size:11px;color:#9a8a6e;margin-right:6px}
+
+  /* 企业分组头 */
+  .soe-head{background:linear-gradient(135deg,#2a3f5f,#0e2a47);color:#fff;border-radius:14px;
+    padding:13px 16px;margin:18px 0 10px;box-shadow:0 6px 16px rgba(14,42,71,.25);position:relative;overflow:hidden}
+  .soe-head::after{content:"企";position:absolute;right:10px;top:-6px;font-size:52px;color:rgba(232,200,122,.14);font-family:serif}
+  .soe-head .nm{font-size:15.5px;font-weight:800;letter-spacing:.3px;position:relative;z-index:1}
+  .soe-head .tag{display:inline-block;font-size:10.5px;background:rgba(232,200,122,.9);color:#123a5e;padding:2px 9px;border-radius:10px;font-weight:700;margin-top:5px}
+  .soe-head .intro{font-size:11.5px;color:#c9d6e2;margin-top:5px}
+
+  .empty{text-align:center;color:#a1906f;font-size:13px;padding:24px}
+  footer{margin:26px 0 10px;font-size:11px;color:#8a7d63;text-align:center;line-height:1.7}
+  .src-box{background:#efe8da;border:1px solid #e2d8c2;border-radius:12px;padding:12px 14px;margin-top:18px;font-size:11.5px;color:#6a5f47;line-height:1.7}
+  .src-box b{color:#a33b2f}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">SUZHOU · 政企人事速览</div>
+    <h1>苏州政要 · 国资人事看板</h1>
+    <div class="sub">市政府班子 · 职能部门 · 各局办 · 市属国资国企（含级别/籍贯/年龄/任职轨迹）</div>
+    <div class="badge-row">
+      <span class="badge hl" id="upd">信息截至 2026-11-17</span>
+      <span class="badge">公开资料整理</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="s-gov">-</b><span>市政府班子</span></div>
+      <div class="stat"><b id="s-core">-</b><span>职能部门</span></div>
+      <div class="stat"><b id="s-bur">-</b><span>各局办</span></div>
+      <div class="stat"><b id="s-soe">-</b><span>国资国企</span></div>
+    </div>
+  </header>
+
+  <div class="sticky">
+    <div class="searchbox">
+      <span class="ic">🔍</span>
+      <input id="q" type="text" placeholder="搜索姓名 / 职务 / 单位 / 籍贯 / 级别…">
+      <span class="clr" id="clr">✕</span>
+    </div>
+    <div class="chips" id="chips">
+      <div class="chip active" data-go="sec-gov">市政府班子</div>
+      <div class="chip" data-go="sec-core">主要职能部门</div>
+      <div class="chip" data-go="sec-bureau">各局办</div>
+      <div class="chip" data-go="sec-soe">市属国资国企</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-gov">
+    <div class="sec-title"><div class="num n1">壹</div><div><h2>市政府领导班子</h2><small>GOVERNMENT · 市长与副市长</small></div></div>
+    <div id="list-gov"></div>
+  </div>
+
+  <div class="section" id="sec-core">
+    <div class="sec-title"><div class="num n2">贰</div><div><h2>市主要专业职能部门</h2><small>CORE · 经济与要素保障</small></div></div>
+    <div id="list-core"></div>
+  </div>
+
+  <div class="section" id="sec-bureau">
+    <div class="sec-title"><div class="num n3">叁</div><div><h2>市一级各局办</h2><small>BUREAUS · 民生与行业主管</small></div></div>
+    <div id="list-bureau"></div>
+  </div>
+
+  <div class="section" id="sec-soe">
+    <div class="sec-title"><div class="num n4">肆</div><div><h2>市属国资国企（25家）</h2><small>SOE · 董事长 / 总经理 / 副总经理</small></div></div>
+    <div id="list-soe"></div>
+  </div>
+
+  <div class="src-box">
+    <b>数据来源与口径：</b>信息整理于 <span id="src-upd">2026-11-17</span>，依据苏州市政府门户、市国资委官网、企业官网、新华社/百度百科等公开资料。行政级别中，市政府班子按地级市配备（书记副部、市长正厅、副市长副厅）；市局正职为正处、副职为副处；市属国企正副职级别依公开信息推断，标注「副厅/正处级」「副处级」等，仅供参考，正式场合请以组织人事文件为准。标注「—」表示暂未获取到可靠公开信息，非信息缺失。
+  </div>
+  <footer>苏州政要 · 国资人事看板　·　信息更新 <span id="foot-upd">2026-11-17</span><br>您可随时请我更新最新人事动态</footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  var D = window.HR_DATA || {};
+  function lvlClass(lv){
+    if(!lv) return 'lv-other';
+    if(lv.indexOf('副部')>=0) return 'lv-fubu';
+    if(lv.indexOf('正厅')>=0) return 'lv-zhengting';
+    if(lv.indexOf('副厅')>=0) return 'lv-futing';
+    if(lv.indexOf('正处')>=0) return 'lv-zhengchu';
+    if(lv.indexOf('副处')>=0) return 'lv-fuchu';
+    return 'lv-other';
+  }
+  function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function searchText(p, extra){
+    return [p.n,p.t,p.lv,p.nj,p.ed,p.cv,p.g,extra].join(' ');
+  }
+  function card(p, extra){
+    var gender = (p.g && p.g!=='—') ? p.g : '—';
+    var html = '<div class="card" data-s="'+esc(searchText(p,extra))+'">'
+      + '<div class="row-top"><div class="avatar">'+esc((p.n||'?').charAt(0))+'</div>'
+      + '<div class="who"><div class="name">'+esc(p.n)
+      + (p.lv?' <span class="lvl '+lvlClass(p.lv)+'">'+esc(p.lv)+'</span>':'')+'</div>'
+      + '<div class="post">'+esc(p.t)+'</div></div></div>'
+      + '<div class="meta">'
+      + '<div class="m-item"><span class="k">性别</span><span class="v">'+esc(gender)+'</span></div>'
+      + '<div class="m-item"><span class="k">出生</span><span class="v">'+esc(p.b||'—')+'</span></div>'
+      + '<div class="m-item"><span class="k">籍贯</span><span class="v">'+esc(p.nj||'—')+'</span></div>'
+      + '<div class="m-item"><span class="k">学历</span><span class="v">'+esc(p.ed||'—')+'</span></div>'
+      + '</div>';
+    if(p.cv){ html += '<div class="track"><span class="k">原任/轨迹</span>'+esc(p.cv)+'</div>'; }
+    html += '</div>';
+    return html;
+  }
+  function fill(id, arr, extra){
+    var box = document.getElementById(id);
+    var html = arr.map(function(p){return card(p, extra);}).join('');
+    box.innerHTML = html || '<div class="empty">暂无数据</div>';
+  }
+  fill('list-gov', D.gov||[], '');
+  fill('list-core', D.core||[], '');
+  fill('list-bureau', D.bureau||[], '');
+  (function(){
+    var box = document.getElementById('list-soe');
+    var soes = D.soes||[];
+    var html='';
+    soes.forEach(function(g){
+      html += '<div class="soe-head"><div class="nm">'+esc(g.name)+'</div>'
+        + (g.lv?'<span class="tag">'+esc(g.lv)+'</span>':'')
+        + (g.intro?'<div class="intro">'+esc(g.intro)+'</div>':'')+'</div>';
+      html += g.people.map(function(p){return card(p, g.name);}).join('');
+    });
+    box.innerHTML = html || '<div class="empty">暂无数据</div>';
+  })();
+  document.getElementById('s-gov').textContent=(D.gov||[]).length;
+  document.getElementById('s-core').textContent=(D.core||[]).length;
+  document.getElementById('s-bur').textContent=(D.bureau||[]).length;
+  document.getElementById('s-soe').textContent=(D.soes||[]).reduce(function(a,g){return a+g.people.length;},0);
+  if(D.updated){document.getElementById('upd').textContent='信息截至 '+D.updated;
+    document.getElementById('src-upd').textContent=D.updated;document.getElementById('foot-upd').textContent=D.updated;}
+
+  var q=document.getElementById('q'), clr=document.getElementById('clr');
+  q.addEventListener('input', function(){
+    var v=q.value.trim().toLowerCase();
+    clr.style.display = v? 'block':'none';
+    document.querySelectorAll('.card').forEach(function(c){
+      var s=(c.getAttribute('data-s')||'').toLowerCase();
+      c.classList.toggle('hidden', v && s.indexOf(v)<0);
+    });
+    document.querySelectorAll('.soe-head').forEach(function(h){
+      var n=h.nextElementSibling, any=false;
+      while(n && n.classList.contains('card')){
+        if(!n.classList.contains('hidden')) any=true;
+        n=n.nextElementSibling;
+      }
+      h.classList.toggle('hidden', v && !any);
+    });
+    ['sec-gov','sec-core','sec-bureau','sec-soe'].forEach(function(id){
+      var sec=document.getElementById(id);
+      var vis=sec.querySelectorAll('.card:not(.hidden)').length;
+      sec.classList.toggle('hidden', v && vis===0);
+    });
+  });
+  clr.addEventListener('click', function(){ q.value=''; q.dispatchEvent(new Event('input')); q.focus(); });
+
+  document.getElementById('chips').addEventListener('click', function(e){
+    var c=e.target.closest('.chip'); if(!c) return;
+    document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});
+    c.classList.add('active');
+    var el=document.getElementById(c.getAttribute('data-go'));
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+})();
+</script>
+</body>
+</html>
