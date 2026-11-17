@@ -70,18 +70,19 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
 .proj .note{font-size:10.5px;color:var(--text2);margin-top:3px}
 .proj .meta2{display:flex;gap:10px;margin-top:3px;font-size:10px;color:#8a7d63;flex-wrap:wrap}
 .pl{font-size:10px;color:#b45309;margin-top:3px;background:#fff7e6;border-radius:5px;padding:3px 7px}
-.biz{border:1px solid #f0d9a0;background:linear-gradient(135deg,#fffdf5,#fff7e6);border-radius:10px;padding:8px 10px;margin-bottom:7px}
-.biz-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;cursor:pointer}
-.biz-name{font-size:13.5px;font-weight:800;color:#78350f}
-.biz-unit{font-size:10px;background:#123a5e;color:#fff;padding:1px 7px;border-radius:8px;font-weight:700}
-.biz-amt{font-size:11px;font-weight:800;color:#b45309}
-.biz-time{font-size:10px;color:#9a8a6e}
-.biz-go{margin-left:auto;font-size:10.5px;color:#fff;background:#d97706;padding:2px 10px;border-radius:10px;cursor:pointer;font-weight:700}
-.biz-latest{font-size:11px;color:#7c6f57;margin-top:4px;line-height:1.5}
-.biz-logshd{font-size:10px;color:#9a8a6e;margin-top:3px}
-.biz-logs{display:none;margin-top:4px}
-.biz-logs .blg{font-size:10.5px;color:#8a7d63;padding:5px 0;border-top:1px dashed #eadfc8;line-height:1.5}
-.biz-logs .blg b{color:#b45309;font-weight:700;font-size:10px}
+.biz{border:1px solid #f0d9a0;background:linear-gradient(135deg,#fffdf5,#fff7e6);border-radius:7px;padding:4px 8px;margin-bottom:3px}
+.biz-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap;cursor:pointer}
+.biz-name{font-size:12.5px;font-weight:800;color:#78350f}
+.biz-unit{font-size:9px;background:#123a5e;color:#fff;padding:0 6px;border-radius:6px;font-weight:700}
+.biz-amt{font-size:10px;font-weight:800;color:#b45309}
+.biz-time{font-size:9px;color:#9a8a6e}
+.biz-go{margin-left:auto;font-size:9px;color:#fff;background:#d97706;padding:1px 8px;border-radius:8px;cursor:pointer;font-weight:700}
+.biz-latest{font-size:10px;color:#7c6f57;margin-top:1px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.biz-logshd{font-size:9px;color:#9a8a6e;margin-top:1px}
+.biz-logs{display:none;margin-top:3px}
+.biz-logs .blg{font-size:10px;color:#8a7d63;padding:3px 0;border-top:1px dashed #eadfc8;line-height:1.45}
+.biz-logs .blg b{color:#b45309;font-weight:700;font-size:9.5px}
+#bizboard .block{padding:8px 10px}
 .dept-sub{margin-top:9px}
 .dept-sub .dt{font-size:12px;font-weight:700;color:var(--primary);margin-bottom:6px}
 #backTop{position:fixed;right:16px;bottom:24px;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:19px;color:#fff;background:linear-gradient(135deg,#22374f,#4a6b9c);box-shadow:0 4px 14px rgba(20,35,58,.4);z-index:50;padding:0}
@@ -240,15 +241,16 @@ function renderBiz(list){
         +'<span class="biz-go" data-goto="'+uid+'-'+upi+'">定位</span>'
         +'</div>';
       if(logs.length){
-        h+='<div class="biz-latest">📅 <b style="color:#b45309">'+esc(logs[0].d)+'</b> '+esc(logs[0].t)+'</div>';
+        h+='<div class="biz-latest" title="'+esc(logs[0].d)+' '+esc(logs[0].t)+'">📅 '+esc(logs[0].d)+' '+esc(logs[0].t)+'</div>';
       }else if(p.note){
-        h+='<div class="biz-latest">'+esc(p.note)+'</div>';
+        h+='<div class="biz-latest" title="'+esc(p.note)+'">'+esc(p.note)+'</div>';
       }
-      if(logs.length>1){
-        h+='<div class="biz-logshd">↓ 展开 '+logs.length+' 条进展记录（含历史）</div>';
+      if(logs.length){
         h+='<div class="biz-logs">';
-        logs.slice(1).forEach(function(lg){h+='<div class="blg"><b>'+esc(lg.d)+'</b>　'+esc(lg.t)+'</div>';});
+        logs.forEach(function(lg){h+='<div class="blg"><b>'+esc(lg.d)+'</b>　'+esc(lg.t)+'</div>';});
         h+='</div>';
+      }else if(p.note){
+        h+='<div class="biz-logs"><div class="blg">'+esc(p.note)+'</div></div>';
       }
       h+='</div>';
     });
