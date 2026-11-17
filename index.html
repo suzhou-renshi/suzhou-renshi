@@ -58,6 +58,27 @@
     color:#5c6672;font-weight:600;white-space:nowrap;cursor:pointer;transition:.15s}
   .chip.active,.chip:active{background:linear-gradient(135deg,#123a5e,#1d5177);color:#fff;border-color:transparent}
 
+  /* 最新调动入口按钮 + 卡片 */
+  .latest-btn{margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:10px;border-radius:14px;color:#fff;font-size:14px;font-weight:800;letter-spacing:1px;cursor:pointer;
+    background:linear-gradient(135deg,#a33b2f,#d0693f);box-shadow:0 6px 16px rgba(163,59,47,.28)}
+  .latest-btn:active{transform:scale(.985)}
+  .ldot{width:8px;height:8px;border-radius:50%;background:#ffd9a0;box-shadow:0 0 0 4px rgba(255,220,160,.28);animation:ld 1.6s infinite}
+  @keyframes ld{0%,100%{opacity:1}50%{opacity:.35}}
+  .ln{background:rgba(255,255,255,.22);border-radius:10px;padding:0 8px;font-size:11px;font-weight:700}
+  .n0{background:linear-gradient(135deg,#a33b2f,#c96a4a)}
+  .lc{padding:13px 14px 11px}
+  .lc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;
+    font-size:11px;font-weight:700}
+  .lc-date{color:#9a6b1e;background:#f7ecd2;border:1px solid #ecd9a8;padding:2px 9px;border-radius:9px}
+  .lc-unit{color:#54646f;background:#eef1f4;padding:2px 9px;border-radius:9px;font-weight:600;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lc-name{font-size:17px;font-weight:800}
+  .lc-move{margin-top:6px;font-size:12.5px;color:#4a5a6b;line-height:1.65}
+  .lc-move .f{color:#7d8794}
+  .lc-move .arr{margin:0 6px;color:#c0392b;font-weight:800}
+  .lc-move .t{color:#16324f;font-weight:700}
+  .lc-note{margin-top:7px;font-size:11px;color:#9a8a6e;border-top:1px dashed var(--line);padding-top:6px}
+
   .section{margin-top:22px;scroll-margin-top:120px}
   .sec-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
   .sec-title .num{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:16px;font-weight:800;box-shadow:var(--shadow);flex-shrink:0}
@@ -138,6 +159,12 @@
       <div class="chip" data-go="sec-bureau">各局办</div>
       <div class="chip" data-go="sec-soe">市属国资国企</div>
     </div>
+    <div class="latest-btn" id="latestBtn"><span class="ldot"></span>最新调动<span class="ln" id="latestCount">…</span></div>
+  </div>
+
+  <div class="section" id="sec-latest">
+    <div class="sec-title"><div class="num n0">脉</div><div><h2>最新调动</h2><small>LATEST · 近期人事变动（按时间倒序）</small></div></div>
+    <div id="list-latest"></div>
   </div>
 
   <div class="section" id="sec-gov">
@@ -208,6 +235,24 @@
   fill('list-gov', D.gov||[], '');
   fill('list-core', D.core||[], '');
   fill('list-bureau', D.bureau||[], '');
+  // 最新调动
+  (function(){
+    var box = document.getElementById('list-latest');
+    var arr = (D.latest||[]).slice().sort(function(a,b){return String(b.d||'').localeCompare(String(a.d||''));});
+    var html = arr.map(function(it){
+      var date = String(it.d||'').replace(/-/g,'.');
+      return '<div class="card lc" data-s="'+esc([it.n,it.u,it.f,it.t,it.note].join(' '))+'">'
+        + '<div class="lc-top"><span class="lc-date">'+esc(date)+'</span><span class="lc-unit">'+esc(it.u||'')+'</span></div>'
+        + '<div class="lc-name">'+esc(it.n||'')+'</div>'
+        + '<div class="lc-move">'+(it.f?'<span class="f">'+esc(it.f)+'</span><span class="arr">→</span>':'')+'<span class="t">'+esc(it.t||'')+'</span></div>'
+        + (it.note?'<div class="lc-note">'+esc(it.note)+'</div>':'')
+        + '</div>';
+    }).join('');
+    box.innerHTML = html || '<div class="empty">暂无数据</div>';
+    var lc = document.getElementById('latestCount');
+    if(lc) lc.textContent = arr.length;
+  })();
+  // 国企（分组）
   (function(){
     var box = document.getElementById('list-soe');
     var soes = D.soes||[];
@@ -243,13 +288,18 @@
       }
       h.classList.toggle('hidden', v && !any);
     });
-    ['sec-gov','sec-core','sec-bureau','sec-soe'].forEach(function(id){
+    ['sec-latest','sec-gov','sec-core','sec-bureau','sec-soe'].forEach(function(id){
       var sec=document.getElementById(id);
       var vis=sec.querySelectorAll('.card:not(.hidden)').length;
       sec.classList.toggle('hidden', v && vis===0);
     });
   });
   clr.addEventListener('click', function(){ q.value=''; q.dispatchEvent(new Event('input')); q.focus(); });
+
+  document.getElementById('latestBtn').addEventListener('click', function(){
+    var el=document.getElementById('sec-latest');
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
 
   document.getElementById('chips').addEventListener('click', function(e){
     var c=e.target.closest('.chip'); if(!c) return;
