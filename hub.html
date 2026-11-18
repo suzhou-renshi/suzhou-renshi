@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作看板中心 · 苏州电信</title>
+<style>
+  :root{
+    --bg:#eef2f9; --card:#ffffff; --ink:#1f2937; --sub:#6b7280; --line:#e6eaf1;
+    --brand:#3b5bdb; --brand2:#5c7cfa; --shadow:0 10px 30px rgba(31,41,55,.09);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;min-height:100vh;
+    background:radial-gradient(1200px 500px at 50% -10%,#dfe7fb 0%,transparent 60%),linear-gradient(180deg,#eef2f9,#f6f8fc);
+    color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.65;}
+  .wrap{max-width:880px;margin:0 auto;padding:48px 18px 60px;}
+  .kicker{font-size:12px;letter-spacing:3px;color:var(--brand);font-weight:800;text-transform:uppercase;}
+  h1{margin:8px 0 4px;font-size:30px;font-weight:800;letter-spacing:1px;}
+  .lead{color:var(--sub);font-size:14px;margin:0 0 34px;}
+
+  .main-card{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:34px 30px;margin-bottom:20px;
+    background:linear-gradient(135deg,#3b5bdb 0%,#5c7cfa 55%,#7a9bff 100%);
+    box-shadow:0 18px 40px rgba(59,91,219,.32);position:relative;overflow:hidden;transition:.25s;}
+  .main-card:hover{transform:translateY(-3px);box-shadow:0 24px 50px rgba(59,91,219,.4);}
+  .main-card::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;
+    background:radial-gradient(circle,rgba(255,255,255,.28),transparent 70%);}
+  .pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1px;
+    background:rgba(255,255,255,.22);padding:4px 12px;border-radius:20px;margin-bottom:14px;}
+  .main-card h2{margin:0 0 8px;font-size:26px;font-weight:800;}
+  .main-card p{margin:0;font-size:14px;color:rgba(255,255,255,.9);max-width:520px;}
+  .main-card .go{margin-top:20px;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;
+    background:#fff;color:var(--brand);padding:10px 20px;border-radius:12px;}
+  .main-card .go::after{content:"→";}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .sub-card{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);
+    border-radius:18px;padding:24px 22px;box-shadow:var(--shadow);transition:.22s;position:relative;overflow:hidden;}
+  .sub-card:hover{transform:translateY(-3px);border-color:var(--brand2);}
+  .sub-card .ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:20px;font-weight:800;margin-bottom:14px;}
+  .ic.diary{background:#efeafd;color:#6d43d1;}
+  .ic.gov{background:#e3f6f6;color:#0d8f8f;}
+  .sub-card h3{margin:0 0 6px;font-size:17px;font-weight:800;}
+  .sub-card p{margin:0;font-size:13px;color:var(--sub);}
+  .sub-card .arrow{margin-top:14px;font-size:13px;font-weight:700;color:var(--brand);}
+
+  footer{margin-top:40px;text-align:center;color:#9aa3b2;font-size:12px;}
+  @media(max-width:640px){
+    .wrap{padding:34px 14px 48px;}
+    h1{font-size:25px;} .main-card{padding:26px 22px;} .main-card h2{font-size:22px;}
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">SUZHOU TELECOM · WORKBOARD HUB</div>
+  <h1>工作看板中心</h1>
+  <p class="lead">一个入口，进入常用看板。以「常记」为主，左下为日记与国资人事。</p>
+
+  <a class="main-card" href="changji.html">
+    <span class="pill">主看板</span>
+    <h2>常记 · 客户与项目速查</h2>
+    <p>国资重点客户、领导班子、对接人、ICT 项目与商机进展一屏速查，附每周进展与项目统计。</p>
+    <span class="go">打开常记看板</span>
+  </a>
+
+  <div class="grid">
+    <a class="sub-card" href="riji.html">
+      <div class="ic diary">记</div>
+      <h3>我的日记本</h3>
+      <p>按日期记录日常与心得，自动归纳主题、生成总结。想到什么随时记。</p>
+      <div class="arrow">进入日记看板 →</div>
+    </a>
+    <a class="sub-card" href="index.html">
+      <div class="ic gov">政</div>
+      <h3>苏州政要 · 国资人事</h3>
+      <p>政府国资重点客户的领导班子与人事信息速览，随更新同步。</p>
+      <div class="arrow">进入人事看板 →</div>
+    </a>
+  </div>
+
+  <footer>苏州电信 · 政企客户 · 数据仅限内部自用，请勿外传</footer>
+</div>
+</body>
+</html>
