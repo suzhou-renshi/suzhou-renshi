@@ -76,6 +76,39 @@
   .empty{padding:40px 10px;text-align:center;color:var(--sub);}
   .empty b{color:var(--ink);}
 
+  /* reminder */
+  .remind{margin-top:16px;display:flex;gap:14px;background:linear-gradient(160deg,#fff8ec,#fff3e0);
+    border:1px solid #ffe0bf;border-radius:18px;padding:18px 20px;box-shadow:var(--shadow);}
+  .remind .remind-ic{flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:#f0a020;color:#fff;
+    font-weight:800;display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .remind h3{margin:0 0 4px;font-size:16px;font-weight:800;color:#b45309;}
+  .remind p{margin:0;font-size:13.5px;color:#7c4a03;}
+
+  /* sleep tracker */
+  .sleep{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;box-shadow:var(--shadow);}
+  .sleep h2{margin:0 0 4px;font-size:19px;font-weight:800;}
+  .sleep .s-sub{color:var(--sub);font-size:13px;margin:0 0 14px;}
+  .today-status{font-size:13.5px;padding:9px 14px;border-radius:10px;margin-bottom:14px;}
+  .today-status.ok{background:#e7f7ee;color:#1f9d55;border:1px solid #c6ecd6;}
+  .today-status.warn{background:#ffecec;color:#d33;border:1px solid #ffd0d0;}
+  .sleep-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;}
+  .sleep-form label{display:flex;flex-direction:column;font-size:12px;color:var(--sub);gap:4px;font-weight:600;}
+  .sleep-form input{border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14px;color:var(--ink);background:#fafbfe;outline:none;}
+  .sleep-form input:focus{border-color:var(--brand2);}
+  .sleep-form button{border:none;background:var(--brand);color:#fff;font-weight:700;font-size:14px;padding:9px 22px;border-radius:10px;cursor:pointer;box-shadow:0 4px 12px rgba(59,91,219,.28);}
+  .sleep-form button:hover{background:var(--brand2);}
+  .sleep-stats{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px;}
+  .sstat{flex:1;min-width:92px;background:#f6f8fc;border:1px solid var(--line);border-radius:12px;padding:10px 12px;}
+  .sstat b{display:block;font-size:19px;color:var(--brand);font-weight:800;}
+  .sstat span{font-size:11.5px;color:var(--sub);}
+  .sleep-list{margin-top:8px;}
+  .srow{display:flex;align-items:center;gap:10px;font-size:13.5px;padding:9px 4px;border-bottom:1px dashed #eef1f6;}
+  .srow .sd{flex:0 0 64px;color:#374151;font-weight:600;}
+  .srow .st{flex:1;color:var(--sub);}
+  .srow .sdu{margin-left:auto;font-weight:700;color:var(--brand);}
+  .srow .del{color:#c0c6d0;cursor:pointer;border:none;background:none;font-size:16px;padding:0 4px;}
+  .sleep-list .none{color:var(--sub);font-size:13px;padding:12px 0;}
+
   #toTop{position:fixed;right:18px;bottom:22px;width:46px;height:46px;border-radius:50%;border:none;
     background:var(--brand);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(59,91,219,.4);
     opacity:0;pointer-events:none;transition:.3s;z-index:30;}
@@ -104,6 +137,28 @@
     <p class="s-sub" id="sumSub"></p>
     <div id="sumBars"></div>
     <div class="s-text" id="sumText"></div>
+  </section>
+
+  <section class="remind" id="remind">
+    <div class="remind-ic">!</div>
+    <div>
+      <h3>给自己的实在话</h3>
+      <p>1点多睡、6点半起，是长期睡眠不足，硬扛只会越来越累、白天效率也低。先从不熬到 1 点开始，给自己定个固定的「收工」时间——先把觉睡好，才有力气去处理单位上的事。</p>
+    </div>
+  </section>
+
+  <section class="sleep" id="sleep">
+    <h2>每日作息打卡</h2>
+    <p class="s-sub">记下每天起床、睡觉时间，自动算睡眠时长和趋势。数据存在你这台设备的浏览器里。</p>
+    <div class="today-status" id="todayStatus"></div>
+    <div class="sleep-form">
+      <label>日期<input type="date" id="sDate"></label>
+      <label>起床<input type="time" id="sWake"></label>
+      <label>睡觉<input type="time" id="sSleep"></label>
+      <button id="sSave">保存</button>
+    </div>
+    <div class="sleep-stats" id="sleepStats"></div>
+    <div class="sleep-list" id="sleepList"></div>
   </section>
 </div>
 
@@ -217,6 +272,70 @@ toTop.addEventListener("click", ()=> window.scrollTo({top:0,behavior:"smooth"}))
 renderStats();
 renderSummary();
 draw("");
+
+/* ===== 作息打卡（本地存储） ===== */
+const SLEEP_KEY = "teleagent_sleep_log";
+function loadSleep(){ try{ return JSON.parse(localStorage.getItem(SLEEP_KEY))||[]; }catch(e){ return []; } }
+function saveSleep(a){ try{ localStorage.setItem(SLEEP_KEY, JSON.stringify(a)); }catch(e){} }
+function pad2(n){ return String(n).padStart(2,"0"); }
+function todayStr(){ const d=new Date(); return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()); }
+function toMin(t){ if(!t) return null; const p=t.split(":"); return (+p[0])*60+(+p[1]); }
+function durMin(wake,sleep){ const w=toMin(wake), s=toMin(sleep); if(w==null||s==null) return null; let d=w-s; if(d<=0) d+=1440; return d; }
+function fmtDur(m){ if(m==null) return "—"; const h=Math.floor(m/60), mm=m%60; return h+"小时"+(mm?mm+"分":""); }
+
+function renderSleep(){
+  const log = loadSleep().slice().sort((a,b)=> b.date.localeCompare(a.date));
+  const today = todayStr();
+  const el = document.getElementById("todayStatus");
+  const hasToday = log.some(r=> r.date===today);
+  el.className = "today-status " + (hasToday? "ok":"warn");
+  el.textContent = hasToday ? "今天作息已记录，辛苦啦。" : "今天还没记录作息，记得打卡（起床 + 睡觉）。";
+
+  const durs = log.map(r=> durMin(r.wake,r.sleep)).filter(x=> x!=null);
+  const avg = durs.length ? Math.round(durs.reduce((a,b)=>a+b,0)/durs.length) : null;
+  let streak=0; let cursor=new Date(today); const set = new Set(log.map(r=>r.date));
+  while(true){ const ds = cursor.getFullYear()+"-"+pad2(cursor.getMonth()+1)+"-"+pad2(cursor.getDate()); if(set.has(ds)){ streak++; cursor.setDate(cursor.getDate()-1);} else break; }
+  const avgText = avg!=null ? (Math.floor(avg/60)+"h"+pad2(avg%60)) : "—";
+  document.getElementById("sleepStats").innerHTML =
+    `<div class="sstat"><b>${streak} 天</b><span>连续打卡</span></div>`+
+    `<div class="sstat"><b>${avgText}</b><span>平均睡眠</span></div>`+
+    `<div class="sstat"><b>${log.length}</b><span>累计记录</span></div>`;
+
+  const list = log.slice(0,14);
+  document.getElementById("sleepList").innerHTML = list.length ? list.map(r=>{
+    const dm = durMin(r.wake,r.sleep);
+    return `<div class="srow"><span class="sd">${r.date.slice(5)}</span>`+
+      `<span class="st">起 ${r.wake||"—"} · 睡 ${r.sleep||"—"}</span>`+
+      `<span class="sdu">${fmtDur(dm)}</span>`+
+      `<button class="del" data-date="${r.date}" title="删除">×</button></div>`;
+  }).join("") : `<div class="none">还没有作息记录，先记下今天吧。</div>`;
+}
+
+function initSleep(){
+  const dEl=document.getElementById("sDate");
+  const wEl=document.getElementById("sWake");
+  const sEl=document.getElementById("sSleep");
+  dEl.value = todayStr();
+  const ex = loadSleep().find(r=> r.date===dEl.value);
+  if(ex){ wEl.value=ex.wake||""; sEl.value=ex.sleep||""; }
+  document.getElementById("sSave").addEventListener("click", ()=>{
+    const date = dEl.value || todayStr();
+    const wake = wEl.value, sleep = sEl.value;
+    if(!wake && !sleep){ alert("请至少填一个起床或睡觉时间"); return; }
+    let arr = loadSleep().filter(r=> r.date!==date);
+    arr.push({date, wake, sleep});
+    saveSleep(arr); renderSleep();
+  });
+  document.getElementById("sleepList").addEventListener("click", e=>{
+    if(e.target.classList.contains("del")){
+      const date = e.target.getAttribute("data-date");
+      if(confirm("删除 "+date+" 的作息记录？")){ saveSleep(loadSleep().filter(r=> r.date!==date)); renderSleep(); }
+    }
+  });
+  renderSleep();
+}
+
+initSleep();
 </script>
 </body>
 </html>
