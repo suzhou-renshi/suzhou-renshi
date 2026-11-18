@@ -237,7 +237,8 @@ function renderBiz(list){
     (u.projects||[]).forEach(function(p){
       if(p.st!=='opp')return;
       if(kw){
-        var all=(p.t+p.amt+p.note+JSON.stringify(p.logs||[])+(u.title+u.sub)).toLowerCase();
+        var dnames=(u.depts||[]).map(function(d){return d.dept;}).join('');
+        var all=(p.t+p.amt+p.note+JSON.stringify(p.logs||[])+(u.title+u.sub+dnames)).toLowerCase();
         if(all.indexOf(kw)<0)return;
       }
       var logs=p.logs||[];
@@ -318,7 +319,12 @@ function doRender(){
       }
       var htxt=(u.title+u.sub).toLowerCase();
       if(htxt.indexOf(kw)>=0)return u;
-      var phits=(u.depts||[]).map(function(d){var f=d.people.filter(function(p){return JSON.stringify(p).toLowerCase().indexOf(kw)>=0;});return {dept:d.dept,people:f};}).filter(function(x){return x.people.length;});
+      var phits=(u.depts||[]).map(function(d){
+        var dhit=d.dept.toLowerCase().indexOf(kw)>=0;
+        var f=d.people.filter(function(p){return JSON.stringify(p).toLowerCase().indexOf(kw)>=0;});
+        if(dhit)return {dept:d.dept,people:d.people,addr:d.addr};
+        return f.length?{dept:d.dept,people:f,addr:d.addr}:null;
+      }).filter(Boolean);
       var fhits=(u.flat||[]).filter(function(p){return JSON.stringify(p).toLowerCase().indexOf(kw)>=0;});
       var ph=(u.projects||[]).filter(function(p){return JSON.stringify(p).toLowerCase().indexOf(kw)>=0;});
       var hrp=u.hr?u.hr.people.filter(function(p){return JSON.stringify(p).toLowerCase().indexOf(kw)>=0;}):[];
