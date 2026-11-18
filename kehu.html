@@ -88,6 +88,16 @@
   .h-item{font-size:12px;color:#4a5f53;padding-left:14px;position:relative;margin-bottom:4px}
   .h-item::before{content:"";position:absolute;left:2px;top:7px;width:5px;height:5px;border-radius:50%;background:#bcd4c6}
 
+  /* 日历分组头 */
+  .datebar{display:flex;align-items:center;gap:10px;margin:16px 2px 8px}
+  .cal{width:44px;height:47px;border-radius:10px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(20,60,45,.08);flex-shrink:0}
+  .cal .mon{font-size:10px;color:#b04a17;font-weight:800;line-height:1.25}
+  .cal .day{font-size:19px;font-weight:800;color:#0e4736;line-height:1.15}
+  .datebar .dw b{font-size:13.5px;color:#173a30;font-weight:700;letter-spacing:.3px}
+  .datebar .wd{font-size:12px;color:#8fa392;margin-left:8px}
+  .datebar .dt{font-size:10px;background:#1c6b4f;color:#fff;border-radius:9px;padding:1.5px 8px;margin-left:8px;font-weight:700}
+  .pill.gov{background:#fbe3df;color:#b02b1c;margin-right:5px;flex:none}
+
   .soe-head{background:linear-gradient(135deg,#14503c,#0a3828);color:#fff;border-radius:14px;
     padding:12px 15px;margin:16px 0 9px;box-shadow:0 6px 16px rgba(10,56,40,.22);position:relative;overflow:hidden}
   .soe-head::after{content:"客";position:absolute;right:10px;top:-8px;font-size:50px;color:rgba(232,200,122,.14);font-family:serif}
@@ -208,19 +218,48 @@
     document.getElementById('s-o').textContent=arr.length;
   })();
 
-  // 最近互动
+  // 最近互动（按日历日期分组）
   (function(){
     var box=document.getElementById('list-recent');
     var arr=D.recent||[];
     if(arr.length===0){box.innerHTML='<div class="empty">暂无互动记录</div>';return;}
-    box.innerHTML=arr.map(function(it){
-      return '<div class="card" data-s="'+esc([it.p,it.c,it.s,it.type,it.d].join(' '))+'">'
-        +'<div class="row-top"><div class="avatar">'+esc((it.p||'记').charAt(0))+'</div>'
-        +'<div class="who"><div class="name">'+esc(it.p||'—')+'</div>'
-        +'<div class="post">'+esc(it.c||'')+(it.type?(' · '+esc(it.type)):'')+' · '+esc(String(it.d||'').slice(0,10))+'</div></div></div>'
-        +(it.s?'<div class="hist"><div class="h-title">互动摘要</div>'+esc(it.s)+'</div>':'')
-        +'</div>';
-    }).join('');
+    var groups={};
+    arr.forEach(function(it){
+      var key=String(it.d||'').slice(0,10);
+      (groups[key]=groups[key]||[]).push(it);
+    });
+    function weekday(ds){
+      var wd=['周日','周一','周二','周三','周四','周五','周六'];
+      var t=new Date(String(ds).replace(/-/g,'/'));
+      return isNaN(t)?'':wd[t.getDay()];
+    }
+    function dtag(ds){
+      var t=new Date(String(ds).replace(/-/g,'/'));
+      if(isNaN(t))return '';
+      var today=new Date(); today.setHours(0,0,0,0); t.setHours(0,0,0,0);
+      var diff=Math.round((today-t)/86400000);
+      if(diff===0)return '今天';
+      if(diff===1)return '昨天';
+      if(diff===-1)return '明天';
+      return diff>0?(diff+'天前'):'';
+    }
+    var html='';
+    Object.keys(groups).forEach(function(key){
+      var its=groups[key];
+      html+='<div class="datebar">'
+        +'<div class="cal"><span class="mon">'+parseInt(key.slice(5,7),10)+'月</span><span class="day">'+parseInt(key.slice(8,10),10)+'</span></div>'
+        +'<div class="dw"><b>'+esc(key)+'</b><span class="wd">'+weekday(key)+'</span>'+(dtag(key)?'<span class="dt">'+dtag(key)+'</span>':'')+'</div></div>';
+      html+=its.map(function(it){
+        var isGov = it.type==='政务动态';
+        return '<div class="card" data-s="'+esc([it.p,it.c,it.s,it.type,it.d].join(' '))+'">'
+          +'<div class="row-top"><div class="avatar">'+esc((it.p||'记').charAt(0))+'</div>'
+          +'<div class="who"><div class="name">'+esc(it.p||'—')+'</div>'
+          +'<div class="post">'+(isGov?'<span class="pill gov">政务动态</span>':'')+esc(it.c||'')+(it.type&&!isGov?(' · '+esc(it.type)):'')+'</div></div></div>'
+          +(it.s?'<div class="hist"><div class="h-title">摘要</div>'+esc(it.s)+'</div>':'')
+          +'</div>';
+      }).join('');
+    });
+    box.innerHTML=html;
   })();
 
   // 客户库（按单位分组）
@@ -277,6 +316,14 @@
       if(c.classList.contains('soe-head')) return;
       var s=(c.getAttribute('data-s')||'').toLowerCase();
       c.classList.toggle('hidden', v && s.indexOf(v)<0);
+    });
+    document.querySelectorAll('.datebar').forEach(function(db){
+      var n=db.nextElementSibling, any=false;
+      while(n && n.classList.contains('card')){
+        if(!n.classList.contains('hidden')) any=true;
+        n=n.nextElementSibling;
+      }
+      db.classList.toggle('hidden', v && !any);
     });
     document.querySelectorAll('.soe-head').forEach(function(h){
       var n=h.nextElementSibling, any=false;
