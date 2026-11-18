@@ -149,7 +149,7 @@
 
   <section class="sleep" id="sleep">
     <h2>每日作息打卡</h2>
-    <p class="s-sub">记下每天起床、睡觉时间，自动算睡眠时长和趋势。数据存在你这台设备的浏览器里。</p>
+    <p class="s-sub">每天在对话里告诉我起床/睡觉时间，我帮你记下并算睡眠时长；也可在下面直接填。数据存本机。</p>
     <div class="today-status" id="todayStatus"></div>
     <div class="sleep-form">
       <label>日期<input type="date" id="sDate"></label>
@@ -273,9 +273,17 @@ renderStats();
 renderSummary();
 draw("");
 
-/* ===== 作息打卡（本地存储） ===== */
+/* ===== 作息打卡（内嵌数据 + 本机录入合并） ===== */
+const SLEEP_LOG = [
+  /* 由对话追加，例：{date:"2026-11-18", wake:"06:30", sleep:"01:30"} */
+];
 const SLEEP_KEY = "teleagent_sleep_log";
-function loadSleep(){ try{ return JSON.parse(localStorage.getItem(SLEEP_KEY))||[]; }catch(e){ return []; } }
+function loadSleep(){
+  const base = (typeof SLEEP_LOG!=="undefined" ? SLEEP_LOG.slice() : []);
+  let loc=[]; try{ loc=JSON.parse(localStorage.getItem(SLEEP_KEY))||[]; }catch(e){ loc=[]; }
+  const map={}; base.forEach(r=>{ if(r&&r.date) map[r.date]=r; }); loc.forEach(r=>{ if(r&&r.date) map[r.date]=r; });
+  return Object.keys(map).map(k=> map[k]);
+}
 function saveSleep(a){ try{ localStorage.setItem(SLEEP_KEY, JSON.stringify(a)); }catch(e){} }
 function pad2(n){ return String(n).padStart(2,"0"); }
 function todayStr(){ const d=new Date(); return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()); }
