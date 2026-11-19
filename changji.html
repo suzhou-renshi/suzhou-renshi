@@ -27,6 +27,12 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
 .searchbox .clr{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:16px;color:#b6a88c;cursor:pointer;display:none}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:8px 2px 2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
+@media(pointer:fine){
+ .chips{scrollbar-width:thin;padding-bottom:6px}
+ .chips::-webkit-scrollbar{display:block;height:5px}
+ .chips::-webkit-scrollbar-thumb{background:#c8bfa5;border-radius:3px}
+ .chips::-webkit-scrollbar-track{background:transparent}
+}
 .chip{flex:none;font-size:12px;padding:6px 13px;border-radius:16px;background:#fff;border:1px solid var(--border);color:#5c6672;font-weight:600;white-space:nowrap;cursor:pointer;transition:.15s}
 .chip:active{background:linear-gradient(135deg,#123a5e,#1d5177);color:#fff;border-color:transparent}
 .chip.biz{background:linear-gradient(135deg,#92400e,#d9982f);color:#fff;border-color:transparent;font-weight:800}
@@ -352,6 +358,18 @@ function goto(i){
 }
 document.getElementById('q').addEventListener('input',function(){var v=this.value;document.getElementById('clr').style.display=v?'block':'none';doRender();});
 document.getElementById('clr').addEventListener('click',function(){var q=document.getElementById('q');q.value='';document.getElementById('clr').style.display='none';doRender();});
+// 电脑端：鼠标悬停在快捷导航上时，滚轮直接横向滚动（滚到两端不拦截页面滚动）
+(function(){
+  var el=document.getElementById('chips');
+  el.addEventListener('wheel',function(e){
+    if(e.deltaX!==0)return;
+    var max=el.scrollWidth-el.clientWidth;
+    if(max<=0)return;
+    var before=el.scrollLeft;
+    el.scrollLeft=before+e.deltaY;
+    if(el.scrollLeft!==before)e.preventDefault();
+  },{passive:false});
+})();
 // 商机板块交互：点击行展开/收起历史，点击"定位"直达项目
 document.getElementById('bizboard').addEventListener('click',function(e){
   var go=e.target.closest('.biz-go');
