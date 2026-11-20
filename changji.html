@@ -99,6 +99,16 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
 .dept-sub{margin-top:9px}
 .dept-sub .dt{font-size:12px;font-weight:700;color:var(--primary);margin-bottom:6px}
 .foot{margin:26px 14px 8px;text-align:center;font-size:11px;color:#8a7d63;line-height:1.7}
+.phr{margin:10px 0 0;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.phr summary{padding:9px 14px;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+.phr summary::-webkit-details-marker{display:none}
+.phr summary::after{content:"▼";margin-left:auto;font-size:9px;color:#9a8a6e;transition:.2s}
+.phr[open] summary::after{transform:rotate(180deg)}
+.phr[open] summary{border-bottom:1px solid #eee}
+.phr-body{padding:9px 14px 11px}
+.phr-item{font-size:11.5px;color:var(--text2);margin-top:7px;line-height:1.55}
+.phr-item b{color:#0e5a8a;background:#e8f4fb;border:1px solid #c9e7f7;padding:1px 7px;border-radius:6px;margin-right:6px;font-size:11px;white-space:nowrap}
+.phr-item:first-child{margin-top:0}
 .hr-link{position:relative;z-index:1;display:inline-block;margin-top:12px;font-size:11.5px;color:#d9e8f7;background:rgba(255,255,255,.13);padding:5px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.2);text-decoration:none}
 @media(max-width:560px){
   .people{grid-template-columns:1fr}
@@ -124,6 +134,14 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
   </div>
   <a class="hr-link" href="https://suzhou-renshi.github.io/suzhou-renshi/" target="_self">🏛 人事看板 →</a>
 </header>
+<details class="phr">
+  <summary>📌 常用短语速查 · 怎么让我记录</summary>
+  <div class="phr-body">
+    <div class="phr-item"><b>更新腾讯文档</b>把在线腾讯文档《国资项目》的最新商机同步到看板（GitHub）</div>
+    <div class="phr-item"><b>商机备忘-单位-商机-内容</b>该商机下新增一条「📅 日期」开头的备忘行，用于跟踪进展（青色显示，与正式日志区分）</div>
+    <div class="phr-item"><b>联想</b>给指定的人加「💡 记忆」紫色标签，存你自己的联想记忆法</div>
+  </div>
+</details>
 <div class="sticky">
   <div class="searchbox"><span class="ic">🔍</span>
     <input id="q" type="text" placeholder="搜索 姓名 / 单位 / 职务 / 项目 / 备注">
