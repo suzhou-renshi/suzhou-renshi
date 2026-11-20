@@ -109,6 +109,26 @@
   .srow .del{color:#c0c6d0;cursor:pointer;border:none;background:none;font-size:16px;padding:0 4px;}
   .sleep-list .none{color:var(--sub);font-size:13px;padding:12px 0;}
 
+  /* restaurant archive */
+  .food{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;box-shadow:var(--shadow);}
+  .food h2{margin:0 0 4px;font-size:19px;font-weight:800;}
+  .food .s-sub{color:var(--sub);font-size:13px;margin:0 0 14px;}
+  .food-stats{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px;}
+  .fstat{flex:1;min-width:92px;background:#f6f8fc;border:1px solid var(--line);border-radius:12px;padding:10px 12px;}
+  .fstat b{display:block;font-size:19px;color:var(--brand);font-weight:800;}
+  .fstat span{font-size:11.5px;color:var(--sub);}
+  .fcard{background:#fbfcfe;border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:12px;position:relative;overflow:hidden;}
+  .fcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#f0a020,#d97706);}
+  .fcard .fname{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .ftype{font-size:11px;padding:2px 9px;border-radius:20px;background:#fff2e2;color:#c9770b;border:1px solid #ffe0bf;font-weight:600;}
+  .farea{font-size:12px;color:var(--sub);margin-top:3px;}
+  .faddr{font-size:13px;color:#374151;margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .fnav{font-size:12px;font-weight:700;color:#1f6fd0;background:#e8f0fe;border:1px solid #cfe0fd;border-radius:8px;padding:3px 10px;text-decoration:none;white-space:nowrap;}
+  .fvisits{margin-top:10px;border-top:1px dashed var(--line);padding-top:9px;}
+  .fv-row{font-size:13px;color:#4b5563;margin-top:6px;}
+  .fv-row .d{font-weight:700;color:var(--ink);margin-right:8px;}
+  .fmemo{margin-top:8px;font-size:12px;color:#9a8a6e;background:#faf7ef;border-left:3px solid #e8c97a;border-radius:0 8px 8px 0;padding:6px 10px;}
+
   #toTop{position:fixed;right:18px;bottom:22px;width:46px;height:46px;border-radius:50%;border:none;
     background:var(--brand);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(59,91,219,.4);
     opacity:0;pointer-events:none;transition:.3s;z-index:30;}
@@ -159,6 +179,13 @@
     </div>
     <div class="sleep-stats" id="sleepStats"></div>
     <div class="sleep-list" id="sleepList"></div>
+  </section>
+
+  <section class="food" id="food">
+    <h2>餐厅小档案</h2>
+    <p class="s-sub">日记里提到过的饭店都在这里汇总：类型、地址、高德导航、每次和谁去。想新增就说「记录饭店 …」。</p>
+    <div class="food-stats" id="foodStats"></div>
+    <div id="foodList"></div>
   </section>
 </div>
 
@@ -353,6 +380,39 @@ function initSleep(){
 }
 
 initSleep();
+
+/* ===== 餐厅小档案（对话维护） ===== */
+const RESTAURANTS = [
+  { name:"唯蟹阁大酒店（蟹舫苑店）", type:"农家菜·品蟹", area:"昆山·巴城",
+    addr:"昆山市巴城镇迎宾西路 阳澄湖蟹舫苑A区（巴城品蟹聚集地， 近阳澄湖北收费站， 蟹舫苑站公交可达）",
+    visits:[
+      { d:"2026-11-20", with:"李翔（太仓电信·组织）、徐丰（昆山电信）、吴书鑫、张晓峰、刘向阳", note:"电信同事聚餐" }
+    ],
+    memo:"人均约172元（公开评价口径）， 巴城热门农家菜之一" }
+];
+function renderFood(){
+  const box = document.getElementById("foodList");
+  if(!RESTAURANTS.length){ box.innerHTML = `<div class="sleep-list none">还没有餐厅记录。</div>`; }
+  else {
+    box.innerHTML = RESTAURANTS.map(r=>{
+      const nav = "https://uri.amap.com/search?keyword=" + encodeURIComponent(r.name);
+      return `<div class="fcard">
+        <div class="fname">${esc(r.name)}${r.type?`<span class="ftype">${esc(r.type)}</span>`:""}</div>
+        ${r.area?`<div class="farea">📍 ${esc(r.area)}</div>`:""}
+        <div class="faddr"><span>${esc(r.addr||"")}</span><a class="fnav" href="${nav}" target="_blank">🧭 高德导航</a></div>
+        <div class="fvisits">${(r.visits||[]).map(v=>
+          `<div class="fv-row"><span class="d">${esc(v.d)}</span>${v.with?esc(v.with):""}${v.note?`（${esc(v.note)}）`:""}</div>`).join("")}
+        </div>
+        ${r.memo?`<div class="fmemo">${esc(r.memo)}</div>`:""}
+      </div>`;
+    }).join("");
+  }
+  const visits = RESTAURANTS.reduce((a,r)=> a+(r.visits?r.visits.length:0), 0);
+  document.getElementById("foodStats").innerHTML =
+    `<div class="fstat"><b>${RESTAURANTS.length}</b><span>已记餐厅</span></div>`+
+    `<div class="fstat"><b>${visits}</b><span>聚餐次数</span></div>`;
+}
+renderFood();
 </script>
 </body>
 </html>
