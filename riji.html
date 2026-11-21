@@ -6,37 +6,37 @@
 <title>我的日记本 · 记录与总结</title>
 <style>
   :root{
-    --bg:#f4f6fa; --card:#ffffff; --ink:#1f2937; --sub:#6b7280; --line:#e6eaf1;
-    --brand:#3b5bdb; --brand2:#5c7cfa; --shadow:0 6px 20px rgba(31,41,55,.07);
+    --bg:#f7f5f0; --card:#ffffff; --ink:#333b46; --sub:#7d8794; --line:#e8e3d8;
+    --brand:#3c5a78; --brand2:#5c7c9e; --shadow:0 6px 20px rgba(51,59,70,.07);
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{scroll-behavior:smooth;}
-  body{margin:0;background:linear-gradient(180deg,#eef2f9 0%,#f4f6fa 240px,#f4f6fa 100%);
+  body{margin:0;background:linear-gradient(180deg,#f1eee7 0%,#f7f5f0 240px,#f7f5f0 100%);
     color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
     line-height:1.7;font-size:15px;}
   .wrap{max-width:840px;margin:0 auto;padding:0 16px 80px;}
 
   /* header */
-  header.top{padding:34px 4px 18px;}
+  header.top{padding:22px 4px 12px;}
   .brand{font-size:12px;letter-spacing:2px;color:var(--brand);font-weight:700;text-transform:uppercase;}
   h1{margin:6px 0 4px;font-size:27px;letter-spacing:1px;font-weight:800;}
   .lead{color:var(--sub);font-size:13.5px;margin:0;}
-  .stats{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;}
+  .stats{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
   .stat{flex:1;min-width:96px;background:var(--card);border:1px solid var(--line);border-radius:14px;
     padding:12px 14px;box-shadow:var(--shadow);}
-  .stat b{display:block;font-size:22px;color:var(--brand);font-weight:800;line-height:1.2;}
+  .stat b{display:block;font-size:20px;color:var(--brand);font-weight:800;line-height:1.25;}
   .stat span{font-size:12px;color:var(--sub);}
 
   /* sticky bar */
-  .bar{position:sticky;top:0;z-index:20;margin:18px 0 22px;padding:10px 0;
-    background:rgba(244,246,250,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  .bar{position:sticky;top:0;z-index:20;margin:12px 0 16px;padding:8px 0 6px;
+    background:rgba(247,245,240,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);}
   .search{width:100%;padding:11px 15px;border:1px solid var(--line);border-radius:12px;
     background:var(--card);font-size:14px;color:var(--ink);outline:none;box-shadow:var(--shadow);}
   .search:focus{border-color:var(--brand2);}
-  .nav{display:flex;gap:8px;overflow-x:auto;padding:10px 2px 2px;scrollbar-width:thin;}
+  .nav{display:flex;gap:8px;overflow-x:auto;padding:6px 2px 0;scrollbar-width:thin;}
   .nav::-webkit-scrollbar{height:5px;} .nav::-webkit-scrollbar-thumb{background:#cdd5e3;border-radius:3px;}
-  .nav a{flex:0 0 auto;font-size:12.5px;color:#41506b;background:var(--card);border:1px solid var(--line);
+  .nav a{flex:0 0 auto;font-size:12.5px;color:#4c5665;background:var(--card);border:1px solid var(--line);
     padding:6px 12px;border-radius:20px;text-decoration:none;white-space:nowrap;}
   .nav a:hover{border-color:var(--brand2);color:var(--brand);}
 
@@ -53,80 +53,79 @@
   .entry .txt{white-space:pre-wrap;word-break:break-word;font-size:15px;}
   .entry .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;}
   .tag{font-size:11.5px;padding:2px 10px;border-radius:20px;font-weight:600;border:1px solid transparent;}
-  .tag.t0{background:#e7f7ee;color:#1f9d55;border-color:#c6ecd6;}   /* 健康·生活 */
-  .tag.t1{background:#efeafd;color:#6d43d1;border-color:#ddd0fb;}   /* 心得体会 */
-  .tag.t2{background:#e8f0fe;color:#2f5bd8;border-color:#cfe0fd;}   /* 工作·客户 */
-  .tag.t3{background:#fff2e2;color:#c9770b;border-color:#ffe0bf;}   /* 看板·工具 */
-  .tag.t4{background:#e3f6f6;color:#0d8f8f;border-color:#c4ecec;}   /* 学习·技术 */
-  .tag.t5{background:#eef0f4;color:#5b6472;border-color:#e0e4ea;}   /* 其他 */
+  .tag.t0{background:#e6f3ea;color:#22854e;border-color:#cbe8d5;}   /* 健康/生活·家庭 */
+  .tag.t1{background:#efe9f8;color:#6a48c9;border-color:#ded4f6;}   /* 心得体会 */
+  .tag.t2{background:#e9f0f7;color:#39628f;border-color:#d3e0ee;}   /* 工作·客户 */
+  .tag.t3{background:#fdf2e2;color:#b36f12;border-color:#f7e3c3;}   /* 看板·工具 */
+  .tag.t4{background:#e3f3f3;color:#0c8383;border-color:#c6e8e8;}   /* 学习·技术 */
+  .tag.t5{background:#f0f1f3;color:#5b6470;border-color:#e2e4e8;}   /* 其他 */
   .tm{font-size:12px;color:#9aa3b2;margin-left:auto;}
 
   /* summary */
-  .summary{margin-top:14px;background:linear-gradient(160deg,#ffffff,#f7f9ff);
+  .summary{margin-top:14px;background:linear-gradient(160deg,#ffffff,#faf8f2);
     border:1px solid var(--line);border-radius:18px;padding:22px 20px;box-shadow:var(--shadow);}
   .summary h2{margin:0 0 4px;font-size:19px;font-weight:800;}
   .summary .s-sub{color:var(--sub);font-size:13px;margin:0 0 18px;}
   .bar-row{display:flex;align-items:center;gap:10px;margin:10px 0;}
   .bar-row .lb{flex:0 0 92px;font-size:13px;color:#3d4757;font-weight:600;}
-  .bar-track{flex:1;height:9px;background:#eceff5;border-radius:6px;overflow:hidden;}
+  .bar-track{flex:1;height:9px;background:#f0ede4;border-radius:6px;overflow:hidden;}
   .bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--brand2),var(--brand));}
   .bar-row .num{flex:0 0 atuo;font-size:12px;color:var(--sub);min-width:44px;text-align:right;}
-  .s-text{margin-top:16px;font-size:14px;color:#374151;background:#f6f8fc;border-left:3px solid var(--brand2);
+  .s-text{margin-top:16px;font-size:14px;color:#374151;background:#f6f4ec;border-left:3px solid var(--brand2);
     border-radius:0 10px 10px 0;padding:12px 15px;}
   .empty{padding:40px 10px;text-align:center;color:var(--sub);}
   .empty b{color:var(--ink);}
 
   /* reminder */
-  .remind{margin-top:16px;display:flex;gap:14px;background:linear-gradient(160deg,#fff8ec,#fff3e0);
-    border:1px solid #ffe0bf;border-radius:18px;padding:18px 20px;box-shadow:var(--shadow);}
-  .remind .remind-ic{flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:#f0a020;color:#fff;
-    font-weight:800;display:flex;align-items:center;justify-content:center;font-size:20px;}
-  .remind h3{margin:0 0 4px;font-size:16px;font-weight:800;color:#b45309;}
-  .remind p{margin:0;font-size:13.5px;color:#7c4a03;}
-  .remind p.r-sub{font-size:12.5px;color:#9a6a1e;margin:0 0 12px;}
-  .remind .rrow{padding:10px 0;border-bottom:1px dashed #f0e0c0;}
+  .remind{margin-top:16px;background:linear-gradient(160deg,#fdfaf2,#faf4e6);
+    border:1px solid #ecdfc2;border-radius:18px;padding:20px 20px 16px;box-shadow:var(--shadow);}
+  .remind h3{margin:0 0 4px;font-size:16px;font-weight:800;color:#a16207;}
+  .remind p.r-sub{margin:0 0 10px;font-size:12.5px;color:#a57b28;}
+  .remind .rrow{padding:10px 0 8px;border-bottom:1px dashed #efe4c8;}
   .remind .rrow:last-child{border-bottom:none;}
-  .remind .rd{display:inline-block;font-size:11px;font-weight:800;color:#b45309;background:#fdf3df;
-    border:1px solid #f0e0c0;border-radius:8px;padding:1px 9px;margin-bottom:6px;}
-  .remind .rt{display:block;font-size:13.5px;color:#5c3d00;line-height:1.65;}
+  .remind .rd{display:inline-block;font-size:11px;font-weight:800;color:#a16207;background:#f9f2dd;
+    border:1px solid #eadfc0;border-radius:8px;padding:1px 9px;margin-bottom:6px;}
+  .remind .rt{display:block;font-size:13.5px;color:#6b4e12;line-height:1.65;}
 
   /* top section nav + minimal archive */
-  .secnav{display:flex;gap:8px;overflow-x:auto;padding:8px 2px 2px;scrollbar-width:thin;}
+  .secnav{display:flex;gap:8px;overflow-x:auto;padding:6px 2px 2px;scrollbar-width:thin;}
   .secnav::-webkit-scrollbar{height:4px;} .secnav::-webkit-scrollbar-thumb{background:#cdd5e3;border-radius:3px;}
-  .secnav a{flex:0 0 auto;font-size:12.5px;font-weight:700;color:#fff;background:linear-gradient(135deg,#3b5bdb,#5c7cfa);
-    padding:6px 14px;border-radius:20px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(59,91,219,.22);}
+  .secnav a{flex:0 0 auto;font-size:12.5px;font-weight:700;color:#3c5a78;background:#fff;
+    border:1px solid #d9dee6;padding:6px 15px;border-radius:20px;text-decoration:none;white-space:nowrap;
+    box-shadow:0 2px 6px rgba(51,59,70,.08);}
+  .secnav a:hover,.secnav a:active{background:#edf2f6;border-color:#b9c6d4;}
   #days,#summary,#remind,#sleep,#minimal,#food{scroll-margin-top:165px;}
   .minimal{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;box-shadow:var(--shadow);}
   .minimal h2{margin:0 0 4px;font-size:19px;font-weight:800;}
   .minimal .s-sub{color:var(--sub);font-size:13px;margin:0 0 12px;}
   .mrow{padding:10px 0;border-bottom:1px dashed var(--line);}
   .mrow:last-child{border-bottom:none;}
-  .md{display:inline-block;font-size:11px;font-weight:800;color:#1b7a49;background:#e7f4ec;border:1px solid #c9e9d7;border-radius:8px;padding:1px 9px;margin-bottom:6px;}
+  .md{display:inline-block;font-size:11px;font-weight:800;color:#22854e;background:#e6f3ea;border:1px solid #cbe8d5;border-radius:8px;padding:1px 9px;margin-bottom:6px;}
   .mt{display:block;font-size:13.5px;color:#374151;line-height:1.65;white-space:pre-wrap;}
 
   /* sleep tracker */
   .sleep{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;box-shadow:var(--shadow);}
   .sleep h2{margin:0 0 4px;font-size:19px;font-weight:800;}
-  .sleep .s-sub{color:var(--sub);font-size:13px;margin:0 0 14px;}
-  .today-status{font-size:13.5px;padding:9px 14px;border-radius:10px;margin-bottom:14px;}
-  .today-status.ok{background:#e7f7ee;color:#1f9d55;border:1px solid #c6ecd6;}
-  .today-status.warn{background:#ffecec;color:#d33;border:1px solid #ffd0d0;}
-  .sleep-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;}
+  .sleep .s-sub{color:var(--sub);font-size:12.5px;margin:0 0 12px;line-height:1.6;}
+  .today-status{font-size:13px;padding:9px 14px;border-radius:10px;margin-bottom:14px;}
+  .today-status.ok{background:#e6f3ea;color:#22854e;border:1px solid #cbe8d5;}
+  .today-status.warn{background:#fdecec;color:#c0392b;border:1px solid #f8d3d3;}
+  .sleep-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:#faf8f2;border:1px solid var(--line);border-radius:12px;padding:12px;}
   .sleep-form label{display:flex;flex-direction:column;font-size:12px;color:var(--sub);gap:4px;font-weight:600;}
-  .sleep-form input{border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14px;color:var(--ink);background:#fafbfe;outline:none;}
+  .sleep-form input{border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px;color:var(--ink);background:#fff;outline:none;}
   .sleep-form input:focus{border-color:var(--brand2);}
-  .sleep-form button{border:none;background:var(--brand);color:#fff;font-weight:700;font-size:14px;padding:9px 22px;border-radius:10px;cursor:pointer;box-shadow:0 4px 12px rgba(59,91,219,.28);}
+  .sleep-form button{border:none;background:var(--brand);color:#fff;font-weight:700;font-size:14px;padding:10px 18px;border-radius:10px;cursor:pointer;box-shadow:0 3px 10px rgba(60,90,120,.25);}
   .sleep-form button:hover{background:var(--brand2);}
-  .sleep-stats{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px;}
-  .sstat{flex:1;min-width:92px;background:#f6f8fc;border:1px solid var(--line);border-radius:12px;padding:10px 12px;}
+  .sleep-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 8px;}
+  .sstat{background:#f7f5ee;border:1px solid var(--line);border-radius:12px;padding:10px 10px;}
   .sstat b{display:block;font-size:19px;color:var(--brand);font-weight:800;}
   .sstat span{font-size:11.5px;color:var(--sub);}
   .sleep-list{margin-top:8px;}
-  .srow{display:flex;align-items:center;gap:10px;font-size:13.5px;padding:9px 4px;border-bottom:1px dashed #eef1f6;}
+  .srow{display:flex;align-items:center;gap:10px;font-size:13px;padding:10px 4px;border-bottom:1px dashed #eee9dd;}
   .srow .sd{flex:0 0 64px;color:#374151;font-weight:600;}
   .srow .st{flex:1;color:var(--sub);}
   .srow .sdu{margin-left:auto;font-weight:700;color:var(--brand);}
-  .srow .del{color:#c0c6d0;cursor:pointer;border:none;background:none;font-size:16px;padding:0 4px;}
+  .srow .del{color:#c3cad3;cursor:pointer;border:none;background:none;font-size:16px;padding:2px 8px;}
   .sleep-list .none{color:var(--sub);font-size:13px;padding:12px 0;}
 
   /* restaurant archive */
@@ -134,23 +133,23 @@
   .food h2{margin:0 0 4px;font-size:19px;font-weight:800;}
   .food .s-sub{color:var(--sub);font-size:13px;margin:0 0 14px;}
   .food-stats{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px;}
-  .fstat{flex:1;min-width:92px;background:#f6f8fc;border:1px solid var(--line);border-radius:12px;padding:10px 12px;}
+  .fstat{flex:1;min-width:92px;background:#f7f5ee;border:1px solid var(--line);border-radius:12px;padding:10px 12px;}
   .fstat b{display:block;font-size:19px;color:var(--brand);font-weight:800;}
   .fstat span{font-size:11.5px;color:var(--sub);}
-  .fcard{background:#fbfcfe;border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:12px;position:relative;overflow:hidden;}
+  .fcard{background:#fcfaf5;border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:12px;position:relative;overflow:hidden;}
   .fcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#f0a020,#d97706);}
   .fcard .fname{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .ftype{font-size:11px;padding:2px 9px;border-radius:20px;background:#fff2e2;color:#c9770b;border:1px solid #ffe0bf;font-weight:600;}
+  .ftype{font-size:11px;padding:2px 9px;border-radius:20px;background:#fdf2e2;color:#b36f12;border:1px solid #f7e3c3;font-weight:600;}
   .farea{font-size:12px;color:var(--sub);margin-top:3px;}
   .faddr{font-size:13px;color:#374151;margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .fnav{font-size:12px;font-weight:700;color:#1f6fd0;background:#e8f0fe;border:1px solid #cfe0fd;border-radius:8px;padding:3px 10px;text-decoration:none;white-space:nowrap;}
+  .fnav{font-size:12px;font-weight:700;color:#39628f;background:#e9f0f7;border:1px solid #d3e0ee;border-radius:8px;padding:3px 10px;text-decoration:none;white-space:nowrap;}
   .fvisits{margin-top:10px;border-top:1px dashed var(--line);padding-top:9px;}
   .fv-row{font-size:13px;color:#4b5563;margin-top:6px;}
   .fv-row .d{font-weight:700;color:var(--ink);margin-right:8px;}
   .fmemo{margin-top:8px;font-size:12px;color:#9a8a6e;background:#faf7ef;border-left:3px solid #e8c97a;border-radius:0 8px 8px 0;padding:6px 10px;}
 
   #toTop{position:fixed;right:18px;bottom:22px;width:46px;height:46px;border-radius:50%;border:none;
-    background:var(--brand);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(59,91,219,.4);
+    background:var(--brand);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(60,90,120,.35);
     opacity:0;pointer-events:none;transition:.3s;z-index:30;}
   #toTop.show{opacity:1;pointer-events:auto;}
   .hidden{display:none !important;}
@@ -161,7 +160,7 @@
   <header class="top">
     <div class="brand">DAILY JOURNAL</div>
     <h1>我的日记本</h1>
-    <p class="lead">按日期记录 · 自动归纳心得体会。想到什么、做了什么，随时说「日常记录 …」即可追加。</p>
+    <p class="lead">按日期记录 · 自动归纳 · 作息与餐厅档案。想到什么，说一句「日常记录 …」即可追加。</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -183,22 +182,19 @@
   </section>
 
   <section class="remind" id="remind">
-    <div class="remind-ic">!</div>
-    <div>
-      <h3>给自己的实在话</h3>
-      <p class="r-sub">由助手不定期从日记里提炼的核心建议，按日期逐条沉淀（每篇标注「TeleAgent 总结」）。日记不只用来记录，更要从中总结、改善。</p>
-      <div id="remindList"></div>
-    </div>
+    <h3>给自己的实在话</h3>
+    <p class="r-sub">由助手不定期从日记里提炼的核心建议，按日期逐条沉淀（每篇标注「TeleAgent 总结」）。日记不只用来记录，更要从中总结、改善。</p>
+    <div id="remindList"></div>
   </section>
 
   <section class="sleep" id="sleep">
     <h2>每日作息打卡</h2>
-    <p class="s-sub">每天在对话里告诉我起床/睡觉时间，我帮你记下并算睡眠时长；也可在下面直接填。数据存本机。</p>
+    <p class="s-sub">一条记录 = 一整觉：<b>前一晚入睡 + 当天起床</b>，日期填醒来那天（默认今天）。例：昨晚 23:30 睡 → 今早 07:30 起 = 睡 8 小时。对话里告诉我，或下面直接填。</p>
     <div class="today-status" id="todayStatus"></div>
     <div class="sleep-form">
-      <label>日期<input type="date" id="sDate"></label>
-      <label>起床<input type="time" id="sWake"></label>
-      <label>睡觉<input type="time" id="sSleep"></label>
+      <label>日期(醒来日)<input type="date" id="sDate"></label>
+      <label>昨晚入睡<input type="time" id="sSleep"></label>
+      <label>今早起床<input type="time" id="sWake"></label>
       <button id="sSave">保存</button>
     </div>
     <div class="sleep-stats" id="sleepStats"></div>
@@ -368,7 +364,7 @@ function renderSleep(){
   const el = document.getElementById("todayStatus");
   const hasToday = log.some(r=> r.date===today);
   el.className = "today-status " + (hasToday? "ok":"warn");
-  el.textContent = hasToday ? "今天作息已记录，辛苦啦。" : "今天还没记录作息，记得打卡（起床 + 睡觉）。";
+  el.textContent = hasToday ? "今天这一觉已记录，辛苦啦。" : "今天还没记录：告诉我「昨晚几点睡、今早几点起」即可。";
 
   const durs = log.map(r=> durMin(r.wake,r.sleep)).filter(x=> x!=null);
   const avg = durs.length ? Math.round(durs.reduce((a,b)=>a+b,0)/durs.length) : null;
@@ -384,7 +380,7 @@ function renderSleep(){
   document.getElementById("sleepList").innerHTML = list.length ? list.map(r=>{
     const dm = durMin(r.wake,r.sleep);
     return `<div class="srow"><span class="sd">${r.date.slice(5)}</span>`+
-      `<span class="st">起 ${r.wake||"—"} · 睡 ${r.sleep||"—"}</span>`+
+      `<span class="st">睡 ${r.sleep||"—"} → 起 ${r.wake||"—"}</span>`+
       `<span class="sdu">${fmtDur(dm)}</span>`+
       `<button class="del" data-date="${r.date}" title="删除">×</button></div>`;
   }).join("") : `<div class="none">还没有作息记录，先记下今天吧。</div>`;
@@ -400,7 +396,7 @@ function initSleep(){
   document.getElementById("sSave").addEventListener("click", ()=>{
     const date = dEl.value || todayStr();
     const wake = wEl.value, sleep = sEl.value;
-    if(!wake && !sleep){ alert("请至少填一个起床或睡觉时间"); return; }
+    if(!wake && !sleep){ alert("请至少填一个入睡或起床时间"); return; }
     let arr = loadSleep().filter(r=> r.date!==date);
     arr.push({date, wake, sleep});
     saveSleep(arr); renderSleep();
