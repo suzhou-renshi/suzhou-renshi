@@ -467,7 +467,8 @@ renderReminds();
 
 /* ===== 极简主义 · 心得档案（对话维护） ===== */
 const MINIMAL = [
-  { d:"2026-11-21", text:"快速主义核心：想到就干、难的不纠结、快速收尾，把省下的时间和精力还给睡觉和身体——快不是赶，是不拖。" }
+  { d:"2026-11-21", text:"快速主义核心：想到就干、难的不纠结、快速收尾，把省下的时间和精力还给睡觉和身体——快不是赶，是不拖。" },
+  { d:"2026-11-21", text:"之前的作息做不到，现在做到了：周末 10 点半睡、8 点多自然醒、中午再睡一觉——之前明明可以睡，却从来不睡。" }
 ];
 function renderMinimal(){
   document.getElementById("minimalList").innerHTML = MINIMAL.slice().sort((a,b)=> b.d.localeCompare(a.d)).map(m=>
