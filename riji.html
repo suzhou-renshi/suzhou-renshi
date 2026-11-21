@@ -83,6 +83,11 @@
     font-weight:800;display:flex;align-items:center;justify-content:center;font-size:20px;}
   .remind h3{margin:0 0 4px;font-size:16px;font-weight:800;color:#b45309;}
   .remind p{margin:0;font-size:13.5px;color:#7c4a03;}
+  .remind p.r-sub{font-size:12.5px;color:#9a6a1e;margin:0 0 12px;}
+  .remind .rrow{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed #f0e0c0;}
+  .remind .rrow:last-child{border-bottom:none;}
+  .remind .rd{flex:0 0 84px;font-size:12px;font-weight:800;color:#b45309;padding-top:2px;}
+  .remind .rt{font-size:13.5px;color:#5c3d00;line-height:1.6;}
 
   /* sleep tracker */
   .sleep{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;box-shadow:var(--shadow);}
@@ -163,7 +168,8 @@
     <div class="remind-ic">!</div>
     <div>
       <h3>给自己的实在话</h3>
-      <p>1点多睡、6点半起，是长期睡眠不足，硬扛只会越来越累、白天效率也低。先从不熬到 1 点开始，给自己定个固定的「收工」时间——先把觉睡好，才有力气去处理单位上的事。</p>
+      <p class="r-sub">由助手不定期从日记里提炼的核心建议，按日期逐条沉淀（每篇标注「TeleAgent 总结」）。日记不只用来记录，更要从中总结、改善。</p>
+      <div id="remindList"></div>
     </div>
   </section>
 
@@ -416,6 +422,18 @@ function renderFood(){
     `<div class="fstat"><b>${visits}</b><span>聚餐次数</span></div>`;
 }
 renderFood();
+
+/* ===== 给自己的实在话（TeleAgent 不定期提炼，按日期倒序） ===== */
+const REMINDS = [
+  { d:"2026-11-18", text:"1点多睡、6点半起，是长期睡眠不足，硬扛只会越来越累、白天效率也低。先从不熬到 1 点开始，给自己定一个固定的「收工」时间——先把觉睡好，才有力气去处理单位上的事。（TeleAgent 总结）" },
+  { d:"2026-11-21", text:"早点睡、没喝酒，换来了自然醒、精神好——这是你自己做到的，别觉得理所当然。戒酒和早睡其实是同一件事：身体第一位。记得持续，别破例。（TeleAgent 总结）" }
+];
+function renderReminds(){
+  const box = document.getElementById("remindList");
+  box.innerHTML = REMINDS.slice().sort((a,b)=> b.d.localeCompare(a.d)).map(r=>
+    `<div class="rrow"><span class="rd">${esc(r.d.slice(5))}</span><span class="rt">${esc(r.text)}</span></div>`).join("");
+}
+renderReminds();
 </script>
 </body>
 </html>
