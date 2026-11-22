@@ -143,11 +143,10 @@
       <span class="badge">公开资料整理</span>
     </div>
     <div class="stats">
-      <div class="stat"><b id="s-gov">-</b><span>市政府班子</span></div>
-      <div class="stat"><b id="s-core">-</b><span>职能部门</span></div>
-      <div class="stat"><b id="s-bur">-</b><span>各局办</span></div>
-      <div class="stat"><b id="s-soe">-</b><span>国资国企</span></div>
-      <div class="stat"><b id="s-dist">-</b><span>区县（园区）</span></div>
+      <div class="stat"><b id="s-gov">-</b><span>市政府</span></div>
+      <div class="stat"><b id="s-bur">-</b><span>市局办</span></div>
+      <div class="stat"><b id="s-dist">-</b><span>区县政府</span></div>
+      <div class="stat"><b id="s-soe">-</b><span>市属国资</span></div>
     </div>
     <a class="linkback" href="./changji.html">常记看板 →</a>
   </header>
@@ -159,11 +158,10 @@
       <span class="clr" id="clr">✕</span>
     </div>
     <div class="chips" id="chips">
-      <div class="chip active" data-go="sec-gov">市政府班子</div>
-      <div class="chip" data-go="sec-core">主要职能部门</div>
-      <div class="chip" data-go="sec-bureau">各局办</div>
-      <div class="chip" data-go="sec-soe">市属国资国企</div>
-      <div class="chip" data-go="sec-dist">区县（园区）</div>
+      <div class="chip active" data-go="sec-gov">市政府</div>
+      <div class="chip" data-go="sec-bureau">市局办</div>
+      <div class="chip" data-go="sec-dist">区县政府</div>
+      <div class="chip" data-go="sec-soe">市属国资</div>
     </div>
     <div class="latest-btn" id="latestBtn"><span class="ldot"></span>最新动态<span class="ln" id="latestCount">…</span></div>
   </div>
@@ -174,28 +172,26 @@
   </div>
 
   <div class="section" id="sec-gov">
-    <div class="sec-title"><div class="num n1">壹</div><div><h2>市政府领导班子</h2><small>GOVERNMENT · 市长与副市长</small></div></div>
+    <div class="sec-title"><div class="num n1">壹</div><div><h2>市政府</h2><small>GOVERNMENT · 市政府班子与主要职能部门</small></div></div>
+    <div class="soe-head"><div class="nm">市政府领导班子</div><div class="intro">市长与副市长</div></div>
     <div id="list-gov"></div>
-  </div>
-
-  <div class="section" id="sec-core">
-    <div class="sec-title"><div class="num n2">贰</div><div><h2>市主要专业职能部门</h2><small>CORE · 经济与要素保障</small></div></div>
+    <div class="soe-head"><div class="nm">主要职能部门（正职）</div><div class="intro">经济与要素保障</div></div>
     <div id="list-core"></div>
   </div>
 
   <div class="section" id="sec-bureau">
-    <div class="sec-title"><div class="num n3">叁</div><div><h2>市一级各局办</h2><small>BUREAUS · 民生与行业主管</small></div></div>
+    <div class="sec-title"><div class="num n2">贰</div><div><h2>市局办</h2><small>BUREAUS · 市一级各局办（民生与行业主管）</small></div></div>
     <div id="list-bureau"></div>
   </div>
 
-  <div class="section" id="sec-soe">
-    <div class="sec-title"><div class="num n4">肆</div><div><h2>市属国资国企（25家）</h2><small>SOE · 董事长 / 总经理 / 副总经理</small></div></div>
-    <div id="list-soe"></div>
+  <div class="section" id="sec-dist">
+    <div class="sec-title"><div class="num n3">叁</div><div><h2>区县政府</h2><small>DISTRICTS · 各区/县（市）党政主官</small></div></div>
+    <div id="list-dist"></div>
   </div>
 
-  <div class="section" id="sec-dist">
-    <div class="sec-title"><div class="num n5">伍</div><div><h2>区县（园区）领导班子</h2><small>DISTRICTS · 各区/园区党政负责人</small></div></div>
-    <div id="list-dist"></div>
+  <div class="section" id="sec-soe">
+    <div class="sec-title"><div class="num n4">肆</div><div><h2>市属国资</h2><small>SOE · 市属国资国企（25家）董事长 / 总经理</small></div></div>
+    <div id="list-soe"></div>
   </div>
 
   <div class="src-box">
@@ -256,7 +252,17 @@
   fill('list-gov', D.gov||[], '');
   fill('list-core', D.core||[], '');
   fill('list-bureau', D.bureau||[], '');
-  fill('list-dist', D.dist||[], '');
+  // 区县（分组）
+  (function(){
+    var box = document.getElementById('list-dist');
+    var html='';
+    (D.dist||[]).forEach(function(g){
+      html += '<div class="soe-head"><div class="nm">'+esc(g.name)+'</div>'
+        + (g.intro?'<div class="intro">'+esc(g.intro)+'</div>':'')+'</div>';
+      html += g.people.map(function(p){return card(p, g.name);}).join('');
+    });
+    box.innerHTML = html || '<div class="empty">暂无数据</div>';
+  })();
   // 最新调动
   (function(){
     var box = document.getElementById('list-latest');
@@ -287,11 +293,10 @@
     });
     box.innerHTML = html || '<div class="empty">暂无数据</div>';
   })();
-  document.getElementById('s-gov').textContent=(D.gov||[]).length;
-  document.getElementById('s-core').textContent=(D.core||[]).length;
+  document.getElementById('s-gov').textContent=(D.gov||[]).length+(D.core||[]).length;
   document.getElementById('s-bur').textContent=(D.bureau||[]).length;
+  document.getElementById('s-dist').textContent=(D.dist||[]).reduce(function(a,g){return a+g.people.length;},0);
   document.getElementById('s-soe').textContent=(D.soes||[]).reduce(function(a,g){return a+g.people.length;},0);
-  document.getElementById('s-dist').textContent=(D.dist||[]).length;
   if(D.updated){document.getElementById('upd').textContent='信息截至 '+D.updated;
     document.getElementById('src-upd').textContent=D.updated;document.getElementById('foot-upd').textContent=D.updated;}
 
@@ -311,7 +316,7 @@
       }
       h.classList.toggle('hidden', v && !any);
     });
-    ['sec-latest','sec-gov','sec-core','sec-bureau','sec-soe','sec-dist'].forEach(function(id){
+    ['sec-latest','sec-gov','sec-bureau','sec-dist','sec-soe'].forEach(function(id){
       var sec=document.getElementById(id);
       var vis=sec.querySelectorAll('.card:not(.hidden)').length;
       sec.classList.toggle('hidden', v && vis===0);
