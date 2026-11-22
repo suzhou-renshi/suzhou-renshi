@@ -215,7 +215,7 @@
   }
   function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function searchText(p, extra){
-    return [p.n,p.t,p.lv,p.nj,p.ed,p.cv,p.g,extra].join(' ');
+    return [p.n,p.t,p.lv,p.nj,p.ed,p.cv,p.g,p.note,extra].join(' ');
   }
   function ageOf(b){
     var m = /^(\d{4})(?:\.(\d{1,2}))?/.exec(String(b||''));
@@ -241,6 +241,7 @@
       + '<div class="m-item"><span class="k">学历</span><span class="v">'+esc(p.ed||'—')+'</span></div>'
       + '</div>';
     if(p.cv){ html += '<div class="track"><span class="k">原任/轨迹</span>'+esc(p.cv)+'</div>'; }
+    if(p.note){ html += '<div class="track"><span class="k">拜访/备注</span>'+esc(p.note)+'</div>'; }
     html += '</div>';
     return html;
   }
