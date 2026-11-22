@@ -90,6 +90,7 @@
   .n2{background:linear-gradient(135deg,#1e5aa8,#4a86cf)}
   .n3{background:linear-gradient(135deg,#1b7a5c,#3fae86)}
   .n4{background:linear-gradient(135deg,#7a4fa3,#a97ccf)}
+  .n5{background:linear-gradient(135deg,#0e7f8c,#4fb8c9)}
 
   /* 卡片 */
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 15px 13px;
@@ -146,6 +147,7 @@
       <div class="stat"><b id="s-core">-</b><span>职能部门</span></div>
       <div class="stat"><b id="s-bur">-</b><span>各局办</span></div>
       <div class="stat"><b id="s-soe">-</b><span>国资国企</span></div>
+      <div class="stat"><b id="s-dist">-</b><span>区县（园区）</span></div>
     </div>
     <a class="linkback" href="./changji.html">常记看板 →</a>
   </header>
@@ -161,6 +163,7 @@
       <div class="chip" data-go="sec-core">主要职能部门</div>
       <div class="chip" data-go="sec-bureau">各局办</div>
       <div class="chip" data-go="sec-soe">市属国资国企</div>
+      <div class="chip" data-go="sec-dist">区县（园区）</div>
     </div>
     <div class="latest-btn" id="latestBtn"><span class="ldot"></span>最新动态<span class="ln" id="latestCount">…</span></div>
   </div>
@@ -188,6 +191,11 @@
   <div class="section" id="sec-soe">
     <div class="sec-title"><div class="num n4">肆</div><div><h2>市属国资国企（25家）</h2><small>SOE · 董事长 / 总经理 / 副总经理</small></div></div>
     <div id="list-soe"></div>
+  </div>
+
+  <div class="section" id="sec-dist">
+    <div class="sec-title"><div class="num n5">伍</div><div><h2>区县（园区）领导班子</h2><small>DISTRICTS · 各区/园区党政负责人</small></div></div>
+    <div id="list-dist"></div>
   </div>
 
   <div class="src-box">
@@ -248,6 +256,7 @@
   fill('list-gov', D.gov||[], '');
   fill('list-core', D.core||[], '');
   fill('list-bureau', D.bureau||[], '');
+  fill('list-dist', D.dist||[], '');
   // 最新调动
   (function(){
     var box = document.getElementById('list-latest');
@@ -282,6 +291,7 @@
   document.getElementById('s-core').textContent=(D.core||[]).length;
   document.getElementById('s-bur').textContent=(D.bureau||[]).length;
   document.getElementById('s-soe').textContent=(D.soes||[]).reduce(function(a,g){return a+g.people.length;},0);
+  document.getElementById('s-dist').textContent=(D.dist||[]).length;
   if(D.updated){document.getElementById('upd').textContent='信息截至 '+D.updated;
     document.getElementById('src-upd').textContent=D.updated;document.getElementById('foot-upd').textContent=D.updated;}
 
@@ -301,7 +311,7 @@
       }
       h.classList.toggle('hidden', v && !any);
     });
-    ['sec-latest','sec-gov','sec-core','sec-bureau','sec-soe'].forEach(function(id){
+    ['sec-latest','sec-gov','sec-core','sec-bureau','sec-soe','sec-dist'].forEach(function(id){
       var sec=document.getElementById(id);
       var vis=sec.querySelectorAll('.card:not(.hidden)').length;
       sec.classList.toggle('hidden', v && vis===0);
