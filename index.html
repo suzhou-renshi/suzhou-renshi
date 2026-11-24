@@ -178,6 +178,8 @@
     <div class="sec-title"><div class="num n1">壹</div><div><h2>市政府</h2><small>GOVERNMENT · 市政府班子与主要职能部门</small></div></div>
     <div class="soe-head"><div class="nm">市政府领导班子</div><div class="intro">市长与副市长</div></div>
     <div id="list-gov"></div>
+    <div class="soe-head"><div class="nm">历任苏州市委书记</div><div class="intro">按在苏州任职时间从老到新 · 含后续去向</div></div>
+    <div id="list-hist"></div>
     <div class="soe-head"><div class="nm">主要职能部门（正职）</div><div class="intro">经济与要素保障</div></div>
     <div id="list-core"></div>
   </div>
@@ -255,6 +257,7 @@
     box.innerHTML = html || '<div class="empty">暂无数据</div>';
   }
   fill('list-gov', D.gov||[], '');
+  fill('list-hist', D.hist||[], '');
   fill('list-core', D.core||[], '');
   fill('list-bureau', D.bureau||[], '');
   // 区县（分组）
@@ -298,7 +301,7 @@
     });
     box.innerHTML = html || '<div class="empty">暂无数据</div>';
   })();
-  document.getElementById('s-gov').textContent=(D.gov||[]).length+(D.core||[]).length;
+  document.getElementById('s-gov').textContent=(D.gov||[]).length+(D.hist||[]).length+(D.core||[]).length;
   document.getElementById('s-bur').textContent=(D.bureau||[]).length;
   document.getElementById('s-dist').textContent=(D.dist||[]).reduce(function(a,g){return a+g.people.length;},0);
   document.getElementById('s-soe').textContent=(D.soes||[]).reduce(function(a,g){return a+g.people.length;},0);
