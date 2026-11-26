@@ -52,7 +52,8 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
 .block-title .cnt{font-size:11px;color:var(--text2);font-weight:500;margin-left:auto}
 .people{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .person{border:1px solid #e9e5d8;border-radius:9px;padding:8px 10px;background:#fbfaf6}
-.person.has-av{display:flex;gap:9px;align-items:flex-start}
+.person.has-av{padding-top:8px}
+.p-head{display:flex;align-items:center;gap:9px;margin-bottom:3px}
 .pav{flex:0 0 46px;width:46px;height:46px;border-radius:50%;overflow:hidden;background:#eef2f7;border:1px solid #dfe6ee;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .pav img{width:100%;height:100%;object-fit:cover;display:block}
 .p-body{flex:1;min-width:0}
@@ -173,7 +174,9 @@ function personHtml(p,isHr){
   if(p.birth){var m=/^(\d{4})[./](\d{1,2})(?:[./](\d{1,2}))?/.exec(p.birth||'');if(m){var by=+m[1],bm=+m[2],bd=m[3]?+m[3]:1,n=new Date(),a=n.getFullYear()-by;if(n.getMonth()+1<bm||(n.getMonth()+1===bm&&n.getDate()<bd))a--;if(a>0&&a<120)age=a+'岁';}}
   var nameAge=(!isHr&&p.birth)?('<span class="pf">（'+esc(p.birth)+(age?' · '+age:'')+'）</span>'):'';
   var av=p.img?('<div class="pav"><img src="'+esc(p.img)+'" alt="" loading="lazy"></div>'):'';
-  var h='<div class="person'+(av?' has-av':'')+'">'+av+'<div class="p-body"><div class="p-top"><span class="nm">'+esc(p.name)+'</span>'+nameAge+(p.g&&p.g!=='—'?'<span class="pf">'+esc(p.g)+'</span>':'')+'</div>';
+  var h='<div class="person'+(av?' has-av':'')+'">';
+  var title='<div class="p-top"><span class="nm">'+esc(p.name)+'</span>'+nameAge+(p.g&&p.g!=='—'?'<span class="pf">'+esc(p.g)+'</span>':'')+'</div>';
+  if(av){h+='<div class="p-head">'+av+title+'</div>';}else{h+=title;}
   h+=(p.rl||p.post)?'<span class="rl">'+esc(p.rl||p.post)+'</span>':'';
   if(p.tags&&p.tags.length)h+='<div class="tags">'+tagsHtml(p.tags)+'</div>';
   if(isHr){
@@ -189,7 +192,7 @@ function personHtml(p,isHr){
   if(p.mn)h+='<span class="mn">💡 记忆：'+esc(p.mn)+'</span>';
   if(p.memo&&p.memo.length)h+='<div class="pl memo" style="display:block;white-space:normal">📅 '+esc(p.memo[0].d)+' '+esc(p.memo[0].t)+'</div>';
   if(p.addr)h+='<a class="addr" href="https://uri.amap.com/search?keyword='+encodeURIComponent('苏州 '+p.addr)+'" target="_blank" rel="noopener">📍 '+esc(p.addr)+'</a>';
-  return h+'</div></div>';
+  return h+'</div>';
 }
 function projItem(p,id){
   var stc=p.st==='signed'?['已签约','a-signed']:(p.st==='void'?['作废','a-void']:['商机','a-opp']);
