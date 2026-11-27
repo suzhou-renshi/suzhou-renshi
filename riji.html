@@ -359,14 +359,31 @@ draw("");
 /* ===== 作息打卡（内嵌数据 + 本机录入合并） ===== */
 const SLEEP_LOG = [
   /* 由对话追加，例：{date:"2026-11-18", wake:"06:30", sleep:"01:30"} */
-  { date:"2026-11-20", wake:"", sleep:"01:50" },
-  { date:"2026-11-21", wake:"07:30", sleep:"" }
+  { date:"2026-11-17", wake:"06:35", sleep:"01:00" },
+  { date:"2026-11-18", wake:"06:34", sleep:"01:05" },
+  { date:"2026-11-20", wake:"09:08", sleep:"01:50" },
+  { date:"2026-11-21", wake:"08:30", sleep:"22:45" },
+  { date:"2026-11-22", wake:"10:00", sleep:"22:40" },
+  { date:"2026-11-23", wake:"06:35", sleep:"00:10" }
 ];
 const SLEEP_KEY = "teleagent_sleep_log";
+const SLEEP_META = "teleagent_sleep_meta"; // {ov:[页面改过的日期], del:[页面删掉的日期]}
+function loadMeta(){ try{ const m=JSON.parse(localStorage.getItem(SLEEP_META))||{}; return {ov:m.ov||[], del:m.del||[]}; }catch(e){ return {ov:[], del:[]}; } }
+function saveMeta(m){ try{ localStorage.setItem(SLEEP_META, JSON.stringify(m)); }catch(e){} }
 function loadSleep(){
   const base = (typeof SLEEP_LOG!=="undefined" ? SLEEP_LOG.slice() : []);
+  const meta = loadMeta();
   let loc=[]; try{ loc=JSON.parse(localStorage.getItem(SLEEP_KEY))||[]; }catch(e){ loc=[]; }
-  const map={}; base.forEach(r=>{ if(r&&r.date) map[r.date]=r; }); loc.forEach(r=>{ if(r&&r.date) map[r.date]=r; });
+  const map={};
+  // 内嵌（文件）数据为准，页面删过的日期剔除
+  base.forEach(r=>{ if(r&&r.date && meta.del.indexOf(r.date)<0) map[r.date]=r; });
+  // 本机录入：新日期直接补；同日期仅当页面明确改过(ov)时才覆盖文件数据，避免旧残留把修好的记录盖回去
+  loc.forEach(r=>{
+    if(!r||!r.date) return;
+    if(meta.del.indexOf(r.date)>=0) return;
+    if(map[r.date] && meta.ov.indexOf(r.date)<0) return;
+    map[r.date]=r;
+  });
   return Object.keys(map).map(k=> map[k]);
 }
 function saveSleep(a){ try{ localStorage.setItem(SLEEP_KEY, JSON.stringify(a)); }catch(e){} }
@@ -417,12 +434,18 @@ function initSleep(){
     if(!wake && !sleep){ alert("请至少填一个入睡或起床时间"); return; }
     let arr = loadSleep().filter(r=> r.date!==date);
     arr.push({date, wake, sleep});
-    saveSleep(arr); renderSleep();
+    saveSleep(arr);
+    const m=loadMeta(); if(m.ov.indexOf(date)<0) m.ov.push(date); m.del=m.del.filter(d=>d!==date); saveMeta(m);
+    renderSleep();
   });
   document.getElementById("sleepList").addEventListener("click", e=>{
     if(e.target.classList.contains("del")){
       const date = e.target.getAttribute("data-date");
-      if(confirm("删除 "+date+" 的作息记录？")){ saveSleep(loadSleep().filter(r=> r.date!==date)); renderSleep(); }
+      if(confirm("删除 "+date+" 的作息记录？")){
+        saveSleep(loadSleep().filter(r=> r.date!==date));
+        const m=loadMeta(); if(m.del.indexOf(date)<0) m.del.push(date); m.ov=m.ov.filter(d=>d!==date); saveMeta(m);
+        renderSleep();
+      }
     }
   });
   const exp = document.getElementById("sExport");
