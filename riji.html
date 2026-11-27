@@ -472,6 +472,10 @@ const RESTAURANTS = [
     memo:"人均约172元（公开评价口径），巴城热门农家菜之一。老板是徐丰的高中同学：昆山人、绰号「黄毛」、个子高，此前在上海理想公司。" },
   { name:"海韵渔港", type:"海鲜·苏帮菜", area:"苏州·园区",
     addr:"苏州工业园区现代大道 新城邻里中心（三楼大阳台可观东方之门夜景，包厢多；另有宴会厅在苏华路星都街口白领商业广场1号楼·中央公园东）",
+    dishGroups:[
+      { g:"尝过的推荐", items:[
+        {n:"螺肉", note:"不错"}, {n:"熏鱼", note:"也可以"} ] }
+    ],
     visits:[
       { d:"2026-11-06", with:"我组织；陶峰、蒋恺、陈楠、尤卫军、顾卫东、钱康、董仲、卓华溢、徐陆恺", note:"聚餐" },
       { d:"2026-11-26", with:"董、臧、朱、宗", note:"晚餐·202包厢" }
@@ -532,7 +536,7 @@ function renderFood(){
         ${r.area?`<div class="farea">📍 ${esc(r.area)}</div>`:""}
         <div class="faddr"><span>${esc(r.addr||"")}</span><a class="fnav" href="${nav}" target="_blank">🧭 高德导航</a></div>
         ${(r.dishGroups&&r.dishGroups.length)?`<div class="fdishes"><div class="fdt">🍽 推荐菜（共 ${r.dishGroups.reduce((a,g)=>a+g.items.length,0)} 道）</div>${r.dishGroups.map(g=>
-          `<div class="dg"><span class="dgt">${esc(g.g)}</span>${g.items.map(x=>`<span class="dish">${esc(x.n)}<b>${esc(x.p||"")}</b></span>`).join("")}</div>`).join("")}</div>`:""}
+          `<div class="dg"><span class="dgt">${esc(g.g)}</span>${g.items.map(x=>`<span class="dish">${esc(x.n)}<b>${esc(x.p||x.note||"")}</b></span>`).join("")}</div>`).join("")}</div>`:""}
         <div class="fvisits">${(r.visits||[]).map(v=>
           `<div class="fv-row"><span class="d">${esc(v.d)}</span>${v.with?esc(v.with):""}${v.note?`（${esc(v.note)}）`:""}</div>`).join("")}
         </div>
