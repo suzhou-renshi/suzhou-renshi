@@ -133,6 +133,79 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
   .bizhead .ucount{font-size:10px;padding:2px 8px}
   .bizhead::after{font-size:30px;top:-6px}
 }
+
+/* ===== 页内多视图（周行动 / 商机大盘 / 速查卡 / 关系图） ===== */
+.tabbar{position:sticky;top:0;z-index:19;display:flex;gap:6px;overflow-x:auto;padding:8px 12px;background:rgba(247,245,240,.97);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--border);scrollbar-width:none}
+.tabbar::-webkit-scrollbar{display:none}
+.tabbar button{flex:0 0 auto;font-size:12px;padding:7px 13px;border-radius:16px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-family:inherit}
+.tabbar button.on{background:var(--primary);color:#fff;border-color:var(--primary);font-weight:700}
+body.tab .sticky,body.tab #bizboard,body.tab #list{display:none}
+#panel{display:none;padding:0 12px 28px;max-width:980px;margin:0 auto}
+body.tab #panel{display:block}
+.band{display:flex;align-items:stretch;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:7px 2px;margin:10px 0;box-shadow:0 1px 3px rgba(16,36,56,.05)}
+.box{flex:1 1 0;min-width:0;display:flex;align-items:baseline;justify-content:center;gap:4px;padding:0 2px;border-right:1px dashed var(--border)}
+.box:last-child{border-right:0}
+.box b{font-size:16px;color:var(--primary);line-height:1.2;white-space:nowrap}
+.box span{font-size:10px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.box.alert b{color:#d4452b}
+.blk{margin:14px 0}
+.blk h3{font-size:12.5px;color:var(--primary);display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.blk h3::before{content:"";width:3px;height:13px;background:var(--accent);border-radius:2px}
+.blk h3 em{margin-left:auto;font-style:normal;font-size:10.5px;color:var(--text2)}
+.rc{display:block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:7px;text-decoration:none;color:inherit}
+.rc.key{border-left:3px solid #b45309;background:#fffaf2}
+.rc.urgent{border-left:4px solid #e2503a;background:linear-gradient(90deg,#fff3ef,#fffaf7)}
+.warn{display:inline-block;font-size:9.5px;color:#fff;background:#e2503a;border-radius:5px;padding:1px 6px;margin-left:6px;vertical-align:1px;animation:kvpulse 1.8s ease-in-out infinite}
+@keyframes kvpulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(226,80,58,.35)}50%{opacity:.75;box-shadow:0 0 0 5px rgba(226,80,58,0)}}
+.rc .rt{font-size:13.5px;font-weight:600;line-height:1.45}
+.rc .ru{font-size:10.5px;color:var(--accent);font-weight:600}
+.rc .rm{font-size:11.5px;color:var(--text2);margin-top:4px;line-height:1.6}
+.rc .rr{display:flex;gap:8px;align-items:baseline;margin-top:3px}
+.rc .ra{font-size:12px;color:#b45309;font-weight:700}
+.rc .rd{font-size:10px;color:#a3b1c0;margin-left:auto}
+.mode{display:flex;gap:7px;margin:2px 0 10px}
+.mode button{flex:1;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;font-family:inherit}
+.mode button.on{background:var(--primary);color:#fff;border-color:var(--primary);font-weight:600}
+.hintline{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--text2);margin:-4px 0 10px}
+.hintline .kx{width:12px;height:12px;border-radius:3px;background:#fffaf2;border-left:3px solid #b45309;flex:0 0 auto}
+.urow{display:flex;align-items:center;gap:8px;margin:6px 0}
+.urow .nm{flex:0 0 88px;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.urow .tr{flex:1;height:8px;background:#eef2f6;border-radius:5px;overflow:hidden}
+.urow .fl{height:100%;background:linear-gradient(90deg,#3d7ea6,#123a5e)}
+.urow .vv{flex:0 0 62px;text-align:right;font-size:10px;color:var(--text2);white-space:nowrap}
+.tline{position:relative;padding-left:18px}
+.tline::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:#dfe7ef}
+.ti{position:relative;margin-bottom:9px}
+.ti::before{content:"";position:absolute;left:-17px;top:9px;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px #e6f2f0}
+.ti.key::before{background:#b45309;box-shadow:0 0 0 3px #fbeedb}
+.bigcard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(16,36,56,.08)}
+.bigcard .bc-unit{display:inline-block;font-size:11.5px;color:#fff;background:var(--accent);padding:2px 9px;border-radius:6px;font-weight:700}
+.bigcard h2{font-size:24px;line-height:1.3;margin:8px 0 2px}
+.bigcard .bc-role{font-size:12.5px;color:var(--text2);margin-bottom:10px}
+.bigcard .bc-line{display:flex;gap:8px;font-size:12.5px;margin:6px 0;line-height:1.6}
+.bigcard .bc-line b{flex:0 0 56px;color:var(--text2);font-size:11px;padding-top:2px}
+.bigcard .bc-ops{display:flex;flex-direction:column;gap:4px;margin:2px 0 4px 64px}
+.bigcard .bc-ops span{display:flex;align-items:baseline;gap:6px;font-size:11.5px;color:var(--text2);line-height:1.5}
+.bigcard .bc-ops i{font-style:normal;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bigcard .bc-ops i.k{color:#b45309;font-weight:600}
+.bigcard .bc-ops b{font-size:11px;color:#b45309;white-space:nowrap}
+.bigcard .bc-memo{background:#f4f8fb;border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:8px 10px;font-size:12px;margin-top:9px;line-height:1.65}
+.bigcard .bc-memo i{display:block;font-style:normal;font-size:9.5px;color:var(--accent);font-weight:700;letter-spacing:1px;margin-bottom:2px}
+.bigcard .bc-acts{display:flex;gap:8px;margin-top:12px}
+.bigcard .bc-acts a{flex:1;text-align:center;font-size:12px;padding:10px 0;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none}
+.bigcard .bc-acts a.gh{background:#eef3f8;color:var(--primary)}
+.pick2{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
+.pick2::-webkit-scrollbar{display:none}
+.pick2 button{flex:0 0 auto;font-size:11.5px;padding:7px 12px;border-radius:13px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-family:inherit}
+.pick2 button.on{background:var(--primary);color:#fff;border-color:var(--primary);font-weight:600}
+.gwrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:6px}
+.gwrap svg{width:100%;height:auto;display:block}
+.gleg{font-size:10px;color:var(--text2);padding:4px 2px}
+.gpanel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-top:10px}
+.gpanel h4{font-size:14px;margin-bottom:2px}
+.gpanel .gs{font-size:11px;color:var(--text2);margin-bottom:6px}
+.gpanel .gr{font-size:12px;padding:6px 0;border-top:1px dashed var(--border);display:flex;gap:8px}
+.gpanel .gr b{flex:0 0 58px;color:var(--text2);font-size:11px;font-weight:600}
 </style>
 </head>
 <body>
@@ -148,11 +221,22 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
     <div class="stat"><b id="s-proj">-</b><span>ICT项目</span></div>
   </div>
   <div class="nav3">
-  <a class="hr-link" href="https://suzhou-renshi.github.io/suzhou-renshi/" target="_self">🏛 人事看板</a>
-  <a class="hr-link" href="biji.html" target="_self">📘 笔记看板</a>
-  <a class="hr-link" href="riji.html" target="_self">📖 日记看板</a>
+  <a class="hr-link" href="hub.html" target="_self">🏠 工作台</a>
+  <a class="hr-link" href="biji.html" target="_self">📘 笔记</a>
+  <a class="hr-link" href="https://suzhou-renshi.github.io/suzhou-renshi/" target="_self">🏛 人事</a>
+  <a class="hr-link" href="riji.html" target="_self">📖 日记</a>
   </div>
 </header>
+
+<div class="tabbar" id="tabbar">
+  <button data-t="quick" class="on">速查</button>
+  <button data-t="week">周行动</button>
+  <button data-t="biz">商机</button>
+  <button data-t="card">速查卡</button>
+  <button data-t="map">关系图</button>
+</div>
+<div id="panel"></div>
+
 <details class="phr">
   <summary>📌 常用短语速查 · 怎么让我记录</summary>
   <div class="phr-body">
@@ -454,6 +538,201 @@ document.getElementById('bizboard').addEventListener('click',function(e){
   }
 });
 doRender();
+
+/* ===== 页内多视图 ===== */
+function kvNum(s){var m=/([\d.]+)/.exec(s||'');return m?parseFloat(m[1]):0;}
+function kvLast(p){var a=[];(p.logs||[]).forEach(function(x){if(x.d)a.push(x.d);});(p.memo||[]).forEach(function(x){if(x.d)a.push(x.d);});a.sort();return a.length?a[a.length-1]:'';}
+function kvAgo(d){if(!d)return 999;var t=new Date(String(d).replace(/[./]/g,'-')+'T00:00:00');if(isNaN(t))return 999;return Math.floor((Date.now()-t.getTime())/86400000);}
+var KV_ALL=[];
+DATA.forEach(function(u,i){
+  (u.projects||[]).forEach(function(p,j){
+    KV_ALL.push({u:u,uName:(u.short||u.title),t:p.t,amt:p.amt,a:kvNum(p.amt),st:p.st,key:!!p.key,last:kvLast(p),ag:kvAgo(kvLast(p)),
+      memo:(p.memo&&p.memo[0])||null,log:(p.logs&&p.logs[0])||null,anchor:'#p-'+i+'-'+j});
+  });
+});
+var KV_OPP=KV_ALL.filter(function(x){return x.st==='opp';});
+var KV_SIGNED=KV_ALL.filter(function(x){return x.st==='signed';});
+
+function kvWeek(){
+  var week=KV_OPP.filter(function(x){return x.ag<=7;}).sort(function(a,b){return a.ag-b.ag;});
+  var stale=KV_OPP.filter(function(x){return x.ag>14;}).sort(function(a,b){return b.ag-a.ag;});
+  var keys=KV_OPP.filter(function(x){return x.key;}).sort(function(a,b){return b.a-a.a;});
+  var d=new Date(),ymd=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  var h='<div class="band"><div class="box"><b>'+week.length+'</b><span>本周有进展</span></div>'
+   +'<div class="box"><b>'+KV_OPP.length+'</b><span>在跟</span></div>'
+   +'<div class="box alert"><b>'+stale.length+'</b><span>待启动</span></div>'
+   +'<div class="box"><b>'+keys.length+'</b><span>★重点</span></div></div>';
+  h+='<div class="blk"><h3>本周有进展 <em>'+ymd+' · 近 7 天</em></h3>';
+  if(!week.length)h+='<div style="color:#999;font-size:12px;padding:10px 0">本周还没有新备忘，去速查里记一条</div>';
+  week.forEach(function(x){
+    h+='<a class="rc" href="'+x.anchor+'"><div class="ru">'+esc(x.uName)+'</div><div class="rt">'+esc(x.t)+'</div>'
+     +'<div class="rr"><span class="ra">'+esc(x.amt||'—')+'</span><span class="rd">'+(x.last?x.last+' · '+x.ag+' 天前':'')+'</span></div>'
+     +(x.memo?'<div class="rm">📅 '+esc(x.memo.t)+'</div>':(x.log?'<div class="rm">'+esc(x.log.t)+'</div>':''))+'</a>';
+  });
+  h+='</div><div class="blk"><h3>重点商机 · 该动一动了 <em>'+stale.length+' 个待催 · ★ 且超 14 天无进展</em></h3>';
+  if(!stale.length)h+='<div style="color:#999;font-size:12px;padding:10px 0">重点商机都在推进</div>';
+  stale.slice(0,20).forEach(function(x){
+    h+='<a class="rc urgent" href="'+x.anchor+'"><div class="ru">'+esc(x.uName)+'</div><div class="rt">★ '+esc(x.t)+'<span class="warn">⏰ '+(x.last?x.ag+' 天未动':'待首次跟进')+'</span></div>'
+     +'<div class="rr"><span class="ra">'+esc(x.amt||'—')+'</span><span class="rd">'+(x.last?x.last:'—')+'</span></div></a>';
+  });
+  h+='</div><div class="blk"><h3>全部 ★ 重点 <em>'+keys.length+' 个 · 按金额</em></h3>';
+  keys.forEach(function(x){
+    h+='<a class="rc" href="'+x.anchor+'"><div class="rt">'+esc(x.t)+'</div><div class="rr"><span class="ru">'+esc(x.uName)+'</span><span class="ra">'+esc(x.amt||'—')+'</span><span class="rd">'+(x.last||'—')+'</span></div></a>';
+  });
+  h+='</div>';
+  return h;
+}
+
+var KV_BIZMODE='list';
+function kvBiz(){
+  var total=KV_OPP.reduce(function(s,x){return s+x.a;},0);
+  var by={};
+  KV_OPP.forEach(function(x){by[x.uName]=by[x.uName]||{n:0,a:0};by[x.uName].n++;by[x.uName].a+=x.a;});
+  var arr=Object.keys(by).map(function(k){return {k:k,n:by[k].n,a:by[k].a};}).sort(function(a,b){return b.a-a.a;}).slice(0,9);
+  var maxA=Math.max.apply(null,arr.map(function(x){return x.a;}))||1;
+  var h='<div class="band"><div class="box"><b>'+KV_OPP.length+'</b><span>在跟</span></div>'
+   +'<div class="box"><b>'+KV_OPP.filter(function(x){return x.key;}).length+'</b><span>★重点</span></div>'
+   +'<div class="box"><b>'+(Math.round(total*10)/10)+'</b><span>合计万</span></div>'
+   +'<div class="box"><b>'+KV_SIGNED.length+'</b><span>已签</span></div></div>';
+  h+='<div class="blk"><h3>单位分布 <em>按在跟金额</em></h3>';
+  arr.forEach(function(x){
+    h+='<div class="urow"><span class="nm">'+esc(x.k)+'</span><span class="tr"><span class="fl" style="width:'+Math.max(4,Math.round(x.a/maxA*100))+'%"></span></span><span class="vv">'+x.n+'个/'+(Math.round(x.a*10)/10)+'万</span></div>';
+  });
+  h+='</div>';
+  h+='<div class="mode"><button data-bm="list" class="'+(KV_BIZMODE==='list'?'on':'')+'">列表 · 金额从大到小</button><button data-bm="tl" class="'+(KV_BIZMODE==='tl'?'on':'')+'">时间轴 · 按进展</button></div>'
+   +'<div class="hintline"><span class="kx"></span>橙底橙边 = ★ 重点商机（优先跟） · 白底 = 普通商机</div>';
+  if(KV_BIZMODE==='list'){
+    KV_OPP.slice().sort(function(a,b){return b.a-a.a;}).forEach(function(x){
+      h+='<a class="rc'+(x.key?' key':'')+'" href="'+x.anchor+'"><div class="ru">'+esc(x.uName)+'</div><div class="rt">'+(x.key?'★ ':'')+esc(x.t)+'</div>'
+       +'<div class="rr"><span class="ra">'+esc(x.amt||'—')+'</span><span class="rd">'+(x.last||'无进展记录')+'</span></div>'
+       +(x.memo?'<div class="rm">'+esc(x.memo.t)+'</div>':'')+'</a>';
+    });
+  }else{
+    h+='<div class="tline">';
+    KV_OPP.filter(function(x){return x.last;}).sort(function(a,b){return (b.last||'').localeCompare(a.last||'');}).forEach(function(x){
+      h+='<div class="ti'+(x.key?' key':'')+'"><a class="rc'+(x.key?' key':'')+'" style="margin-bottom:0" href="'+x.anchor+'">'
+       +'<div class="ru">'+x.last+' · '+esc(x.uName)+'</div><div class="rt">'+(x.key?'★ ':'')+esc(x.t)+' <span class="ra">'+esc(x.amt||'')+'</span></div>'
+       +(x.memo?'<div class="rm">'+esc(x.memo.t)+'</div>':'')+'</a></div>';
+    });
+    h+='</div>';
+  }
+  return h;
+}
+
+var KV_CARD=[],KV_CUR=0;
+DATA.forEach(function(u,i){
+  if(/中国电信/.test(u.title))return;
+  var hr=(u.hr&&u.hr.people)||[];
+  var pn=0;(u.depts||[]).forEach(function(d){pn+=d.people.length;});
+  var proj=(u.projects||[]).length;
+  if(!hr.length&&!pn&&!proj)return;
+  var memo='';
+  (u.projects||[]).forEach(function(p){if(!memo&&p.memo&&p.memo[0])memo='📅 '+p.memo[0].d+' '+p.memo[0].t;});
+  if(!memo&&u.depts)u.depts.forEach(function(d){d.people.forEach(function(p){if(!memo&&p.memo&&p.memo[0])memo='📅 '+p.memo[0].d+' '+p.memo[0].t;});});
+  var ops=(u.projects||[]).filter(function(p){return p.st==='opp';});
+  var sgn=(u.projects||[]).filter(function(p){return p.st==='signed';});
+  var ppl=[];
+  (u.depts||[]).forEach(function(d){d.people.forEach(function(p){if(ppl.length<5)ppl.push(p.name+(p.rl?'（'+p.rl+'）':''));});});
+  KV_CARD.push({i:i,title:u.title,top:hr[0]||null,hrmore:hr.slice(1,3),depts:(u.depts||[]).map(function(d){return d.dept;}),pn:pn,
+    opp:ops.length,ops:ops.slice().sort(function(a,b){return (parseFloat((b.amt||'0').replace(/[^\d.]/g,''))||0)-(parseFloat((a.amt||'0').replace(/[^\d.]/g,''))||0);}).slice(0,3),
+    sgn:sgn.length,memo:memo,addr:u.addr||'',biz:u.biz||null,ppl:ppl});
+});
+KV_CARD.sort(function(a,b){return (b.top?1:0)-(a.top?1:0)||b.opp-a.opp;});
+function kvCard(){
+  var u=KV_CARD[KV_CUR];
+  var biz='';
+  if(u.biz){var ps=[];Object.keys(u.biz).forEach(function(k){if(u.biz[k])ps.push(k+' '+u.biz[k]);});biz=ps.join(' · ');}
+  var h='<div class="pick2">'+KV_CARD.map(function(x,k){return '<button data-c="'+k+'"'+(k===KV_CUR?' class="on"':'')+'>'+esc(x.title)+'</button>';}).join('')+'</div>';
+  h+='<div class="bigcard"><div class="bc-unit">'+esc(u.title)+'</div>'
+   +'<h2>'+esc(u.top?u.top.name:u.title)+'</h2>'
+   +'<div class="bc-role">'+esc(u.top?(u.top.rl||u.top.post||''):'一把手待补 · 可先找办公室主任')+'</div>'
+   +'<div class="bc-line"><b>对接部门</b><span>'+u.depts.length+' 个'+(u.depts.length?'：'+esc(u.depts.slice(0,3).join(' / '))+(u.depts.length>3?' 等':''):'')+'</span></div>'
+   +'<div class="bc-line"><b>对接人</b><span>'+(u.ppl.length?esc(u.ppl.join('、'))+(u.pn>u.ppl.length?' 等 '+u.pn+' 人':''):'待补')+'</span></div>'
+   +'<div class="bc-line"><b>班子</b><span>'+(u.hrmore&&u.hrmore.length?esc(u.hrmore.map(function(x){return x.name+(x.rl?'（'+x.rl+'）':'');}).join('、')):'—')+'</span></div>'
+   +(biz?'<div class="bc-line"><b>业务在用</b><span>'+esc(biz)+'</span></div>':'')
+   +(u.addr?'<div class="bc-line"><b>地址</b><span>'+esc(u.addr)+'</span></div>':'')
+   +'<div class="bc-line"><b>在跟商机</b><span>'+u.opp+' 个</span></div>'
+   +(u.ops&&u.ops.length?'<div class="bc-ops">'+u.ops.map(function(p){return '<span><i'+(p.key?' class="k"':'')+'>'+(p.key?'★ ':'')+esc(p.t)+'</i><b>'+esc(p.amt||'')+'</b></span>';}).join('')+'</div>':'')
+   +'<div class="bc-line"><b>已签约</b><span>'+u.sgn+' 个</span></div>'
+   +'<div class="bc-memo"><i>最近跟进</i>'+(u.memo?esc(u.memo):'暂无记录，拜访后记一条')+'</div>'
+   +'<div class="bc-acts"><a href="u-'+u.i+'">打开完整卡片</a>'
+   +(u.addr?'<a class="gh" href="https://uri.amap.com/search?keyword='+encodeURIComponent('苏州 '+u.addr)+'" target="_blank" rel="noopener">导航</a>':'')
+   +'</div></div>';
+  return h;
+}
+
+var KV_UNITS=[],KV_SEL=-1;
+DATA.forEach(function(u,i){
+  var pn=0;(u.depts||[]).forEach(function(d){pn+=d.people.length;});
+  var hr=(u.hr&&u.hr.people)||[];
+  var proj=(u.projects||[]).filter(function(p){return p.st==='opp';}).length;
+  if(!hr.length&&!pn&&!proj)return;
+  KV_UNITS.push({i:i,name:u.short||u.title,title:u.title,hr:hr.slice(0,3),pn:pn,proj:proj,depts:(u.depts||[]).map(function(d){return d.dept;})});
+});
+KV_UNITS.sort(function(a,b){return (b.proj*3+b.pn)-(a.proj*3+a.pn);});
+function kvMap(){
+  var us=KV_UNITS.slice(0,12),W=380,H=392,cx=190,cy=196,Rr=142;
+  var svg='<svg viewBox="0 0 '+W+' '+H+'">';
+  us.forEach(function(u,k){var ang=-Math.PI/2+k*2*Math.PI/us.length;u.x=cx+Math.cos(ang)*Rr;u.y=cy+Math.sin(ang)*Rr;
+    svg+='<line x1="'+cx+'" y1="'+cy+'" x2="'+u.x.toFixed(1)+'" y2="'+u.y.toFixed(1)+'" stroke="#dfe7ef" stroke-width="1.2"/>';});
+  svg+='<circle cx="'+cx+'" cy="'+cy+'" r="26" fill="#123a5e"/><text x="'+cx+'" y="'+(cy+5)+'" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">我</text>';
+  us.forEach(function(u,k){
+    var r=Math.min(24,13+u.proj*1.3);
+    svg+='<g class="gnode" data-k="'+k+'" style="cursor:pointer">';
+    svg+='<circle cx="'+u.x.toFixed(1)+'" cy="'+u.y.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="#eaf2f8" stroke="#3d7ea6" stroke-width="1.3"/>';
+    svg+='<text x="'+u.x.toFixed(1)+'" y="'+(u.y+3.2).toFixed(1)+'" text-anchor="middle" font-size="9.5" font-weight="600" fill="#123a5e">'+esc(u.name.slice(0,3))+'</text>';
+    svg+='<text x="'+u.x.toFixed(1)+'" y="'+(u.y+r+10).toFixed(1)+'" text-anchor="middle" font-size="7.5" fill="#75859a">'+u.proj+' 商机</text>';
+    svg+='</g>';
+  });
+  svg+='</svg>';
+  var h='<div class="gwrap">'+svg+'<div class="gleg">● 圈越大 = 在跟商机越多 · 共 '+KV_UNITS.length+' 个客户单位（显示前 12 个）</div></div>';
+  var u=KV_SEL>=0?us[KV_SEL]:null;
+  h+='<div class="gpanel"><h4>'+(u?esc(u.title):'点一个单位看关系')+'</h4><div class="gs">'+(u?(u.pn+' 位对接人 · '+u.proj+' 个在跟商机'):'中心是你，外围是客户单位，点开看一把手与对接部门')+'</div>';
+  if(u){
+    h+='<div class="gr"><b>一把手</b><span>'+esc(u.hr.length?u.hr.map(function(x){return x.name+(x.rl?'（'+x.rl+'）':'');}).join('、'):'—')+'</span></div>'
+     +'<div class="gr"><b>部门</b><span>'+esc(u.depts.length?u.depts.join(' / '):'—')+'</span></div>'
+     +'<div class="gr"><b>入口</b><span><a href="u-'+u.i+'" style="color:#0f766e">打开完整卡片 ›</a></span></div>';
+  }
+  h+='</div>';
+  return h;
+}
+
+var KV_TABS={week:1,biz:1,card:1,map:1};
+function kvRender(t){
+  var p=document.getElementById('panel');
+  if(t==='week')p.innerHTML=kvWeek();
+  else if(t==='biz')p.innerHTML=kvBiz();
+  else if(t==='card')p.innerHTML=kvCard();
+  else if(t==='map')p.innerHTML=kvMap();
+}
+function kvSet(t){
+  var on=!!KV_TABS[t];
+  document.body.classList.toggle('tab',on);
+  Array.prototype.forEach.call(document.querySelectorAll('#tabbar button'),function(b){b.classList.toggle('on',b.getAttribute('data-t')===t);});
+  if(on){kvRender(t);window.scrollTo(0,0);}
+}
+document.getElementById('tabbar').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  var t=b.getAttribute('data-t');
+  location.hash=(t==='quick'?'':t);
+  if(!location.hash)kvSet('quick');
+});
+document.getElementById('panel').addEventListener('click',function(e){
+  var bm=e.target.closest('[data-bm]');
+  if(bm){KV_BIZMODE=bm.getAttribute('data-bm');kvRender('biz');return;}
+  var c=e.target.closest('[data-c]');
+  if(c){KV_CUR=+c.getAttribute('data-c');kvRender('card');return;}
+  var g=e.target.closest('.gnode');
+  if(g){KV_SEL=+g.getAttribute('data-k');
+    Array.prototype.forEach.call(document.querySelectorAll('.gnode'),function(n){n.style.opacity=(n===g?'1':'.5');});
+    kvRender('map');return;}
+});
+window.addEventListener('hashchange',function(){
+  var t=location.hash.replace('#','');
+  kvSet(KV_TABS[t]?t:'quick');
+});
+(function(){var t=location.hash.replace('#','');kvSet(KV_TABS[t]?t:'quick');})();
+
 </script>
 </body>
 </html>
