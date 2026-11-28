@@ -122,6 +122,8 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
 .phr-item::-webkit-scrollbar{display:none}
 .phr-item b{color:#0e5a8a;background:#e8f4fb;border:1px solid #c9e7f7;padding:1px 7px;border-radius:6px;margin-right:6px;font-size:11px;white-space:nowrap}
 .phr-item:first-child{margin-top:0}
+.nav3{display:flex;gap:6px;margin-top:10px}
+.nav3 .hr-link{flex:1 1 0;min-width:0;margin:0;text-align:center;font-size:11px;padding:5px 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hr-link{position:relative;z-index:1;display:inline-block;margin:12px 6px 0 0;font-size:11.5px;color:#d9e8f7;background:rgba(255,255,255,.13);padding:5px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.2);text-decoration:none}
 @media(max-width:560px){
   .people{grid-template-columns:1fr}
@@ -145,9 +147,11 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
     <div class="stat"><b id="s-hr">-</b><span>领导班子</span></div>
     <div class="stat"><b id="s-proj">-</b><span>ICT项目</span></div>
   </div>
-  <a class="hr-link" href="https://suzhou-renshi.github.io/suzhou-renshi/" target="_self">🏛 人事看板 →</a>
-  <a class="hr-link" href="biji.html" target="_self">📘 笔记看板 →</a>
-  <a class="hr-link" href="riji.html" target="_self">📖 日记看板 →</a>
+  <div class="nav3">
+  <a class="hr-link" href="https://suzhou-renshi.github.io/suzhou-renshi/" target="_self">🏛 人事看板</a>
+  <a class="hr-link" href="biji.html" target="_self">📘 笔记看板</a>
+  <a class="hr-link" href="riji.html" target="_self">📖 日记看板</a>
+  </div>
 </header>
 <details class="phr">
   <summary>📌 常用短语速查 · 怎么让我记录</summary>
