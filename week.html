@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>✅ 周行动</title>
+<style>
+:root{--bg:#f3f5f8;--card:#fff;--text:#1e2b3a;--sub:#75859a;--line:#e3e8ef;--pri:#123a5e;--acc:#0f766e;--hl:#b45309;--hlbg:#fff8ec;--shadow:0 1px 3px rgba(16,36,56,.07)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--text)}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding-bottom:calc(40px + env(safe-area-inset-bottom));-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:30;background:linear-gradient(150deg,#1c3450,#0e2438);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;box-shadow:0 2px 10px rgba(10,25,40,.22)}
+header h1{font-size:17px;font-weight:800;letter-spacing:.4px}
+header .sub{font-size:11px;color:#a9c3dc;margin-top:3px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;padding:9px 0 1px}
+.nav a{flex:0 0 auto;font-size:11.5px;color:#dcebf9;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:5px 11px;border-radius:13px}
+.nav a.on{background:#fff;color:#12304b;font-weight:700;border-color:#fff}
+main{padding:12px 12px 0;max-width:760px;margin:0 auto}
+.kpis{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.kpi{flex:1 1 calc(50% - 5px);min-width:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)}
+.kpi b{display:block;font-size:19px;color:var(--pri);line-height:1.3;white-space:nowrap}
+.kpi span{font-size:10.5px;color:var(--sub)}
+.sec{margin-bottom:16px}
+.sec h2{font-size:12.5px;color:var(--pri);display:flex;align-items:center;gap:8px;padding:4px 2px 8px}
+.sec h2::before{content:"";width:3px;height:13px;background:var(--acc);border-radius:2px}
+.sec h2 span{margin-left:auto;font-size:10.5px;color:var(--sub);font-weight:400}
+.card{display:block;background:var(--card);border-radius:12px;padding:11px 13px;margin-bottom:8px;box-shadow:var(--shadow);border-left:3px solid transparent}
+.card.hl{border-left-color:var(--hl);background:var(--hlbg)}
+.card .t{font-size:14px;font-weight:600;line-height:1.45}
+.card .u{font-size:11px;color:var(--acc);font-weight:600;margin-bottom:2px}
+.card .m{font-size:12px;color:#5c6d80;margin-top:5px;line-height:1.65}
+.card .row{display:flex;gap:8px;align-items:baseline;margin-top:4px}
+.card .amt{font-size:12px;color:var(--hl);font-weight:700}
+.card .d{font-size:10.5px;color:#a3b1c0;margin-left:auto}
+.empty{text-align:center;color:var(--sub);font-size:12.5px;padding:30px 0}
+.foot{text-align:center;font-size:10.5px;color:var(--sub);padding:16px 10px 4px;line-height:1.9}
+</style>
+</head>
+<body>
+<header><h1>✅ 周行动</h1><div class="sub">本周要动的事 · 自动汇总常记看板的商机进展</div><div class="nav"><a href="changji.html">📇 常记</a><a href="biji.html">📘 笔记</a><a href="https://suzhou-renshi.github.io/suzhou-renshi/">🏛 人事</a><a href="riji.html">📖 日记</a><a href="week.html" class="on">✅ 周行动</a><a href="biz.html">💰 商机大盘</a><a href="card.html">🪪 速查卡</a><a href="map.html">🕸 关系图</a></div></header>
+<main id="view"><div id="view"></div></main>
+<div class="foot">数据来源：常记看板（只读汇总）· 内部资料 请勿外传</div>
+<script src="kv_data.js"></script>
+<script>var DATA=KV_DATA;
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function amt(s){var m=/([\d.]+)/.exec(s||'');return m?parseFloat(m[1]):0;}
+function fmt(a){return (Math.round(a*10)/10)+' 万';}
+function lastD(p){var a=[];(p.logs||[]).forEach(function(x){if(x.d)a.push(x.d);});(p.memo||[]).forEach(function(x){if(x.d)a.push(x.d);});a.sort();return a.length?a[a.length-1]:'';}
+function ago(d){if(!d)return 999;var t=new Date(String(d).replace(/[./]/g,'-')+'T00:00:00');if(isNaN(t))return 999;return Math.floor((Date.now()-t.getTime())/86400000);}
+var today=new Date();
+var wd='日一二三四五六'[today.getDay()];
+var ymd=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+
+var all=[];
+DATA.forEach(function(u,i){
+  (u.projects||[]).forEach(function(p,j){
+    if(p.st!=='opp')return;
+    all.push({u:u,t:p.t,amt:p.amt,a:amt(p.amt),key:p.key,last:lastD(p),ag:ago(lastD(p)),memo:(p.memo&&p.memo[0])||null,log:(p.logs&&p.logs[0])||null,anchor:'changji.html#p-'+i+'-'+j});
+  });
+});
+var week=all.filter(function(x){return x.ag<=7;}).sort(function(a,b){return a.ag-b.ag;});
+var stale=all.filter(function(x){return x.ag>14;}).sort(function(a,b){return b.ag-a.ag;});
+var keys=all.filter(function(x){return x.key;}).sort(function(a,b){return b.a-a.a;});
+var h='';
+h+='<div class="kpis"><div class="kpi"><b>'+week.length+'</b><span>本周有进展</span></div>'
+ +'<div class="kpi"><b>'+all.length+'</b><span>在跟商机</span></div>'
+ +'<div class="kpi"><b>'+stale.length+'</b><span>待启动</span></div></div>';
+
+h+='<div class="sec"><h2>本周有进展 <span>近 7 天 · '+ymd+' 周'+wd+'</span></h2>';
+if(!week.length){h+='<div class="empty">本周还没有新增备忘，去常记看板记一条吧</div>';}
+week.forEach(function(x){
+  h+='<a class="card" href="'+x.anchor+'"><div class="u">'+esc(x.u.short||x.u.title)+'</div><div class="t">'+esc(x.t)+'</div>'
+   +'<div class="row"><span class="amt">'+esc(x.amt||'—')+'</span><span class="d">'+(x.last?x.last+' · '+x.ag+'天前':'无日期')+'</span></div>'
+   +(x.memo?'<div class="m">📅 '+esc(x.memo.t)+'</div>':(x.log?'<div class="m">'+esc(x.log.t)+'</div>':''))+'</a>';
+});
+h+='</div>';
+
+h+='<div class="sec"><h2>重点商机 · 该动一动了 <span>★ 重点 · 超 14 天无进展</span></h2>';
+if(!stale.length){h+='<div class="empty">重点商机都在推进，保持</div>';}
+stale.slice(0,20).forEach(function(x){
+  h+='<a class="card hl" href="'+x.anchor+'"><div class="u">'+esc(x.u.short||x.u.title)+'</div><div class="t">★ '+esc(x.t)+'</div>'
+   +'<div class="row"><span class="amt">'+esc(x.amt||'—')+'</span><span class="d">'+(x.last?x.last+' · '+x.ag+' 天未动':'从未记录进展')+'</span></div></a>';
+});
+h+='</div>';
+
+h+='<div class="sec"><h2>全部 ★ 重点 <span>'+keys.length+' 个 · 按金额</span></h2>';
+keys.forEach(function(x){
+  h+='<a class="card" href="'+x.anchor+'"><div class="t">'+esc(x.t)+'</div><div class="row"><span class="u" style="margin:0">'+esc(x.u.short||x.u.title)+'</span><span class="amt">'+esc(x.amt||'—')+'</span><span class="d">'+(x.last?x.last:'—')+'</span></div></a>';
+});
+h+='</div>';
+document.getElementById('view').innerHTML=h;
+</script>
+</body>
+</html>
