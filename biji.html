@@ -28,7 +28,7 @@ main{padding:8px 12px}
 .note h3{font-size:13px;color:var(--text);margin-bottom:4px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
 .note h3 .d{font-size:10px;color:var(--text2);font-weight:400}
 .note .body{font-size:12px;color:var(--text);white-space:pre-wrap;word-break:break-word}
-.note .body b{color:var(--accent)}
+.note .body a{color:var(--accent);word-break:break-all}
 .note.hl{border-left-color:#d97706;background:#fffbf2}
 .note.hl .body{color:#7c4a03}
 footer{text-align:center;font-size:10px;color:#9fb0c0;padding:18px 0 8px}
@@ -67,8 +67,17 @@ var NOTES=[
 "三、参考：电信展厅的互动形式（地屏联动、点选藏品弹出详情）可资借鉴\n\n"+
 "四、周期与预算：先出方案、经 2-3 轮调整后落地，预计明年 6·18 前后呈现；时间与预算待定；两侧墙更换，主屏两块保留但内容改可联动版；展厅数字化或打包为信息化项目推进。\n\n（商机精要版已挂常记看板「言子书院展厅数字展陈」备忘）"},
 
- {cat:"心得", title:"TeleAgent 实战用法速记", d:"2026-11-27", hl:false, body:
-"高频动作已固化成短语，照着说即可：\n· 「更新腾讯文档」——抓在线表格商机同步到看板（注意只抓到筛选后的可见区，需与存量合并防丢）\n· 「商机备忘-单位-商机-内容」——商机下挂青色 📅 备忘行，记拜访/进展\n· 「联想」——给人加紫色 💡 助记标签，只加不改名字\n· 「业务在用」——报数量或月消费，收入一律按月、保留 1 位小数\n· 截图/照片直接发——头像裁剪、楼层牌识别、地址加高德导航链接\n· docx 直接发——能读表格数据提炼上板（如广电业务表）\n· 录音文件可发——本地 Whisper 转写（耗时约为时长的一半，50 分钟音频约 70 分钟）\n· 客户反馈：交流演示不要有推销感，站在多年合作方角度\"出建议\"；对方自己会提需求，先听后讲"},
+ {cat:"TeleAgent", title:"常用入口（链接 · 持续补充）", d:"2026-11-28", hl:true, body:
+"🌐 Web 入口：http://114.218.158.70:29450/ （TeleAgent 私有部署入口，内网/白名单访问）\n手机建议添加到主屏幕当作 App 用；后续有用得顺手的入口继续补在这里"},
+
+ {cat:"TeleAgent", title:"用法 · 实战速记", d:"2026-11-27", hl:false, body:
+"高频动作已固化成短语，照着说即可：\n· 「更新腾讯文档」——抓在线表格商机同步到看板（注意只抓到筛选后的可见区，需与存量合并防丢）\n· 「商机备忘-单位-商机-内容」——商机下挂青色 📅 备忘行，记拜访/进展\n· 「联想」——给人加紫色 💡 助记标签，只加不改名字\n· 「笔记-分类-标题-内容」——记工作心得到笔记看板\n· 「业务在用」——报数量或月消费，收入一律按月、保留 1 位小数\n· 截图/照片直接发——头像裁剪、楼层牌识别、地址加高德导航链接\n· docx 直接发——能读表格数据提炼上板（如广电业务表）\n· 录音文件可发——本地 Whisper 转写（耗时约为时长的一半，50 分钟音频约 70 分钟）"},
+
+ {cat:"TeleAgent", title:"理解 · 智能体自用版", d:"2026-11-27", hl:false, body:
+"· 智能体 ≠ 聊天机器人：差别在能调工具（浏览器、剪贴板、本机文件、后台任务），把\"说\"变成\"做\"\n· 最有价值的用法：把重复劳动固化成短语与记忆（常记看板高频短语就是例子），用一次沉淀一次\n· 边界要清楚：涉密不上网、私有数据本地处理（录音转写全程本地是底线）、金额数据口径唯一（业务在用按月）\n· 人永远把关：AI 给的是草稿和提醒，名字、职务、金额要自己扫一眼——已有过听音记错人名的教训（吴总→吴中）"},
+
+ {cat:"TeleAgent", title:"实用心得 · 客户交流篇", d:"2026-11-27", hl:false, body:
+"· 演示不要有推销感，站在多年合作方角度\"出建议出设想\"，对方自己会提需求，先听后讲\n· 客户提一条需求就沉淀一条到备忘/笔记，下次见面直接接上次话头，体验感拉满\n· 会前准备：把商机备忘和人员信息过一遍（看板搜索目标客户名即可），现场能叫出对接人名字最加分"},
 
  {cat:"对接", title:"泛微 OA 对接思路（框架 · 待实战补充）", d:"2026-11-27", hl:true, body:
 "在跟案例：名城「OA 国泰新点改泛微」（110 万商机，泛微已汇报、AI 部分基本从电信过，12 月底上线目标，防国泰冲标）；国投「泛微 OA 升级」28 万已签约；国投产投私募 9 万签约推动中。\n\n"+
@@ -79,12 +88,10 @@ var NOTES=[
 "行业分类习惯：国资平台 / 文旅文投 / 民政医养 / 教育学校 / 传媒广电 / 金融国发 —— 每类客户的切入话术与案例可挂在各客户备忘里持续沉淀"},
 
  {cat:"输出", title:"智能体输出形式怎么选", d:"2026-11-27", hl:false, body:
-"日常口头/对话能解决的最快；需要落盘交付时按场景选：\n· Word（docx）——正式报告、合同条款、给领导汇报的书面材料\n· PDF——排版要求高、防止对方改动的定稿（本机 Word/WPS 转 PDF 流程已跑通）\n· HTML 网页——看板类（常记/人事/日记都是），手机可查、随时更新\n· 表格 xlsx——清单、台账、商机统计\n· 图片/PPT——汇报演示、头像裁剪、信息图\n经验：同一份内容优先「数据 + 网页」长期维护，Word/PDF 只在交付时刻导出，避免双头维护"},
+"日常口头/对话能解决的最快；需要落盘交付时按场景选：\n· Word（docx）——正式报告、合同条款、给领导汇报的书面材料\n· PDF——排版要求高、防止对方改动的定稿（本机 Word/WPS 转 PDF 流程已跑通）\n· HTML 网页——看板类（常记/人事/日记/笔记都是），手机可查、随时更新\n· 表格 xlsx——清单、台账、商机统计\n· 图片/PPT——汇报演示、头像裁剪、信息图\n经验：同一份内容优先「数据 + 网页」长期维护，Word/PDF 只在交付时刻导出，避免双头维护"},
 
- {cat:"智能体", title:"对智能体的理解（自用版）", d:"2026-11-27", hl:false, body:
-"· 智能体 ≠ 聊天机器人：差别在能调工具（浏览器、剪贴板、本机文件、后台任务），把\"说\"变成\"做\"\n· 最有价值的用法：把重复劳动固化成短语与记忆（本页 + 常记看板的高频短语就是例子），用一次沉淀一次\n· 边界要清楚：涉密不上网、私有数据本地处理（录音转写全程本地是底线）、金额数据口径唯一（业务在用按月）\n· 人永远把关：AI 给的是草稿和提醒，名字、职务、金额要自己扫一眼——已有过听音记错人名的教训（吴总→吴中）"}
-];
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function linkify(h){return h.replace(/(https?):\/\/([^\s<]+)/i,function(m,p,rest){return '<a href="'+p+'://'+rest+'" target="_blank" rel="noopener">'+p+'://'+rest+'</a>';});}
 function hi(t,q){if(!q)return esc(t);var i=t.toLowerCase().indexOf(q.toLowerCase());if(i<0)return esc(t);return esc(t.slice(0,i))+'<mark>'+esc(t.slice(i,i+q.length))+'</mark>'+esc(t.slice(i+q.length));}
 function render(){
   var q=(document.getElementById('q').value||'').trim();
@@ -97,11 +104,11 @@ function render(){
     (cats[n.cat]=cats[n.cat]||[]).push(n);
   });
   var h='';
-  var order=["纪要","心得","对接","场景","输出","智能体"];
+  var order=["纪要","TeleAgent","对接","场景","输出"];
   Object.keys(cats).sort(function(a,b){var ia=order.indexOf(a),ib=order.indexOf(b);return (ia<0?99:ia)-(ib<0?99:ib);}).forEach(function(c){
     h+='<div class="cat"><div class="cat-title">'+hi(c,q)+' <span class="n">'+cats[c].length+' 条</span></div>';
     cats[c].forEach(function(n){
-      h+='<div class="note'+(n.hl?' hl':'')+'"><h3>📘 '+hi(n.title,q)+' <span class="d">'+esc(n.d)+'</span></h3><div class="body">'+hi(n.body,q)+'</div></div>';
+      h+='<div class="note'+(n.hl?' hl':'')+'"><h3>'+(n.cat==='TeleAgent'?'🤖':'📘')+' '+hi(n.title,q)+' <span class="d">'+esc(n.d)+'</span></h3><div class="body">'+linkify(hi(n.body,q))+'</div></div>';
     });
     h+='</div>';
   });
