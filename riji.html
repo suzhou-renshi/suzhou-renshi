@@ -686,5 +686,7 @@ renderMinimal();
   s.addEventListener("click",function(e){ if(e.target.closest("a")) close(); });
 })();
 </script>
+
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(function(){});}</script>
 </body>
 </html>
