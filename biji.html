@@ -393,5 +393,7 @@ document.getElementById("dtree").addEventListener("click",function(e){
 window.addEventListener("hashchange",route);
 route();
 </script>
+
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(function(){});}</script>
 </body>
 </html>
