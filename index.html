@@ -42,6 +42,8 @@
   .stats{display:flex;gap:14px;margin-top:14px;position:relative;z-index:1}
   .stat b{font-size:20px;color:var(--gold-soft);font-weight:800}
   .stat span{font-size:11px;color:#c9d6e2;display:block}
+  .nav3{display:flex;gap:6px;margin-top:12px}
+  .nav3 .linkback{flex:1 1 0;min-width:0;margin:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:5px 4px}
   .linkback{position:relative;z-index:1;display:inline-block;margin:12px 6px 0 0;font-size:11.5px;color:#c9d6e2;
     background:rgba(255,255,255,.12);padding:5px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.18);text-decoration:none}
   .phr{margin:2px 0 0;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
@@ -165,9 +167,11 @@
       <div class="stat"><b id="s-dist">-</b><span>区县政府</span></div>
       <div class="stat"><b id="s-soe">-</b><span>市属国资</span></div>
     </div>
-    <a class="linkback" href="./changji.html">📇 常记 →</a>
-    <a class="linkback" href="./biji.html">📘 笔记 →</a>
-    <a class="linkback" href="./riji.html">📖 日记 →</a>
+    <div class="nav3">
+    <a class="linkback" href="./changji.html">📇 常记</a>
+    <a class="linkback" href="./biji.html">📘 笔记</a>
+    <a class="linkback" href="./riji.html">📖 日记</a>
+    </div>
   </header>
 
   <details class="phr" style="margin-top:10px"><summary>📌 常用短语速查 · 怎么让我记录</summary>
