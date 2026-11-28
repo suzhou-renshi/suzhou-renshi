@@ -263,7 +263,7 @@
     var gender = (p.g && p.g!=='—') ? p.g : '—';
     var ageStr = ageOf(p.b);
     var html = '<div class="card" data-s="'+esc(searchText(p,extra))+'">'
-      + '<div class="row-top"><div class="avatar">'+(p.img?('<img src="'+esc(p.img)+'" alt="">'):esc((p.n||'?').charAt(0)))+'</div>'
+      + '<div class="row-top"><div class="avatar">'+(p.img?('<img loading="lazy" src="'+esc(p.img)+'" alt="">'):esc((p.n||'?').charAt(0)))+'</div>'
       + '<div class="who"><div class="name">'+esc(p.n)
       + (p.lv?' <span class="lvl '+lvlClass(p.lv)+'">'+esc(p.lv)+'</span>':'')+'</div>'
       + '<div class="post">'+esc(p.t)+'</div></div></div>'
@@ -390,5 +390,7 @@
 
 })();
 </script>
+
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(function(){});}</script>
 </body>
 </html>
