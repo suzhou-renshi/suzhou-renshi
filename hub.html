@@ -162,10 +162,10 @@ if(typeof SCHED!=='undefined'&&SCHED&&SCHED.length){
   var upto=SCHED.filter(function(x){return x.d>=TODAY;});
   var show=upto.slice(0,5);
   var h='',total=0;
-  show.forEach(function(dy){
+  show.forEach(function(dy,k){
     total+=dy.items.length;
     var isT=dy.d===TODAY,isTm=show.length>1&&show[1]&&dy.d===show[1].d;
-    h+='<div class="dayt'+(isT?' tom':'')+'"><span class="w">'+esc(('周'+dy.w))+'</span><b>'+dy.d.slice(5).replace('-','/')+(isT?' · 今天':(isTm?' · 明天':''))+'</b>'
+    h+='<div class="dayt'+(isT?' tom':'')+'"><span class="w">'+esc(('周'+dy.w))+'</span><b>'+dy.d.slice(5).replace('-','/')+(isT?' · 今天':(isTm?' · 明天':(k===2?' · 后天':'')))+'</b>'
      +'<span class="tail">'+dy.items.length+' 项</span></div>';
     dy.items.forEach(function(t){
       h+='<div class="task'+(isT?' hit':'')+'"><span class="cb"></span><span class="tx">'+esc(t)+'</span></div>';
