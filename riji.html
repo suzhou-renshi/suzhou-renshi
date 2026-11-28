@@ -169,9 +169,54 @@
     opacity:0;pointer-events:none;transition:.3s;z-index:30;}
   #toTop.show{opacity:1;pointer-events:auto;}
   .hidden{display:none !important;}
+
+  /* ===== 右上角菜单（其他看板 / 本页导航） ===== */
+  #menuBtn{position:fixed;right:12px;top:calc(10px + env(safe-area-inset-top));z-index:46;width:42px;height:42px;
+    border:none;border-radius:13px;background:linear-gradient(135deg,#3c5a78,#22384f);color:#fff;font-size:19px;
+    line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(34,56,79,.35);
+    font-family:inherit;cursor:pointer;opacity:.95}
+  #menuBtn:active{transform:scale(.95)}
+  #dimMask{position:fixed;inset:0;background:rgba(30,38,48,.42);opacity:0;pointer-events:none;transition:opacity .2s;z-index:47}
+  #dimMask.on{opacity:1;pointer-events:auto}
+  #side{position:fixed;top:0;right:0;bottom:0;width:82%;max-width:340px;z-index:48;background:#fbfaf6;
+    transform:translateX(103%);transition:transform .24s ease;display:flex;flex-direction:column;
+    box-shadow:-8px 0 28px rgba(30,38,48,.22);border-left:1px solid var(--line)}
+  #side.on{transform:none}
+  #side .sh{padding:calc(18px + env(safe-area-inset-top)) 18px 12px;border-bottom:1px solid var(--line);
+    font-size:14px;font-weight:800;color:var(--brand);letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+  #side .sc{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:8px 12px 22px}
+  #side .gl{font-size:10.5px;letter-spacing:1.5px;color:var(--sub);font-weight:700;padding:14px 8px 7px}
+  #side a.si{display:flex;align-items:center;gap:11px;padding:12px 12px;border-radius:11px;text-decoration:none;
+    color:var(--ink);font-size:14px;line-height:1.35;background:#fff;border:1px solid var(--line);margin-bottom:7px}
+  #side a.si:active{background:#f1eee7}
+  #side a.si .ic{flex:0 0 auto;width:26px;text-align:center;font-size:15px}
+  #side a.si .tx{flex:1}
+  #side a.si .ar{color:#b9c2ce;font-size:13px}
+  #side .sf{padding:10px 14px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);
+    font-size:11px;color:var(--sub);text-align:center;line-height:1.7}
 </style>
 </head>
 <body>
+
+<button id="menuBtn" aria-label="菜单">☰</button>
+<div id="dimMask"></div>
+<aside id="side">
+  <div class="sh">📔 我的日记本</div>
+  <div class="sc">
+    <div class="gl">跳转其他看板</div>
+    <a class="si" href="changji.html"><span class="ic">📇</span><span class="tx">常记看板</span><span class="ar">›</span></a>
+    <a class="si" href="https://suzhou-renshi.github.io/suzhou-renshi/"><span class="ic">🏛</span><span class="tx">人事看板</span><span class="ar">›</span></a>
+    <a class="si" href="biji.html"><span class="ic">📘</span><span class="tx">笔记看板</span><span class="ar">›</span></a>
+    <div class="gl">本页导航</div>
+    <a class="si" href="#days"><span class="ic">📖</span><span class="tx">日记</span><span class="ar">›</span></a>
+    <a class="si" href="#summary"><span class="ic">🧭</span><span class="tx">心得总结</span><span class="ar">›</span></a>
+    <a class="si" href="#remind"><span class="ic">💬</span><span class="tx">给自己的实在话</span><span class="ar">›</span></a>
+    <a class="si" href="#sleep"><span class="ic">🌙</span><span class="tx">作息</span><span class="ar">›</span></a>
+    <a class="si" href="#minimal"><span class="ic">▫️</span><span class="tx">极简主义</span><span class="ar">›</span></a>
+    <a class="si" href="#food"><span class="ic">🍲</span><span class="tx">餐厅档案</span><span class="ar">›</span></a>
+  </div>
+  <div class="sf">顶部按钮和这里都能跳转，两边都保留</div>
+</aside>
 <div class="wrap">
   <header class="top">
     <div class="brand">DAILY JOURNAL</div>
@@ -594,6 +639,16 @@ function renderMinimal(){
     `<div class="mrow"><span class="mdot"></span><span class="mt">${esc(m.text)}</span></div>`).join("");
 }
 renderMinimal();
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById("menuBtn"),d=document.getElementById("dimMask"),s=document.getElementById("side");
+  function open(){s.classList.add("on");d.classList.add("on");}
+  function close(){s.classList.remove("on");d.classList.remove("on");}
+  b.onclick=open; d.onclick=close;
+  s.addEventListener("click",function(e){ if(e.target.closest("a")) close(); });
+})();
 </script>
 </body>
 </html>
