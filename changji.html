@@ -570,7 +570,7 @@ function kvWeek(){
   h+='</div><div class="blk"><h3>重点商机 · 该动一动了 <em>'+stale.length+' 个待催 · ★ 且超 14 天无进展</em></h3>';
   if(!stale.length)h+='<div style="color:#999;font-size:12px;padding:10px 0">重点商机都在推进</div>';
   stale.slice(0,20).forEach(function(x){
-    h+='<a class="rc urgent" href="'+x.anchor+'"><div class="ru">'+esc(x.uName)+'</div><div class="rt">★ '+esc(x.t)+'<span class="warn">⏰ '+(x.last?x.ag+' 天未动':'待首次跟进')+'</span></div>'
+    h+='<a class="rc urgent" href="'+x.anchor+'"><div class="ru">'+esc(x.uName)+'</div><div class="rt">★ '+esc(x.t)+'<span class="warn">⏰ '+(x.last?('停滞 '+x.ag+' 天'):'无进展记录')+'</span></div>'
      +'<div class="rr"><span class="ra">'+esc(x.amt||'—')+'</span><span class="rd">'+(x.last?x.last:'—')+'</span></div></a>';
   });
   h+='</div><div class="blk"><h3>全部 ★ 重点 <em>'+keys.length+' 个 · 按金额</em></h3>';
