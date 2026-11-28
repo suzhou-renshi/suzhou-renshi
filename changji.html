@@ -559,7 +559,7 @@ function kvWeek(){
   var h='<div class="band"><div class="box"><b>'+week.length+'</b><span>本周有进展</span></div>'
    +'<div class="box"><b>'+KV_OPP.length+'</b><span>在跟</span></div>'
    +'<div class="box alert"><b>'+stale.length+'</b><span>待启动</span></div>'
-   +'<div class="box"><b>'+keys.length+'</b><span>★重点</span></div></div>';
+   +'<div class="box"><b>'+keys.length+'</b><span>重点</span></div></div>';
   h+='<div class="blk"><h3>本周有进展 <em>'+ymd+' · 近 7 天</em></h3>';
   if(!week.length)h+='<div style="color:#999;font-size:12px;padding:10px 0">本周还没有新备忘，去速查里记一条</div>';
   week.forEach(function(x){
@@ -589,7 +589,7 @@ function kvBiz(){
   var arr=Object.keys(by).map(function(k){return {k:k,n:by[k].n,a:by[k].a};}).sort(function(a,b){return b.a-a.a;}).slice(0,9);
   var maxA=Math.max.apply(null,arr.map(function(x){return x.a;}))||1;
   var h='<div class="band"><div class="box"><b>'+KV_OPP.length+'</b><span>在跟</span></div>'
-   +'<div class="box"><b>'+KV_OPP.filter(function(x){return x.key;}).length+'</b><span>★重点</span></div>'
+   +'<div class="box"><b>'+KV_OPP.filter(function(x){return x.key;}).length+'</b><span>重点</span></div>'
    +'<div class="box"><b>'+(Math.round(total*10)/10)+'</b><span>合计万</span></div>'
    +'<div class="box"><b>'+KV_SIGNED.length+'</b><span>已签</span></div></div>';
   h+='<div class="blk"><h3>单位分布 <em>按在跟金额</em></h3>';
