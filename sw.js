@@ -4,7 +4,7 @@
 */
 var CACHE = 'renshi-cache-v1';
 var BASE = new URL('./', self.registration.scope).pathname;
-var CORE = [BASE, BASE + 'index.html', BASE + 'data.js', BASE + 'changji.html', BASE + 'biji.html', BASE + 'riji.html'];
+var CORE = [BASE, BASE + 'index.html', BASE + 'data.js', BASE + 'changji.html', BASE + 'biji.html', BASE + 'riji.html', BASE + 'hub.html'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
