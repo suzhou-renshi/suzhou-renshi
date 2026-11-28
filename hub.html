@@ -2,86 +2,192 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>工作看板中心 · 苏州电信</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#123a5e">
+<title>客户经理工作台</title>
 <style>
-  :root{
-    --bg:#eef2f9; --card:#ffffff; --ink:#1f2937; --sub:#6b7280; --line:#e6eaf1;
-    --brand:#3b5bdb; --brand2:#5c7cfa; --shadow:0 10px 30px rgba(31,41,55,.09);
-  }
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  body{margin:0;min-height:100vh;
-    background:radial-gradient(1200px 500px at 50% -10%,#dfe7fb 0%,transparent 60%),linear-gradient(180deg,#eef2f9,#f6f8fc);
-    color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-    line-height:1.65;}
-  .wrap{max-width:880px;margin:0 auto;padding:48px 18px 60px;}
-  .kicker{font-size:12px;letter-spacing:3px;color:var(--brand);font-weight:800;text-transform:uppercase;}
-  h1{margin:8px 0 4px;font-size:30px;font-weight:800;letter-spacing:1px;}
-  .lead{color:var(--sub);font-size:14px;margin:0 0 34px;}
-
-  .main-card{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:34px 30px;margin-bottom:20px;
-    background:linear-gradient(135deg,#3b5bdb 0%,#5c7cfa 55%,#7a9bff 100%);
-    box-shadow:0 18px 40px rgba(59,91,219,.32);position:relative;overflow:hidden;transition:.25s;}
-  .main-card:hover{transform:translateY(-3px);box-shadow:0 24px 50px rgba(59,91,219,.4);}
-  .main-card::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;
-    background:radial-gradient(circle,rgba(255,255,255,.28),transparent 70%);}
-  .pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1px;
-    background:rgba(255,255,255,.22);padding:4px 12px;border-radius:20px;margin-bottom:14px;}
-  .main-card h2{margin:0 0 8px;font-size:26px;font-weight:800;}
-  .main-card p{margin:0;font-size:14px;color:rgba(255,255,255,.9);max-width:520px;}
-  .main-card .go{margin-top:20px;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;
-    background:#fff;color:var(--brand);padding:10px 20px;border-radius:12px;}
-  .main-card .go::after{content:"→";}
-
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-  .sub-card{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);
-    border-radius:18px;padding:24px 22px;box-shadow:var(--shadow);transition:.22s;position:relative;overflow:hidden;}
-  .sub-card:hover{transform:translateY(-3px);border-color:var(--brand2);}
-  .sub-card .ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
-    font-size:20px;font-weight:800;margin-bottom:14px;}
-  .ic.diary{background:#efeafd;color:#6d43d1;}
-  .ic.gov{background:#e3f6f6;color:#0d8f8f;}
-  .sub-card h3{margin:0 0 6px;font-size:17px;font-weight:800;}
-  .sub-card p{margin:0;font-size:13px;color:var(--sub);}
-  .sub-card .arrow{margin-top:14px;font-size:13px;font-weight:700;color:var(--brand);}
-
-  footer{margin-top:40px;text-align:center;color:#9aa3b2;font-size:12px;}
-  @media(max-width:640px){
-    .wrap{padding:34px 14px 48px;}
-    h1{font-size:25px;} .main-card{padding:26px 22px;} .main-card h2{font-size:22px;}
-    .grid{grid-template-columns:1fr;}
-  }
+:root{--bg:#f2f5f9;--card:#fff;--text:#1e2b3a;--sub:#7b8a9b;--line:#e4e9ef;--pri:#123a5e;--pri2:#1d5280;--acc:#0f766e;--hot:#e2503a;--gold:#c8892f;--shadow:0 2px 10px rgba(16,36,56,.07)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding-bottom:calc(28px + env(safe-area-inset-bottom));-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 12px}
+/* 头部 */
+header{background:linear-gradient(150deg,#1c3a58,#0d2438 70%);color:#fff;padding:calc(16px + env(safe-area-inset-top)) 14px 14px;border-radius:0 0 18px 18px;box-shadow:0 4px 16px rgba(10,25,40,.22)}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hname{font-size:12px;color:#9fc0dc;letter-spacing:1.5px}
+.hdate{font-size:11px;color:#8fb0cc}
+h1{font-size:22px;font-weight:800;letter-spacing:.5px;margin:6px 0 2px}
+.hsub{font-size:11.5px;color:#a9c3dc}
+.hstat{display:flex;gap:6px;margin-top:12px}
+.hstat div{flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 2px 9px}
+.hstat b{display:block;font-size:16px;font-weight:800;line-height:1.25}
+.hstat span{display:block;font-size:9.5px;color:#a9c3dc;line-height:1.4;white-space:nowrap}
+/* 卡片 */
+.sec{margin-top:16px}
+.sec-h{display:flex;align-items:baseline;gap:8px;padding:0 2px 10px}
+.sec-h h2{font-size:13px;font-weight:800;color:var(--pri);display:flex;align-items:center;gap:6px}
+.sec-h h2::before{content:"";width:3px;height:13px;background:var(--gold);border-radius:2px}
+.sec-h span{margin-left:auto;font-size:10.5px;color:#6b7a90}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ent{background:var(--card);border-radius:14px;padding:13px 13px 12px;box-shadow:var(--shadow);display:block;border:1px solid transparent}
+.ent:active{border-color:#cfe0ee}
+.ent .ic{font-size:19px;line-height:1}
+.ent .nm{font-size:14.5px;font-weight:700;margin-top:6px}
+.ent .ds{font-size:10.5px;color:var(--sub);line-height:1.5;margin-top:2px;min-height:31px}
+.ent .meta{font-size:10.5px;color:var(--acc);font-weight:600;margin-top:6px}
+.ent.hot .meta{color:var(--hot)}
+.subs{display:flex;gap:6px;margin-top:9px}
+.subs a{flex:1;text-align:center;font-size:11px;padding:7px 0;border-radius:9px;background:#eef4f9;color:var(--pri);font-weight:600;border:1px solid #dbe7f1}
+.subs a:active{background:#e3eef7}
+/* 列表 */
+.card{background:var(--card);border-radius:13px;box-shadow:var(--shadow);padding:12px 13px}
+.row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.row:last-child{border-bottom:0;padding-bottom:2px}
+.row .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);flex:0 0 auto}
+.row .dot.red{background:var(--hot);box-shadow:0 0 0 4px rgba(226,80,58,.12);animation:pl 1.8s infinite}
+@keyframes pl{0%,100%{opacity:1}50%{opacity:.45}}
+.row .tx{flex:1;min-width:0}
+.row .t1{font-size:12.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .t2{font-size:10.5px;color:var(--sub);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .tag{flex:0 0 auto;font-size:9.5px;padding:2px 7px;border-radius:5px;background:#eef4f9;color:var(--pri)}
+.row .tag.red{background:#fdece8;color:#c33}
+.row .am{flex:0 0 auto;font-size:11px;color:var(--gold);font-weight:700}
+.empty{font-size:11.5px;color:var(--sub);text-align:center;padding:14px 0}
+/* 短语 */
+details.phr{background:var(--card);border-radius:13px;box-shadow:var(--shadow);padding:10px 13px}
+details.phr summary{font-size:12.5px;font-weight:700;color:var(--pri);cursor:pointer;list-style:none;display:flex;align-items:center}
+details.phr summary::-webkit-details-marker{display:none}
+details.phr summary::after{content:"▾";margin-left:auto;font-size:10px;color:#adbccb;transition:.2s}
+details.phr[open] summary::after{transform:rotate(180deg)}
+.phr-b{padding-top:8px;font-size:11.5px;color:var(--sub);line-height:1.9}
+.phr-b b{color:var(--pri);background:#eef4f9;padding:1px 6px;border-radius:5px;font-weight:600;margin-right:5px;font-size:11px;white-space:nowrap}
+.foot{text-align:center;font-size:10px;color:#9fb0c0;padding:18px 0 4px;line-height:1.8}
 </style>
 </head>
 <body>
+<header>
+  <div class="hrow"><div class="hname">TELECOM · 政企客户经理</div><div class="hdate" id="today"></div></div>
+  <h1>我的工作台</h1>
+  <div class="hsub" id="hello">客户 · 商机 · 笔记 · 人事 · 日记</div>
+  <div class="hstat" id="hstat"></div>
+</header>
+
 <div class="wrap">
-  <div class="kicker">SUZHOU TELECOM · WORKBOARD HUB</div>
-  <h1>工作看板中心</h1>
-  <p class="lead">一个入口，进入常用看板。以「常记」为主，左下为日记与国资人事。</p>
-
-  <a class="main-card" href="changji.html">
-    <span class="pill">主看板</span>
-    <h2>常记 · 客户与项目速查</h2>
-    <p>国资重点客户、领导班子、对接人、ICT 项目与商机进展一屏速查，附每周进展与项目统计。</p>
-    <span class="go">打开常记看板</span>
-  </a>
-
-  <div class="grid">
-    <a class="sub-card" href="riji.html">
-      <div class="ic diary">记</div>
-      <h3>我的日记本</h3>
-      <p>按日期记录日常与心得，自动归纳主题、生成总结。想到什么随时记。</p>
-      <div class="arrow">进入日记看板 →</div>
-    </a>
-    <a class="sub-card" href="index.html">
-      <div class="ic gov">政</div>
-      <h3>苏州政要 · 国资人事</h3>
-      <p>政府国资重点客户的领导班子与人事信息速览，随更新同步。</p>
-      <div class="arrow">进入人事看板 →</div>
-    </a>
+  <div class="sec">
+    <div class="sec-h"><h2>四个看板</h2><span>点开即用</span></div>
+    <div class="grid">
+      <a class="ent" href="changji.html">
+        <div class="ic">📇</div><div class="nm">常记看板</div>
+        <div class="ds">我的客户：联系人、商机、业务在用</div>
+        <div class="meta" id="m-changji">—</div>
+      </a>
+      <a class="ent" href="biji.html">
+        <div class="ic">📘</div><div class="nm">笔记看板</div>
+        <div class="ds">知识：纪要、心得、方案</div>
+        <div class="meta" id="m-biji">—</div>
+      </a>
+      <a class="ent" href="https://suzhou-renshi.github.io/suzhou-renshi/">
+        <div class="ic">🏛</div><div class="nm">人事看板</div>
+        <div class="ds">政府与国资重要人物（非我的客户）</div>
+        <div class="meta">拜访前查</div>
+      </a>
+      <a class="ent" href="riji.html">
+        <div class="ic">📖</div><div class="nm">日记看板</div>
+        <div class="ds">个人：生活、作息、餐厅</div>
+        <div class="meta">晚上翻</div>
+      </a>
+    </div>
+    <div class="subs">
+      <a href="changji.html#week">周行动</a>
+      <a href="changji.html#biz">商机</a>
+      <a href="changji.html#card">速查卡</a>
+      <a href="changji.html#map">关系图</a>
+    </div>
   </div>
 
-  <footer>苏州电信 · 政企客户 · 数据仅限内部自用，请勿外传</footer>
+  <div class="sec">
+    <div class="sec-h"><h2>今天先动这几个</h2><span id="urgent-n"></span></div>
+    <div class="card" id="urgent"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h2>最近笔记</h2><span>复盘时翻</span></div>
+    <div class="card" id="notes"></div>
+  </div>
+
+  <div class="sec">
+    <details class="phr">
+      <summary>📌 常用短语速查 · 怎么让我记录</summary>
+      <div class="phr-b">
+        <div><b>更新腾讯文档</b>同步最新商机</div>
+        <div><b>商机备忘-单位-商机-内容</b>记一条进展</div>
+        <div><b>联想</b>存个人助记</div>
+        <div><b>业务在用</b>报数量或月消费</div>
+        <div><b>笔记-分类-标题-内容</b>记工作心得</div>
+        <div><b>日常记录 …</b>记一条日记</div>
+      </div>
+    </details>
+  </div>
+
+  <div class="foot">数据来源：常记 / 笔记 / 人事 / 日记四个看板（只读汇总）<br>内部资料 · 请勿外传</div>
 </div>
+
+<script src="kv_data.js"></script>
+<script>
+var DATA = KV_DATA;
+var NOTES = [{"cat": "纪要", "title": "名城拜访交流纪要（戴峰主任/黄主任 · 50分钟录音转写整理）", "d": "2026-11-27", "i": 0}, {"cat": "纪要", "title": "名城展厅展陈 · 会议结论（详细版）", "d": "2026-11-27", "i": 1}, {"cat": "TeleAgent", "title": "提示词 · 语音类会议纪要的事实整理", "d": "2026-11-28", "i": 2}, {"cat": "TeleAgent", "title": "笔记看板 vs 手机笔记软件：优势与边界", "d": "2026-11-28", "i": 3}, {"cat": "TeleAgent", "title": "常用入口（链接 · 持续补充）", "d": "2026-11-28", "i": 4}, {"cat": "TeleAgent", "title": "用法 · 实战速记", "d": "2026-11-27", "i": 5}];
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function num(s){var m=/([\d.]+)/.exec(s||'');return m?parseFloat(m[1]):0;}
+function lastD(p){var a=[];(p.logs||[]).forEach(function(x){if(x.d)a.push(x.d);});(p.memo||[]).forEach(function(x){if(x.d)a.push(x.d);});a.sort();return a.length?a[a.length-1]:'';}
+function ago(d){if(!d)return 999;var t=new Date(String(d).replace(/[./]/g,'-')+'T00:00:00');if(isNaN(t))return 999;return Math.floor((Date.now()-t.getTime())/86400000);}
+
+var opp=[],stale=[],units=0;
+DATA.forEach(function(u){
+  if(u.projects&&u.projects.length)units++;
+  (u.projects||[]).forEach(function(p){
+    if(p.st!=='opp')return;
+    var o={u:(u.short||u.title),t:p.t,amt:p.amt,a:num(p.amt),key:p.key,last:lastD(p)};
+    o.ag=ago(o.last);
+    opp.push(o);
+    if(o.ag>14)stale.push(o);
+  });
+});
+var keyN=opp.filter(function(x){return x.key;}).length;
+var weekN=opp.filter(function(x){return x.ag<=7;}).length;
+
+var d=new Date(),wd='日一二三四五六'[d.getDay()];
+document.getElementById('today').textContent=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' 周'+wd;
+var hh=d.getHours();
+document.getElementById('hello').textContent=(hh<6?'早':hh<11?'上午':hh<14?'中午':hh<18?'下午':'晚上')+'好，本周有 '+weekN+' 个客户有进展，'+stale.length+' 个重点商机待催';
+
+document.getElementById('hstat').innerHTML=
+ '<div><b>'+weekN+'</b><span>本周进展</span></div>'+
+ '<div><b>'+opp.length+'</b><span>在跟商机</span></div>'+
+ '<div><b>'+keyN+'</b><span>重点</span></div>'+
+ '<div><b>'+stale.length+'</b><span>待催</span></div>';
+
+document.getElementById('m-changji').textContent=units+' 家客户 · '+opp.length+' 个商机';
+document.getElementById('m-biji').textContent=NOTES.length?('共 '+NOTES.length+' 条 · 最新 '+NOTES[0].d):'—';
+
+stale.sort(function(a,b){return b.ag-a.ag;});
+var h='';
+if(!stale.length){h='<div class="empty">重点商机都在推进</div>';}
+stale.slice(0,4).forEach(function(x){
+  h+='<a class="row" href="changji.html#week"><span class="dot red"></span><span class="tx"><div class="t1">'+esc(x.t)+'</div>'
+   +'<div class="t2">'+esc(x.u)+' · '+(x.last?('停滞 '+x.ag+' 天'):'无进展记录')+'</div></span>'
+   +'<span class="am">'+esc(x.amt||'')+'</span></a>';
+});
+h+='<a class="row" href="changji.html#week" style="border-bottom:0"><span class="tx" style="text-align:center;color:#0f766e;font-size:11.5px">查看全部 '+stale.length+' 个 ›</span></a>';
+document.getElementById('urgent').innerHTML=h;
+document.getElementById('urgent-n').textContent=stale.length+' 个';
+
+var hn='';
+NOTES.slice(0,4).forEach(function(n){
+  hn+='<a class="row" href="biji.html#n'+n.i+'"><span class="dot"></span><span class="tx"><div class="t1">'+esc(n.title)+'</div>'
+    +'<div class="t2">'+esc(n.d)+'</div></span><span class="tag">'+esc(n.cat)+'</span></a>';
+});
+document.getElementById('notes').innerHTML=hn;
+</script>
 </body>
 </html>
