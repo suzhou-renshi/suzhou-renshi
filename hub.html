@@ -51,6 +51,21 @@ h1{font-size:18px;font-weight:800;margin:3px 0 1px;letter-spacing:.3px}
 .row .tag{flex:0 0 auto;font-size:9.5px;padding:2px 7px;border-radius:5px;background:#eef4f9;color:var(--pri)}
 .row .am{flex:0 0 auto;font-size:11px;color:var(--gold);font-weight:700}
 .empty{font-size:11.5px;color:var(--sub);text-align:center;padding:14px 0}
+.daygrp{margin:0}
+.dayt{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--sub);margin:10px 0 5px;font-weight:700}
+.dayt b{color:#2b3f55;font-size:12px}
+.dayt .w{width:20px;height:20px;border-radius:7px;background:#e9f1f8;color:var(--pri);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex:0 0 auto}
+.dayt.tom b{color:#1b4a76}
+.dayt.tom .w{background:#ffe9bd;color:#8a5a10}
+.dayt .tail{margin-left:auto;font-weight:400;font-size:10px}
+.task{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:12.5px;line-height:1.55}
+.task:last-child{border-bottom:0}
+.task .cb{flex:0 0 auto;width:16px;height:16px;border:1.6px solid #c3d2e0;border-radius:5px;margin-top:2px}
+.task .tx{flex:1;min-width:0;word-break:break-word}
+.task.hit{background:linear-gradient(90deg,#fff7e8,rgba(255,247,232,.25));border-radius:8px;border-bottom-color:transparent;margin:0 -6px;padding:8px 6px}
+.task.hit .cb{border-color:#d9a13c;background:#fff}
+.task.hit .tx{font-weight:600;color:#4a3507}
+.sched-tip{font-size:10.5px;color:var(--sub);text-align:center;padding:8px 0 2px}
 .foot{text-align:center;font-size:10px;color:#9fb0c0;padding:16px 0 4px;line-height:1.8}
 #toast{position:fixed;left:50%;bottom:70px;transform:translate(-50%,8px);background:#1e2b3a;color:#fff;font-size:12px;padding:8px 15px;border-radius:9px;opacity:0;pointer-events:none;transition:.2s;z-index:60}
 #toast.on{opacity:.95;transform:translate(-50%,0)}
@@ -84,6 +99,12 @@ h1{font-size:18px;font-weight:800;margin:3px 0 1px;letter-spacing:.3px}
   </div>
 
   <div class="sec">
+    <div class="sec-h"><h2>日程 · 今天与接下来</h2><span id="sched-n"></span></div>
+    <div class="card daygrp" id="sched"></div>
+    <div class="sched-tip" id="sched-tip">来源：WPS《本周重点》26-11 · 快照 2026-11-28</div>
+  </div>
+
+  <div class="sec">
     <div class="sec-h"><h2>今天先动这几个</h2><span id="urgent-n"></span></div>
     <div class="card" id="urgent"></div>
   </div>
@@ -98,6 +119,7 @@ h1{font-size:18px;font-weight:800;margin:3px 0 1px;letter-spacing:.3px}
 <div id="toast"></div>
 
 <script src="kv_data.js"></script>
+<script src="schedule.js"></script>
 <script>
 var DATA = KV_DATA;
 var NOTES = [{"cat": "TeleAgent", "title": "头像更换办法（自己传图，不经智能体）", "d": "2026-11-28", "i": 0}, {"cat": "纪要", "title": "名城拜访交流纪要（戴峰主任/黄主任 · 50分钟录音转写整理）", "d": "2026-11-27", "i": 1}, {"cat": "纪要", "title": "名城展厅展陈 · 会议结论（详细版）", "d": "2026-11-27", "i": 2}, {"cat": "TeleAgent", "title": "提示词 · 语音类会议纪要的事实整理", "d": "2026-11-28", "i": 3}, {"cat": "TeleAgent", "title": "笔记看板 vs 手机笔记软件：优势与边界", "d": "2026-11-28", "i": 4}, {"cat": "TeleAgent", "title": "常用入口（链接 · 持续补充）", "d": "2026-11-28", "i": 5}];
@@ -133,6 +155,28 @@ document.getElementById('hstat').innerHTML=
  '<div><b>'+keyN+'</b><span>重点</span></div>'+
  '<div><b>'+stale.length+'</b><span>待催</span></div>';
 
+/* 日程 */
+var TODAY=(function(){var t=new Date();return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');})();
+var schedBox=document.getElementById('sched'),schedTip=document.getElementById('sched-tip');
+if(typeof SCHED!=='undefined'&&SCHED&&SCHED.length){
+  var upto=SCHED.filter(function(x){return x.d>=TODAY;});
+  var show=upto.slice(0,5);
+  var h='',total=0;
+  show.forEach(function(dy){
+    total+=dy.items.length;
+    var isT=dy.d===TODAY,isTm=show.length>1&&show[1]&&dy.d===show[1].d;
+    h+='<div class="dayt'+(isT?' tom':'')+'"><span class="w">'+esc(('周'+dy.w))+'</span><b>'+dy.d.slice(5).replace('-','/')+(isT?' · 今天':(isTm?' · 明天':''))+'</b>'
+     +'<span class="tail">'+dy.items.length+' 项</span></div>';
+    dy.items.forEach(function(t){
+      h+='<div class="task'+(isT?' hit':'')+'"><span class="cb"></span><span class="tx">'+esc(t)+'</span></div>';
+    });
+  });
+  if(!h)h='<div class="empty">近期没有安排</div>';
+  schedBox.innerHTML=h;
+  var nTom=show[1]?show[1].items.length:0;
+  document.getElementById('sched-n').textContent=show[0]&&show[0].d===TODAY?(show[0].items.length+' 项'):'';
+  schedTip.textContent='来源：WPS《本周重点》26-11（含 12 月初）· 快照 '+TODAY+' · 对我说「同步日程」即更新';
+}
 /* 今天先动 */
 stale.sort(function(a,b){return b.ag-a.ag;});
 var h='';
@@ -198,6 +242,5 @@ document.getElementById('repBtn').onclick=function(){
   }
 };
 </script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(function(){});}</script>
 </body>
 </html>
