@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>💰 商机大盘</title>
+<style>
+:root{--bg:#f3f5f8;--card:#fff;--text:#1e2b3a;--sub:#75859a;--line:#e3e8ef;--pri:#123a5e;--acc:#0f766e;--hl:#b45309;--hlbg:#fff8ec;--shadow:0 1px 3px rgba(16,36,56,.07)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--text)}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding-bottom:calc(40px + env(safe-area-inset-bottom));-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:30;background:linear-gradient(150deg,#1c3450,#0e2438);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;box-shadow:0 2px 10px rgba(10,25,40,.22)}
+header h1{font-size:17px;font-weight:800;letter-spacing:.4px}
+header .sub{font-size:11px;color:#a9c3dc;margin-top:3px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;padding:9px 0 1px}
+.nav a{flex:0 0 auto;font-size:11.5px;color:#dcebf9;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:5px 11px;border-radius:13px}
+.nav a.on{background:#fff;color:#12304b;font-weight:700;border-color:#fff}
+main{padding:12px 12px 0;max-width:760px;margin:0 auto}
+.kpis{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.kpi{flex:1 1 calc(50% - 5px);min-width:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)}
+.kpi b{display:block;font-size:19px;color:var(--pri);line-height:1.3;white-space:nowrap}
+.kpi span{font-size:10.5px;color:var(--sub)}
+.sec{margin-bottom:16px}
+.sec h2{font-size:12.5px;color:var(--pri);display:flex;align-items:center;gap:8px;padding:4px 2px 8px}
+.sec h2::before{content:"";width:3px;height:13px;background:var(--acc);border-radius:2px}
+.sec h2 span{margin-left:auto;font-size:10.5px;color:var(--sub);font-weight:400}
+.card{display:block;background:var(--card);border-radius:12px;padding:11px 13px;margin-bottom:8px;box-shadow:var(--shadow);border-left:3px solid transparent}
+.card.hl{border-left-color:var(--hl);background:var(--hlbg)}
+.card .t{font-size:14px;font-weight:600;line-height:1.45}
+.card .u{font-size:11px;color:var(--acc);font-weight:600;margin-bottom:2px}
+.card .m{font-size:12px;color:#5c6d80;margin-top:5px;line-height:1.65}
+.card .row{display:flex;gap:8px;align-items:baseline;margin-top:4px}
+.card .amt{font-size:12px;color:var(--hl);font-weight:700}
+.card .d{font-size:10.5px;color:#a3b1c0;margin-left:auto}
+.empty{text-align:center;color:var(--sub);font-size:12.5px;padding:30px 0}
+.foot{text-align:center;font-size:10.5px;color:var(--sub);padding:16px 10px 4px;line-height:1.9}
+
+.tabs{display:flex;gap:8px;margin:0 0 12px}
+.tabs button{flex:1;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--sub);font-size:12.5px;font-family:inherit}
+.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri);font-weight:700}
+.bar{display:flex;align-items:center;gap:8px;margin:7px 0}
+.bar .nm{flex:0 0 92px;font-size:11.5px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .tr{flex:1;height:8px;background:#eef2f6;border-radius:5px;overflow:hidden}
+.bar .fl{height:100%;background:linear-gradient(90deg,#3d7ea6,#123a5e);border-radius:5px}
+.bar .v{flex:0 0 64px;text-align:right;font-size:10.5px;color:var(--sub);white-space:nowrap}
+.tl{position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:#dfe7ef}
+.tli{position:relative;margin-bottom:10px}
+.tli::before{content:"";position:absolute;left:-20px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 3px #e6f2f0}
+.tli.key::before{background:var(--hl);box-shadow:0 0 0 3px #fbeedb}
+</style>
+</head>
+<body>
+<header><h1>💰 商机大盘</h1><div class="sub">在跟商机全景 · 按单位 / 金额 / 阶段 / 时间轴看</div><div class="nav"><a href="changji.html">📇 常记</a><a href="biji.html">📘 笔记</a><a href="https://suzhou-renshi.github.io/suzhou-renshi/">🏛 人事</a><a href="riji.html">📖 日记</a><a href="week.html">✅ 周行动</a><a href="biz.html" class="on">💰 商机大盘</a><a href="card.html">🪪 速查卡</a><a href="map.html">🕸 关系图</a></div></header>
+<main id="view"><div id="view"></div></main>
+<div class="foot">数据来源：常记看板（只读汇总）· 内部资料 请勿外传</div>
+<script src="kv_data.js"></script>
+<script>var DATA=KV_DATA;
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function amt(s){var m=/([\d.]+)/.exec(s||'');return m?parseFloat(m[1]):0;}
+var all=[],signed=0;
+DATA.forEach(function(u,i){(u.projects||[]).forEach(function(p,j){
+  if(p.st==='signed'){signed++;return;}
+  if(p.st!=='opp')return;
+  all.push({u:u.short||u.title,full:u.title,t:p.t,amt:p.amt,a:amt(p.amt),key:p.key,last:(function(){var a=[];(p.logs||[]).forEach(function(x){if(x.d)a.push(x.d);});(p.memo||[]).forEach(function(x){if(x.d)a.push(x.d);});a.sort();return a.length?a[a.length-1]:'';})(),note:(p.memo&&p.memo[0]&&p.memo[0].t)||(p.logs&&p.logs[0]&&p.logs[0].t)||'',anchor:'changji.html#p-'+i+'-'+j});
+});});
+var total=all.reduce(function(s,x){return s+x.a;},0);
+var keyN=all.filter(function(x){return x.key;}).length;
+var byUnit={};
+all.forEach(function(x){byUnit[x.u]=byUnit[x.u]||{n:0,a:0};byUnit[x.u].n++;byUnit[x.u].a+=x.a;});
+var tops=Object.keys(byUnit).map(function(k){return {k:k,n:byUnit[k].n,a:byUnit[k].a};}).sort(function(a,b){return b.a-a.a;}).slice(0,9);
+var maxA=Math.max.apply(null,tops.map(function(x){return x.a;}))||1;
+var mode='list';
+
+function render(){
+  var h='';
+  h+='<div class="kpis"><div class="kpi"><b>'+all.length+'</b><span>在跟商机</span></div>'
+   +'<div class="kpi"><b>'+keyN+'</b><span>★ 重点</span></div>'
+   +'<div class="kpi"><b>'+(Math.round(total*10)/10)+'</b><span>合计金额（万）</span></div>'
+   +'<div class="kpi"><b>'+signed+'</b><span>已签约</span></div></div>';
+  h+='<div class="sec"><h2>单位分布 <span>按在跟金额</span></h2>';
+  tops.forEach(function(x){
+    h+='<div class="bar"><span class="nm">'+esc(x.k)+'</span><span class="tr"><span class="fl" style="width:'+Math.max(4,Math.round(x.a/maxA*100))+'%"></span></span><span class="v">'+x.n+'个/'+(Math.round(x.a*10)/10)+'万</span></div>';
+  });
+  h+='</div>';
+  h+='<div class="tabs"><button data-m="list" class="'+(mode==='list'?'on':'')+'">列表 · 按金额</button><button data-m="tl" class="'+(mode==='tl'?'on':'')+'">时间轴 · 按进展</button></div>';
+  h+='<div class="sec">';
+  if(mode==='list'){
+    all.slice().sort(function(a,b){return b.a-a.a;}).forEach(function(x){
+      h+='<a class="card'+(x.key?' hl':'')+'" href="'+x.anchor+'"><div class="u">'+esc(x.u)+'</div><div class="t">'+(x.key?'★ ':'')+esc(x.t)+'</div>'
+       +'<div class="row"><span class="amt">'+esc(x.amt||'—')+'</span><span class="d">'+(x.last||'无进展记录')+'</span></div>'
+       +(x.note?'<div class="m">'+esc(x.note)+'</div>':'')+'</a>';
+    });
+  }else{
+    h+='<div class="tl">';
+    all.filter(function(x){return x.last;}).sort(function(a,b){return (b.last||'').localeCompare(a.last||'');}).forEach(function(x){
+      h+='<div class="tli'+(x.key?' key':'')+'"><a class="card'+(x.key?' hl':'')+'" style="margin-bottom:0" href="'+x.anchor+'">'
+       +'<div class="u">'+x.last+' · '+esc(x.u)+'</div><div class="t">'+(x.key?'★ ':'')+esc(x.t)+' <span class="amt">'+esc(x.amt||'')+'</span></div>'
+       +(x.note?'<div class="m">'+esc(x.note)+'</div>':'')+'</a></div>';
+    });
+    h+='</div>';
+  }
+  h+='</div>';
+  document.getElementById('view').innerHTML=h;
+  document.querySelectorAll('.tabs button').forEach(function(b){
+    b.onclick=function(){mode=b.dataset.m;render();};
+  });
+}
+render();
+</script>
+</body>
+</html>
