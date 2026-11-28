@@ -137,7 +137,7 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
 <div class="wrap">
 <header>
   <h1>常记速查手册</h1>
-  <div class="sub">客户联系人 · 领导班子 · ICT 项目 一站式整合看板</div>
+  <div class="sub">客户维度 · 我的客户：联系人 / 商机 / 业务在用 · 跑客户时查</div>
   <div class="badge-row"><span class="badge hl">更新于 2026-11-28</span><span class="badge">内部速查</span></div>
   <div class="stats">
     <div class="stat"><b id="s-unit">-</b><span>客户单位</span></div>
@@ -148,6 +148,10 @@ h1{font-size:24px;font-weight:800;letter-spacing:2px}
   <a class="hr-link" href="https://suzhou-renshi.github.io/suzhou-renshi/" target="_self">🏛 人事看板 →</a>
   <a class="hr-link" href="biji.html" target="_self">📘 笔记看板 →</a>
   <a class="hr-link" href="riji.html" target="_self">📖 日记看板 →</a>
+  <a class="hr-link" href="week.html" target="_self">✅ 周行动 →</a>
+  <a class="hr-link" href="biz.html" target="_self">💰 商机大盘 →</a>
+  <a class="hr-link" href="card.html" target="_self">🪪 速查卡 →</a>
+  <a class="hr-link" href="map.html" target="_self">🕸 关系图 →</a>
 </header>
 <details class="phr">
   <summary>📌 常用短语速查 · 怎么让我记录</summary>
@@ -263,7 +267,7 @@ function render(list){
     contactHtml+='</div>';
     var projHtml='';
     if(proj){
-      projHtml='<div class="block"><div class="block-title">ICT 项目 <span class="cnt">'+proj+'个</span></div>';
+      projHtml='<div class="block"><div class="block-title">ICT 项目 <span class="cnt">'+proj+'个 · 数据来源：腾讯文档（只读）</span></div>';
       var ui=u._i;
       var opp=(u.projects||[]).filter(function(x){return x.st==='opp';});
       var signed=(u.projects||[]).filter(function(x){return x.st==='signed';});
