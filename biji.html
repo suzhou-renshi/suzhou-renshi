@@ -82,12 +82,8 @@ aside.on{transform:none}
 .dl{display:block;font-size:13px;color:var(--text);padding:10px 10px 10px 14px;margin-left:4px;border-radius:8px;line-height:1.4}
 .dl.on{background:rgba(14,90,138,.16);color:var(--pri);font-weight:600;box-shadow:inset 3px 0 0 var(--pri)}
 html[data-theme=dark] .dl.on{background:rgba(121,180,216,.18);box-shadow:inset 3px 0 0 var(--pri)}
-.df{padding:10px 12px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
-.dfrow{display:flex;gap:7px;width:100%}
-.dfrow a,.dfrow button{flex:1 1 0;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;font-size:11.5px;padding:9px 2px;border-radius:9px;background:var(--card);border:1px solid var(--line);color:var(--sub);font-family:inherit}
-.dfrow2{display:flex;gap:6px;width:100%;overflow-x:auto;scrollbar-width:none}
-.dfrow2::-webkit-scrollbar{display:none}
-.dfrow2 a,.dfrow2 button{flex:0 0 auto;white-space:nowrap;text-align:center;font-size:11px;padding:7px 10px;border-radius:8px;background:var(--card);border:1px solid var(--line);color:var(--sub);font-family:inherit}
+.df{padding:10px 12px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}
+.df a,.df button{flex:1;min-width:78px;text-align:center;font-size:12px;padding:10px 0;border-radius:9px;background:var(--card);border:1px solid var(--line);color:var(--sub);font-family:inherit}
 #toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,10px);background:#1e2b3a;color:#fff;font-size:12.5px;padding:9px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:60}
 html[data-theme=dark] #toast{background:#2b3946}
 #toast.on{opacity:.96;transform:translate(-50%,0)}
@@ -115,6 +111,7 @@ html[data-theme=dark] #backBar{background:rgba(140,192,224,.5)}
   </div>
   <div class="hsub" id="hsub"></div>
   <div class="hlinks">
+    <a href="hub.html">🏠 工作台</a>
     <a href="changji.html">📇 常记看板</a>
     <a href="https://suzhou-renshi.github.io/suzhou-renshi/">🏛 人事看板</a>
     <a href="riji.html">📖 日记看板</a>
@@ -138,18 +135,14 @@ html[data-theme=dark] #backBar{background:rgba(140,192,224,.5)}
   <div class="dh">📑 目录 <span id="dcount"></span></div>
   <div id="dtree"></div>
   <div class="df">
-    <div class="dfrow">
-      <a href="changji.html">常记看板</a>
-      <a href="https://suzhou-renshi.github.io/suzhou-renshi/">人事看板</a>
-      <a href="riji.html">日记看板</a>
-    </div>
-    <div class="dfrow2">
-      <a href="changji.html#week">周行动</a>
-      <a href="changji.html#biz">商机大盘</a>
-      <a href="changji.html#card">速查卡</a>
-      <a href="changji.html#map">关系图</a>
-      <button id="themeBtn">深色</button>
-    </div>
+    <a href="changji.html">常记看板</a>
+    <a href="https://suzhou-renshi.github.io/suzhou-renshi/">人事看板</a>
+    <a href="riji.html">日记看板</a>
+    <a href="changji.html#week">周行动</a>
+    <a href="changji.html#biz">商机大盘</a>
+    <a href="changji.html#card">速查卡</a>
+    <a href="changji.html#map">关系图</a>
+    <button id="themeBtn">深色</button>
   </div>
 </aside>
 <div id="toast"></div>
