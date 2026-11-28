@@ -182,12 +182,27 @@ h+='<a class="row" href="changji.html#week" style="border-bottom:0"><span class=
 document.getElementById('urgent').innerHTML=h;
 document.getElementById('urgent-n').textContent=stale.length+' 个';
 
-var hn='';
-NOTES.slice(0,4).forEach(function(n){
-  hn+='<a class="row" href="biji.html#n'+n.i+'"><span class="dot"></span><span class="tx"><div class="t1">'+esc(n.title)+'</div>'
-    +'<div class="t2">'+esc(n.d)+'</div></span><span class="tag">'+esc(n.cat)+'</span></a>';
-});
-document.getElementById('notes').innerHTML=hn;
+function paintNotes(list){
+  var hn='';
+  list.slice(0,4).forEach(function(n){
+    hn+='<a class="row" href="biji.html#n'+n.i+'"><span class="dot"></span><span class="tx"><div class="t1">'+esc(n.title)+'</div>'
+      +'<div class="t2">'+esc(n.d)+'</div></span><span class="tag">'+esc(n.cat)+'</span></a>';
+  });
+  document.getElementById('notes').innerHTML=hn;
+  document.getElementById('m-biji').textContent='共 '+list.length+' 条 · 最新 '+(list[0]?list[0].d:'—');
+}
+paintNotes(NOTES);
+
+/* 实时读笔记看板，比静态嵌入更新 */
+fetch('biji.html',{cache:'no-store'}).then(function(r){return r.text();}).then(function(t){
+  var i=t.indexOf('var NOTES=[');
+  if(i<0)return;
+  var j=t.indexOf('\n];',i);
+  var seg=t.slice(i,j);
+  var re=/\{cat:"([^"]+)",(?: id:"[^"]*",)? title:"([^"]+)", d:"([^"]+)"/g,m,arr=[],k=0;
+  while((m=re.exec(seg))){arr.push({cat:m[1],title:m[2],d:m[3],i:k++});}
+  if(arr.length)paintNotes(arr);
+}).catch(function(){});
 </script>
 </body>
 </html>
