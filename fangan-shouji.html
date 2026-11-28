@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#123a5e">
+<title>手机一句话记录 · 方案说明</title>
+<style>
+:root{--bg:#f2f5f9;--card:#fff;--text:#1e2b3a;--sub:#6b7a90;--line:#e4e9ef;--pri:#123a5e;--acc:#0f766e;--warn:#b45309;--hot:#c0392b}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased;padding-bottom:40px}
+a{color:var(--acc)}
+header{background:linear-gradient(150deg,#1c3a58,#0d2438 70%);color:#fff;padding:calc(18px + env(safe-area-inset-top)) 16px 16px;border-radius:0 0 18px 18px;box-shadow:0 4px 16px rgba(10,25,40,.22)}
+header .k{font-size:10.5px;color:#9fc0dc;letter-spacing:1.5px}
+header h1{font-size:20px;font-weight:800;margin-top:5px;line-height:1.35}
+header p{font-size:11.5px;color:#a9c3dc;margin-top:5px}
+.wrap{max-width:780px;margin:0 auto;padding:0 14px}
+section{margin-top:16px;background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(16,36,56,.07);padding:15px 14px}
+h2{font-size:15px;font-weight:800;color:var(--pri);display:flex;align-items:center;gap:8px;margin-bottom:10px}
+h2 i{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--pri);color:#fff;font-size:11.5px;font-style:normal;display:flex;align-items:center;justify-content:center;font-weight:700}
+h3{font-size:13px;font-weight:700;margin:14px 0 6px;color:#24384f}
+p{font-size:12.5px;color:#33475b;margin:6px 0}
+.small{font-size:11.5px;color:var(--sub)}
+ul{margin:6px 0 6px 18px}
+li{font-size:12.5px;margin:4px 0;color:#33475b}
+.flow{display:flex;flex-direction:column;gap:0;margin:8px 0}
+.step{display:flex;gap:10px;position:relative;padding-bottom:12px}
+.step:last-child{padding-bottom:0}
+.step .n{flex:0 0 24px;height:24px;border-radius:50%;background:#e9f1f8;color:var(--pri);font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:1}
+.step .c{flex:1;font-size:12.5px;padding-top:1px}
+.step .c b{color:var(--pri)}
+.step:not(:last-child) .n::after{content:"";position:absolute;left:11.5px;top:24px;width:1.5px;height:calc(100% - 20px);background:#dbe6f0}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--sub);font-weight:600;font-size:11px}
+td code,code.i{background:#eef4f9;color:#1b4a76;padding:1px 5px;border-radius:4px;font-size:11px;font-family:ui-monospace,Menlo,Consolas,monospace}
+pre{background:#0f2233;color:#d8e6f2;border-radius:11px;padding:12px;overflow-x:auto;font-size:11px;line-height:1.7;font-family:ui-monospace,Menlo,Consolas,monospace;-webkit-overflow-scrolling:touch}
+.copy{display:flex;justify-content:flex-end;margin:6px 0 -4px}
+.copy button{font-size:11.5px;padding:6px 12px;border-radius:8px;border:1px solid #cfe0ee;background:#eef4f9;color:var(--pri);font-family:inherit}
+.note{background:#fff8ec;border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:9px 11px;font-size:11.5px;color:#7a4b12;margin:9px 0;line-height:1.7}
+.risk{background:#fdf1ef;border-left:3px solid var(--hot);border-radius:0 8px 8px 0;padding:9px 11px;font-size:11.5px;color:#8a2a1f;margin:9px 0;line-height:1.7}
+.ok{background:#eefaf6;border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:9px 11px;font-size:11.5px;color:#12564c;margin:9px 0;line-height:1.7}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tag{font-size:10.5px;padding:3px 9px;border-radius:6px;background:#eef4f9;color:var(--pri)}
+.tag.g{background:#e6f6ef;color:#0f766e}
+.tag.y{background:#fdf3e3;color:#96601a}
+.foot{text-align:center;font-size:10.5px;color:#93a5b8;padding:18px 0 6px;line-height:1.8}
+#toast{position:fixed;left:50%;bottom:70px;transform:translate(-50%,8px);background:#1e2b3a;color:#fff;font-size:12px;padding:8px 15px;border-radius:9px;opacity:0;pointer-events:none;transition:.2s;z-index:60}
+#toast.on{opacity:.95;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="k">TELEAGENT · 方案说明</div>
+  <h1>手机一句话记录<br>怎么把消息变成看板条目</h1>
+  <p>企业微信自建应用 + 云函数 + GitHub，全程你只发一句话</p>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2><i>1</i>先看清一件事</h2>
+  <p>微信（个人）<b>没有</b>给外部开放的收消息接口，所以“我直接听你微信”这条路不存在。能做的是：把消息送进一个<b>我能读的地方</b>，再由我整理进看板。</p>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><span class="c">你在<b>企业微信</b>里给“随手记”应用发一句：<code class="i">商机备忘-名城-OA-和戴主任确认预算口径</code></span></div>
+    <div class="step"><span class="n">2</span><span class="c">企业微信把这条消息推到你自己的<b>云函数</b>（公网 HTTPS 地址）</span></div>
+    <div class="step"><span class="n">3</span><span class="c">云函数验签、解密，把这条追加到 GitHub 仓库的 <code class="i">shouji-queue.json</code></span></div>
+    <div class="step"><span class="n">4</span><span class="c">我读取队列，按口令<b>写进常记/笔记/日记</b>，你手机上刷新看板就能看到</span></div>
+  </div>
+  <div class="ok">你全程只做第 1 步。第 2–4 步配一次，之后一直自动跑。</div>
+</section>
+
+<section>
+  <h2><i>2</i>需要准备什么</h2>
+  <table>
+    <tr><th>要什么</th><th>从哪来</th><th>难度</th></tr>
+    <tr><td>企业微信<b>管理员权限</b>（或让 IT 代配）</td><td>企业微信管理后台 → 应用管理 → 自建</td><td>权限本身最难</td></tr>
+    <tr><td>一个<b>公网 HTTPS 地址</b></td><td>腾讯云 SCF / 阿里云 FC 的 API 网关，自带域名</td><td>开通即用</td></tr>
+    <tr><td>GitHub <b>细粒度令牌</b></td><td>GitHub → Settings → Developer settings → Fine-grained tokens</td><td>只勾这一个仓库的 Contents 读写</td></tr>
+    <tr><td>三个随机串</td><td>企业微信后台生成 Token、EncodingAESKey；企业 ID 在“我的企业”</td><td>复制粘贴</td></tr>
+  </table>
+  <div class="note">费用：云函数按调用计费，你一天发 20 条，一个月也在免费额度内，基本 0 元。</div>
+</section>
+
+<section>
+  <h2><i>3</i>企业微信后台怎么配</h2>
+  <p class="small">以下步骤需要管理员账号，或让 IT 照做。</p>
+  <h3>① 建自建应用</h3>
+  <ul>
+    <li>管理后台 → 应用管理 → 应用 → <b>自建</b> → 创建应用</li>
+    <li>名字填「随手记」，可见范围选你自己</li>
+    <li>建好后记下 <b>AgentId</b>、<b>Secret</b>（主动推送时才用）</li>
+  </ul>
+  <h3>② 开启接收消息</h3>
+  <ul>
+    <li>进入该应用 → 接收消息 → <b>设置 API 接收</b></li>
+    <li>URL：先填云函数地址（下一步拿到），形如 <code class="i">https://xxx.apigw.tencentcs.com/release/shouji</code></li>
+    <li>Token、EncodingAESKey：点“随机获取”，<b>两串都抄下来</b></li>
+    <li>点保存时企业微信会立刻请求你的 URL 验证，所以要先把云函数部署好</li>
+  </ul>
+  <h3>③ 在微信里找到它</h3>
+  <ul>
+    <li>企业微信 App → 工作台 → 「随手记」</li>
+    <li>进去直接发文字即可；语音会以语音消息进来（要转文字需再加一步下载转写）</li>
+  </ul>
+</section>
+
+<section>
+  <h2><i>4</i>云函数怎么部署</h2>
+  <p class="small">以腾讯云 SCF 为例，阿里云 FC 同理（入口函数名改成 handler）。</p>
+  <ul>
+    <li>新建函数：<b>Node.js 18</b>，类型选“事件函数”，触发器选 <b>API 网关</b></li>
+    <li>把下面的代码粘进 <code class="i">index.js</code>（本页最下方可一键复制）</li>
+    <li>API 网关路径配 <code class="i">/shouji</code>，方法允许 GET 和 POST，<b>集成响应</b>打开</li>
+    <li>环境变量按下表填，保存后发布</li>
+  </ul>
+  <table>
+    <tr><th>变量名</th><th>填什么</th></tr>
+    <tr><td><code class="i">WECOM_TOKEN</code></td><td>后台生成的 Token</td></tr>
+    <tr><td><code class="i">WECOM_AES_KEY</code></td><td>后台生成的 EncodingAESKey（43 位）</td></tr>
+    <tr><td><code class="i">WECOM_CORP_ID</code></td><td>企业 ID（ww 开头）</td></tr>
+    <tr><td><code class="i">GH_TOKEN</code></td><td>细粒度令牌（只给这个仓库 Contents 读写）</td></tr>
+    <tr><td><code class="i">GH_REPO</code></td><td><code class="i">suzhou-renshi/suzhou-renshi</code></td></tr>
+    <tr><td><code class="i">GH_FILE</code></td><td>可不填，默认 <code class="i">shouji-queue.json</code></td></tr>
+  </table>
+  <div class="risk">令牌只给这一个仓库、只给 Contents 读写，不要给全仓库或账号级权限；一旦怀疑泄露，在 GitHub 一键吊销即可，不影响看板。</div>
+</section>
+
+<section>
+  <h2><i>5</i>云函数代码（可直接用）</h2>
+  <div class="copy"><button id="copyCode">复制全部代码</button></div>
+  <pre id="codeBox">// 企业微信「随手记」回调云函数（Node.js 18，腾讯云 SCF / 阿里云 FC 通用思路）
+// 作用：接收企业微信自建应用的消息 → 追加写入 GitHub 仓库的 shouji-queue.json
+// 环境变量：WECOM_TOKEN、WECOM_AES_KEY、WECOM_CORP_ID、GH_TOKEN、GH_REPO（owner/repo）、GH_FILE（可选）
+const crypto = require(&quot;crypto&quot;);
+
+const TOKEN = process.env.WECOM_TOKEN;
+const AES_KEY = process.env.WECOM_AES_KEY;
+const CORP_ID = process.env.WECOM_CORP_ID;
+const GH_TOKEN = process.env.GH_TOKEN;
+const GH_REPO = process.env.GH_REPO;
+const GH_FILE = process.env.GH_FILE || &quot;shouji-queue.json&quot;;
+
+const sha1 = (s) =&gt; crypto.createHash(&quot;sha1&quot;).update(s).digest(&quot;hex&quot;);
+
+function checkSig(sig, ts, nonce, encrypt) {
+  if (!sig || !ts || !nonce || !encrypt) return false;
+  const arr = [TOKEN, String(ts), String(nonce), encrypt].sort();
+  return sha1(arr.join(&quot;&quot;)) === sig;
+}
+
+function decrypt(enc) {
+  const key = Buffer.from(AES_KEY + &quot;=&quot;, &quot;base64&quot;);
+  const iv = key.slice(0, 16);
+  const d = crypto.createDecipheriv(&quot;aes-256-cbc&quot;, key, iv);
+  d.setAutoPadding(false);
+  let buf = Buffer.concat([d.update(enc, &quot;base64&quot;), d.final()]);
+  const pad = buf[buf.length - 1];
+  if (pad &gt; 0 &amp;&amp; pad &lt;= 32) buf = buf.slice(0, buf.length - pad);
+  const msgLen = buf.readUInt32BE(16);
+  const msg = buf.slice(20, 20 + msgLen).toString(&quot;utf8&quot;);
+  const receiveId = buf.slice(20 + msgLen).toString(&quot;utf8&quot;);
+  return { msg, receiveId };
+}
+
+function pick(xml, tag) {
+  const m = xml.match(new RegExp(&quot;&lt;&quot; + tag + &quot;&gt;&lt;!\\[CDATA\\[([\\s\\S]*?)\\]\\]&gt;&lt;/&quot; + tag + &quot;&gt;&quot;));
+  return m ? m[1] : &quot;&quot;;
+}
+
+async function gh(method, path, body) {
+  const url = &quot;https://api.github.com/repos/&quot; + GH_REPO + path;
+  const r = await fetch(url, {
+    method,
+    headers: {
+      Authorization: &quot;Bearer &quot; + GH_TOKEN,
+      Accept: &quot;application/vnd.github+json&quot;,
+      &quot;User-Agent&quot;: &quot;wecom-shouji&quot;,
+      &quot;Content-Type&quot;: &quot;application/json&quot;,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(&quot;GitHub &quot; + r.status + &quot; &quot; + (await r.text()));
+  return r.json();
+}
+
+async function appendItem(item) {
+  const path = &quot;/contents/&quot; + GH_FILE;
+  let data = { items: [] };
+  let sha = null;
+  const cur = await gh(&quot;GET&quot;, path);
+  if (cur) {
+    sha = cur.sha;
+    try {
+      data = JSON.parse(Buffer.from(cur.content, &quot;base64&quot;).toString(&quot;utf8&quot;));
+    } catch (e) {
+      data = { items: [] };
+    }
+  }
+  data.items = data.items || [];
+  data.items.push(item);
+  if (data.items.length &gt; 500) data.items = data.items.slice(-500);
+  const body = {
+    message: &quot;随手记：&quot; + (item.text || &quot;&quot;).slice(0, 40),
+    content: Buffer.from(JSON.stringify(data, null, 1), &quot;utf8&quot;).toString(&quot;base64&quot;),
+  };
+  if (sha) body.sha = sha;
+  await gh(&quot;PUT&quot;, path, body);
+}
+
+exports.main_handler = async (event) =&gt; {
+  const q = event.queryString || event.query || {};
+  const method = (event.httpMethod || event.requestContext?.http?.method || &quot;GET&quot;).toUpperCase();
+  const raw = event.body || &quot;&quot;;
+  const body = event.isBase64Encoded ? Buffer.from(raw, &quot;base64&quot;).toString(&quot;utf8&quot;) : raw;
+
+  // 1) 企业微信后台「验证 URL」：解密 echostr 原样返回
+  if (method === &quot;GET&quot;) {
+    const sig = q.msg_signature, ts = q.timestamp, nonce = q.nonce;
+    const echo = decodeURIComponent(q.echostr || &quot;&quot;);
+    if (!checkSig(sig, ts, nonce, echo)) return { statusCode: 403, body: &quot;bad signature&quot; };
+    const { msg } = decrypt(echo);
+    return { statusCode: 200, headers: { &quot;Content-Type&quot;: &quot;text/plain&quot; }, body: msg };
+  }
+
+  // 2) 收到消息：验签 → 解密 → 取正文 → 写队列
+  try {
+    const enc = pick(body, &quot;Encrypt&quot;);
+    const sig = q.msg_signature, ts = q.timestamp, nonce = q.nonce;
+    if (!checkSig(sig, ts, nonce, enc)) return { statusCode: 403, body: &quot;bad signature&quot; };
+    const { msg, receiveId } = decrypt(enc);
+    if (CORP_ID &amp;&amp; receiveId &amp;&amp; receiveId !== CORP_ID) return { statusCode: 200, body: &quot;success&quot; };
+
+    const text = (pick(msg, &quot;Content&quot;) || &quot;&quot;).trim();
+    const from = pick(msg, &quot;FromUserName&quot;);
+    const msgType = pick(msg, &quot;MsgType&quot;);
+
+    if (text) {
+      await appendItem({
+        t: new Date().toISOString(),
+        from,
+        type: msgType || &quot;text&quot;,
+        text,
+        src: &quot;wecom&quot;,
+      });
+    }
+    // 语音消息 MediaId 需另调接口下载转写（可选，后续可加）
+    return { statusCode: 200, headers: { &quot;Content-Type&quot;: &quot;text/plain&quot; }, body: &quot;success&quot; };
+  } catch (e) {
+    console.error(e);
+    return { statusCode: 200, body: &quot;success&quot; }; // 避免企业微信重试风暴
+  }
+};
+</pre>
+</section>
+
+<section>
+  <h2><i>6</i>消息怎么变成看板条目</h2>
+  <p>我按口令判断写到哪里，和我平时在对话里用的是同一套：</p>
+  <div class="tagrow">
+    <span class="tag">商机备忘-单位-商机-内容 → 常记·商机下</span>
+    <span class="tag">笔记-分类-标题-内容 → 笔记看板</span>
+    <span class="tag">日常记录 … → 日记看板</span>
+    <span class="tag g">联想 → 人物助记</span>
+    <span class="tag y">业务在用 → 客户业务栏</span>
+  </div>
+  <p>没有口令的纯文字，我先放进“待归类”，下次对话时问你要归到哪，不会丢。</p>
+  <h3>需要我这边配一个定时任务</h3>
+  <ul>
+    <li>每小时（或每天两次）读一次 <code class="i">shouji-queue.json</code>，把新条目落到对应看板并重新上线</li>
+    <li>落完把队列标记为已处理，避免重复</li>
+    <li>这个定时任务用平台的定时能力，不需要额外服务器</li>
+  </ul>
+</section>
+
+<section>
+  <h2><i>7</i>这条路的风险与限制</h2>
+  <div class="risk">企业微信消息回调需要<b>公网 HTTPS</b>，公司网络可能限制外网服务；如果用公司内网地址，外部收不到。稳妥做法是用你自己的云账号开一个函数，别走单位网络。</div>
+  <ul>
+    <li>语音消息默认只有 MediaId，要转文字得再调“获取媒体文件”接口 + 转写，可以做但多一步</li>
+    <li>企业微信会重试回调，代码里已做幂等处理（失败也回 success，避免重复刷队列）</li>
+    <li>图片/文件只存链接或 MediaId，不自动 OCR（要 OCR 可以后加）</li>
+  </ul>
+</section>
+
+<section>
+  <h2><i>8</i>备选：邮箱通道（更快通）</h2>
+  <p>如果你搞不定企业微信权限，还有一条今天就能通的路：</p>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><span class="c">手机邮箱 App 发一封给自己：主题随便，正文写口令 + 内容</span></div>
+    <div class="step"><span class="n">2</span><span class="c">我用 IMAP 定时读这个收件箱（需要你给一个专用邮箱的授权码）</span></div>
+    <div class="step"><span class="n">3</span><span class="c">同样按口令落板，多余邮件不进看板</span></div>
+  </div>
+  <div class="ok">优点：不需要企业微信权限、不需要公网服务。缺点：不如微信顺手，且要保管好授权码。</div>
+</section>
+
+<section>
+  <h2><i>9</i>现在可以先不配</h2>
+  <p>你日常在外面跑，其实用<b>对话</b>也能达到八成效果：把一句话发给我（手机客户端或电脑），我直接落板。等这套通道配好，区别只是“不用打开客户端”。</p>
+  <p class="small">如果决定要做，把这份页面转给 IT，或者告诉我“按企业微信方案配”，我来出具体部署步骤清单。</p>
+</section>
+
+<div class="foot">方案说明 · 企业内部使用<br>涉及令牌与授权码，请勿外传</div>
+</div>
+<div id="toast"></div>
+<script>
+document.getElementById('copyCode').onclick=function(){
+  var t=document.getElementById('codeBox').innerText;
+  function ok(){var el=document.getElementById('toast');el.textContent='代码已复制';el.classList.add('on');setTimeout(function(){el.classList.remove('on');},1600);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){ok();});}
+  else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);ok();}
+};
+</script>
+</body>
+</html>
