@@ -172,9 +172,9 @@
 
   /* ===== 右上角菜单（其他看板 / 本页导航） ===== */
   #menuBtn{position:fixed;right:12px;top:calc(10px + env(safe-area-inset-top));z-index:46;width:42px;height:42px;
-    border:none;border-radius:13px;background:linear-gradient(135deg,#3c5a78,#22384f);color:#fff;font-size:19px;
-    line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(34,56,79,.35);
-    font-family:inherit;cursor:pointer;opacity:.95}
+    border:1px solid #dde3ea;border-radius:13px;background:rgba(255,255,255,.92);color:#5c6d80;font-size:19px;
+    line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(51,59,70,.12);
+    font-family:inherit;cursor:pointer}
   #menuBtn:active{transform:scale(.95)}
   #dimMask{position:fixed;inset:0;background:rgba(30,38,48,.42);opacity:0;pointer-events:none;transition:opacity .2s;z-index:47}
   #dimMask.on{opacity:1;pointer-events:auto}
@@ -194,6 +194,17 @@
   #side a.si .ar{color:#b9c2ce;font-size:13px}
   #side .sf{padding:10px 14px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);
     font-size:11px;color:var(--sub);text-align:center;line-height:1.7}
+  .phr{margin:0 0 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .phr summary{padding:9px 14px;font-size:12px;font-weight:700;color:var(--brand);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+  .phr summary::-webkit-details-marker{display:none}
+  .phr summary::after{content:"▼";margin-left:auto;font-size:9px;color:#b0a88f;transition:.2s}
+  .phr[open] summary::after{transform:rotate(180deg)}
+  .phr[open] summary{border-bottom:1px solid var(--line)}
+  .phr-body{padding:9px 14px 11px}
+  .phr-item{font-size:12px;color:var(--sub);margin-top:7px;line-height:1.6;white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+  .phr-item::-webkit-scrollbar{display:none}
+  .phr-item b{color:#3c5a78;background:#e9f0f7;border:1px solid #d3e0ee;padding:1px 7px;border-radius:6px;margin-right:6px;font-size:11px;white-space:nowrap}
+  .phr-item:first-child{margin-top:0}
 </style>
 </head>
 <body>
@@ -231,6 +242,17 @@
   </header>
 
   <div class="bar">
+    <details class="phr"><summary>📌 常用短语速查 · 怎么让我记录</summary>
+      <div class="phr-body">
+        <div class="phr-item"><b>日常记录 …</b>记一条日记</div>
+        <div class="phr-item"><b>笔记-分类-标题-内容</b>记工作心得</div>
+        <div class="phr-item"><b>更新腾讯文档</b>同步最新商机</div>
+        <div class="phr-item"><b>商机备忘-单位-商机-内容</b>记一条进展</div>
+        <div class="phr-item"><b>联想</b>存个人助记</div>
+        <div class="phr-item"><b>业务在用</b>报数量或月消费</div>
+        <div class="phr-item" style="white-space:normal;margin-top:9px;padding-top:8px;border-top:1px dashed var(--line)">🔗 <b>备忘与笔记互通</b>说「商机备忘…」若内容偏长，智能体会主动问「全文放笔记看板？」，点头即在备忘下留精要、全文放笔记并互相跳转；也可直接说「这条挂到笔记 / 挂到备忘」手动指定。智能识别＋手动指定都支持。</div>
+      </div>
+    </details>
     <input class="search" id="search" type="text" placeholder="搜索记录内容或标签…">
     <div class="secnav" id="secnav">
       <a href="#days">日记</a><a href="#summary">总结</a><a href="#sleep">作息</a><a href="#minimal">极简</a><a href="#food">餐厅</a>
