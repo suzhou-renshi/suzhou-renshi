@@ -275,7 +275,7 @@ function personHtml(p,isHr){
   var age='';
   if(p.birth){var m=/^(\d{4})[./](\d{1,2})(?:[./](\d{1,2}))?/.exec(p.birth||'');if(m){var by=+m[1],bm=+m[2],bd=m[3]?+m[3]:1,n=new Date(),a=n.getFullYear()-by;if(n.getMonth()+1<bm||(n.getMonth()+1===bm&&n.getDate()<bd))a--;if(a>0&&a<120)age=a+'岁';}}
   var nameAge=(!isHr&&p.birth)?('<span class="pf">（'+esc(p.birth)+(age?' · '+age:'')+'）</span>'):'';
-  var av=p.img?('<div class="pav"><img src="'+esc(p.img)+'" alt="" loading="lazy"></div>'):'';
+  var av=p.img?('<div class="pav"><img loading="lazy" src="'+esc(p.img)+'" alt=""></div>'):'';
   var h='<div class="person'+(av?' has-av':'')+'">';
   var title='<div class="p-top"><span class="nm">'+esc(p.name)+'</span>'+nameAge+(p.g&&p.g!=='—'?'<span class="pf">'+esc(p.g)+'</span>':'')+'</div>';
   if(av){h+='<div class="p-head">'+av+title+'</div>';}else{h+=title;}
@@ -734,5 +734,7 @@ window.addEventListener('hashchange',function(){
 (function(){var t=location.hash.replace('#','');kvSet(KV_TABS[t]?t:'quick');})();
 
 </script>
+
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(function(){});}</script>
 </body>
 </html>
