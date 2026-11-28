@@ -54,7 +54,7 @@ pre{background:#0f2233;color:#d8e6f2;border-radius:11px;padding:12px;overflow-x:
 <header>
   <div class="k">TELEAGENT · 方案说明</div>
   <h1>手机一句话记录<br>怎么把消息变成看板条目</h1>
-  <p>企业微信自建应用 + 云函数 + GitHub，全程你只发一句话</p>
+  <p>配一次，之后在微信里发一句，就自动进看板</p>
 </header>
 
 <div class="wrap">
@@ -63,10 +63,10 @@ pre{background:#0f2233;color:#d8e6f2;border-radius:11px;padding:12px;overflow-x:
   <h2><i>1</i>先看清一件事</h2>
   <p>微信（个人）<b>没有</b>给外部开放的收消息接口，所以“我直接听你微信”这条路不存在。能做的是：把消息送进一个<b>我能读的地方</b>，再由我整理进看板。</p>
   <div class="flow">
-    <div class="step"><span class="n">1</span><span class="c">你在<b>企业微信</b>里给“随手记”应用发一句：<code class="i">商机备忘-名城-OA-和戴主任确认预算口径</code></span></div>
-    <div class="step"><span class="n">2</span><span class="c">企业微信把这条消息推到你自己的<b>云函数</b>（公网 HTTPS 地址）</span></div>
-    <div class="step"><span class="n">3</span><span class="c">云函数验签、解密，把这条追加到 GitHub 仓库的 <code class="i">shouji-queue.json</code></span></div>
-    <div class="step"><span class="n">4</span><span class="c">我读取队列，按口令<b>写进常记/笔记/日记</b>，你手机上刷新看板就能看到</span></div>
+    <div class="step"><span class="n">A</span><span class="c">你在<b>企业微信</b>里给“随手记”应用发一句：<code class="i">商机备忘-名城-OA-和戴主任确认预算口径</code></span></div>
+    <div class="step"><span class="n">B</span><span class="c">企业微信把这条消息推到你自己的<b>云函数</b>（公网 HTTPS 地址）</span></div>
+    <div class="step"><span class="n">C</span><span class="c">云函数验签、解密，把这条追加到 GitHub 仓库的 <code class="i">shouji-queue.json</code></span></div>
+    <div class="step"><span class="n">D</span><span class="c">我读取队列，按口令<b>写进常记/笔记/日记</b>，你手机上刷新看板就能看到</span></div>
   </div>
   <div class="ok">你全程只做第 1 步。第 2–4 步配一次，之后一直自动跑。</div>
 </section>
@@ -289,9 +289,9 @@ exports.main_handler = async (event) =&gt; {
   <h2><i>8</i>备选：邮箱通道（更快通）</h2>
   <p>如果你搞不定企业微信权限，还有一条今天就能通的路：</p>
   <div class="flow">
-    <div class="step"><span class="n">1</span><span class="c">手机邮箱 App 发一封给自己：主题随便，正文写口令 + 内容</span></div>
-    <div class="step"><span class="n">2</span><span class="c">我用 IMAP 定时读这个收件箱（需要你给一个专用邮箱的授权码）</span></div>
-    <div class="step"><span class="n">3</span><span class="c">同样按口令落板，多余邮件不进看板</span></div>
+    <div class="step"><span class="n">A</span><span class="c">手机邮箱 App 发一封给自己：主题随便，正文写口令 + 内容</span></div>
+    <div class="step"><span class="n">B</span><span class="c">我用 IMAP 定时读这个收件箱（需要你给一个专用邮箱的授权码）</span></div>
+    <div class="step"><span class="n">C</span><span class="c">同样按口令落板，多余邮件不进看板</span></div>
   </div>
   <div class="ok">优点：不需要企业微信权限、不需要公网服务。缺点：不如微信顺手，且要保管好授权码。</div>
 </section>
