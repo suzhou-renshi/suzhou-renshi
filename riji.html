@@ -20,6 +20,7 @@
 
   /* header */
   header.top{padding:22px 4px 12px;}
+  .kblink{display:inline-block;margin:12px 6px 0 0;font-size:11.5px;color:#d9e8f7;background:rgba(255,255,255,.13);padding:5px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.2);text-decoration:none}
   .brand{font-size:12px;letter-spacing:2px;color:var(--brand);font-weight:700;text-transform:uppercase;}
   h1{margin:6px 0 4px;font-size:27px;letter-spacing:1px;font-weight:800;}
   .lead{color:var(--sub);font-size:13.5px;margin:0;}
@@ -177,12 +178,17 @@
     <h1>我的日记本</h1>
     <p class="lead">按日期记录 · 自动归纳 · 作息与餐厅档案。想到什么，说一句「日常记录 …」即可追加。</p>
     <div class="stats" id="stats"></div>
+    <div style="margin-top:12px">
+      <a class="kblink" href="changji.html">📇 常记看板 →</a>
+      <a class="kblink" href="https://suzhou-renshi.github.io/suzhou-renshi/">🏛 人事看板 →</a>
+      <a class="kblink" href="biji.html">📘 笔记看板 →</a>
+    </div>
   </header>
 
   <div class="bar">
     <input class="search" id="search" type="text" placeholder="搜索记录内容或标签…">
     <div class="secnav" id="secnav">
-      <a href="#days">日记</a><a href="#summary">总结</a><a href="#sleep">作息</a><a href="#minimal">极简</a><a href="#food">餐厅</a><a href="changji.html">📇常记</a><a href="https://suzhou-renshi.github.io/suzhou-renshi/">🏛人事</a><a href="biji.html">📘笔记</a>
+      <a href="#days">日记</a><a href="#summary">总结</a><a href="#sleep">作息</a><a href="#minimal">极简</a><a href="#food">餐厅</a>
     </div>
     <div class="nav" id="nav"></div>
   </div>
