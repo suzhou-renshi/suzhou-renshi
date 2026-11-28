@@ -129,6 +129,9 @@
   .track{margin-top:10px;border-top:1px dashed var(--line);padding-top:9px;font-size:12.5px;color:#4a5a6b}
   .track .k{font-size:11px;color:#9a8a6e;margin-right:6px}
   .track.lian{background:#f5f0ff;border:1px solid #e6d8fb;border-radius:8px;padding:7px 10px;margin-top:10px;color:#5b3d8a}
+  .track.addrline{background:#eef6f0;border:1px solid #d3e7da;border-radius:8px;padding:7px 10px;margin-top:10px}
+  .track.addrline a{color:#1b7a49;font-weight:600;text-decoration:none}
+  .track.addrline a:hover{text-decoration:underline}
   .track.lian .k{color:#7a4fa3;font-weight:600}
 
   /* 企业分组头 */
@@ -204,11 +207,9 @@
   </div>
 
   <div class="section" id="sec-gov">
-    <div class="sec-title"><div class="num n1">壹</div><div><h2>市政府</h2><small>GOVERNMENT · 市政府班子与主要职能部门</small></div></div>
-    <div class="soe-head"><div class="nm">市政府领导班子</div><div class="intro">市长与副市长</div></div>
+    <div class="sec-title"><div class="num n1">壹</div><div><h2>市政府</h2><small>GOVERNMENT · 四套班子与市政府组成人员</small></div></div>
+    <div class="soe-head"><div class="nm">市四套班子 · 市政府领导</div><div class="intro">市委 / 人大 / 政府 / 政协主要领导与市政府组成人员</div></div>
     <div id="list-gov"></div>
-    <div class="soe-head"><div class="nm">主要职能部门（正职）</div><div class="intro">经济与要素保障</div></div>
-    <div id="list-core"></div>
   </div>
 
   <div class="section" id="sec-bureau">
@@ -258,7 +259,7 @@
     if(now.getMonth()+1 < bm) age -= 1;
     return (age >= 0 && age < 120) ? age+'岁' : '';
   }
-  function card(p, extra){
+  function card(p, extra, addr){
     var gender = (p.g && p.g!=='—') ? p.g : '—';
     var ageStr = ageOf(p.b);
     var html = '<div class="card" data-s="'+esc(searchText(p,extra))+'">'
@@ -273,6 +274,8 @@
       + '<div class="m-item"><span class="k">学历</span><span class="v">'+esc(p.ed||'—')+'</span></div>'
       + '</div>';
     if(p.cv){ html += '<div class="track"><span class="k">原任/轨迹</span>'+esc(p.cv)+'</div>'; }
+    if(addr && addr.u){ html += '<div class="track addrline"><span class="k">📍办公</span><a href="'+esc(addr.u)+'" target="_blank" rel="noopener">'+esc(addr.t)+' · 高德导航↗</a></div>'; }
+    else if(addr && addr.t){ html += '<div class="track addrline"><span class="k">📍办公</span>'+esc(addr.t)+'</div>'; }
     if(p.note){ html += '<div class="track"><span class="k">拜访/备注</span>'+esc(p.note)+'</div>'; }
     if(p.lian){ html += '<div class="track lian"><span class="k">💡联想</span>'+esc(p.lian)+'</div>'; }
     html += '</div>';
@@ -284,8 +287,23 @@
     box.innerHTML = html || '<div class="empty">暂无数据</div>';
   }
   fill('list-gov', D.gov||[], '');
-  fill('list-core', D.core||[], '');
-  fill('list-bureau', D.bureau||[], '');
+  // 市局办（按单位分组＋地址导航）
+  (function(){
+    var box = document.getElementById('list-bureau');
+    var gs = D.bureau||[];
+    var html='';
+    var total=0;
+    gs.forEach(function(g){
+      var addr = {t:g.addr, u:g.aurl};
+      html += '<div class="soe-head"><div class="nm">'+esc(g.name)+'</div>'
+        + (g.tag?'<span class="tag">'+esc(g.tag)+'</span>':'')
+        + '<div class="intro">📍'+esc(g.addr||'地址待核实')+'</div></div>';
+      html += g.people.map(function(p){total++; return card(p, g.name, addr);}).join('');
+    });
+    box.innerHTML = html || '<div class="empty">暂无数据</div>';
+    var sb = document.getElementById('s-bur');
+    if(sb) sb.textContent = total;
+  })();
   // 区县（分组）
   (function(){
     var box = document.getElementById('list-dist');
@@ -327,8 +345,7 @@
     });
     box.innerHTML = html || '<div class="empty">暂无数据</div>';
   })();
-  document.getElementById('s-gov').textContent=(D.gov||[]).length+(D.core||[]).length;
-  document.getElementById('s-bur').textContent=(D.bureau||[]).length;
+  document.getElementById('s-gov').textContent=(D.gov||[]).length;
   document.getElementById('s-dist').textContent=(D.dist||[]).reduce(function(a,g){return a+g.people.length;},0);
   document.getElementById('s-soe').textContent=(D.soes||[]).reduce(function(a,g){return a+g.people.length;},0);
   if(D.updated){document.getElementById('upd').textContent='信息截至 '+D.updated;
