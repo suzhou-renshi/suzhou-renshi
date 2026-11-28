@@ -150,6 +150,15 @@ html[data-theme=dark] #backBar{background:rgba(140,192,224,.5)}
 
 <script>
 var NOTES=[
+ {cat:"TeleAgent", id:"avatar-upload", title:"头像更换办法（自己传图，不经智能体）", d:"2026-11-28", hl:true, body:
+"一、为什么这样做\n· 把头像图发到聊天里、或放进 inbox，平台在这两处都会做检查，反复弹提示；\n· 自己把图传到我的 GitHub 仓库，图片全程不经过智能体，最干净、不会再被拦。\n\n"+
+"二、手机操作（6 步）\n· 1 手机浏览器打开 github.com，登录账号 suzhou-renshi；\n· 2 进仓库 suzhou-renshi/suzhou-renshi；\n· 3 点进 images 文件夹；\n· 4 页面上方 Add file → Upload files；\n· 5 从相册选图（240×240 方形、JPG 最好），文件名用拼音（如 xiefei.jpg），别用中文名；\n· 6 滑到页面底部，点绿色 Commit changes。\n\n"+
+"三、传完说一句\n· 「传好了，文件名 xiefei.jpg，是谢飞的」；一次多张也行，各自说清对应谁。\n\n"+
+"四、我收到后做什么\n· 用 GitHub 接口确认文件已在仓库、大小正常（只读文件列表，不看图）；\n· 改 data.js 里对应人的 img 引用；\n· 上传、验证线上能正常显示。\n\n"+
+"五、如果懒得传\n· 继续用姓氏首字头像（金色方块样式），看板大部分卡片本来就是这样，完全够用；想补再补。\n\n"+
+"六、小提示\n· 图源自己从公众号等公开渠道截的就行，裁成方形更整齐；\n· 新图想替换旧图：同一文件名覆盖上传即可，我这边引用不用改。"},
+
+
  {cat:"纪要", id:"mingcheng-visit", title:"名城拜访交流纪要（戴峰主任/黄主任 · 50分钟录音转写整理）", d:"2026-11-27", hl:true, body:
 "一、材料修改反馈（戴主任核心意见）\n· 集团处于项目建设期＋参观背景是党委班子研学，演示内容不要有推销感，要站在多年合作方角度\"帮集团出建议、出设想\"\n· 泛微 OA 合作已基本落地，AI 元素要在下一步泛微设计中体现出来（大趋势，领导态度开放）\n· 教育行业视频、合同审查、42 份周报自动汇总等演示获认可\"越用越顺\"；视频类材料继续用 AI 模型生成\n\n"+
 "二、集团侧需求线索\n· 项目管理平台已有——希望 AI 提效：结构化数据自动出各类口径报送表格（10分钟出表、人工只校验）；可用 MCP/API 二开接入，TeleAgent 手机端语音录商机模式可复用\n· 票务数据打通分析：需先数据治理，最简单做法是 Excel 导出直接给智能体分析（参考卫健委幼儿园数据分析案例，客户反馈好用）\n· 舆情监测：对比专业厂商（智慧星光等），电信优势＝数据源可扩充 + 本地企业兜底服务 + 安全公司联动；有相城宣传部案例（负面三方监控+电信收集正面舆情出日报/周报）\n\n"+
@@ -301,7 +310,12 @@ function renderDrawer(){
 function route(){
   var m=location.hash.match(/^#n(\d+)$/);
   if(m&&NOTES[+m[1]]){state.idx=+m[1];renderDetail(state.idx);}
-  else{state.idx=null;renderIndex();}
+  else{
+    var mi=location.hash.match(/^#id-(.+)$/), k=-1;
+    if(mi){for(var i=0;i<NOTES.length;i++){if(NOTES[i].id===mi[1]){k=i;break;}}}
+    if(k>=0){state.idx=k;renderDetail(k);}
+    else{state.idx=null;renderIndex();}
+  }
   document.getElementById("backBar").classList.toggle("on",state.idx!==null);
   renderDrawer();
   closeDrawer();
