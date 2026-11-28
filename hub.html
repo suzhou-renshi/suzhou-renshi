@@ -7,42 +7,40 @@
 <meta name="theme-color" content="#123a5e">
 <title>客户经理工作台</title>
 <style>
-:root{--bg:#f2f5f9;--card:#fff;--text:#1e2b3a;--sub:#7b8a9b;--line:#e4e9ef;--pri:#123a5e;--pri2:#1d5280;--acc:#0f766e;--hot:#e2503a;--gold:#c8892f;--shadow:0 2px 10px rgba(16,36,56,.07)}
+:root{--bg:#f2f5f9;--card:#fff;--text:#1e2b3a;--sub:#6b7a90;--line:#e4e9ef;--pri:#123a5e;--acc:#0f766e;--hot:#e2503a;--gold:#c8892f;--shadow:0 2px 10px rgba(16,36,56,.07)}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding-bottom:calc(28px + env(safe-area-inset-bottom));-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
+button{font-family:inherit}
 .wrap{max-width:760px;margin:0 auto;padding:0 12px}
-/* 头部 */
-header{background:linear-gradient(150deg,#1c3a58,#0d2438 70%);color:#fff;padding:calc(16px + env(safe-area-inset-top)) 14px 14px;border-radius:0 0 18px 18px;box-shadow:0 4px 16px rgba(10,25,40,.22)}
+header{background:linear-gradient(150deg,#1c3a58,#0d2438 70%);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 14px 12px;border-radius:0 0 16px 16px;box-shadow:0 4px 16px rgba(10,25,40,.22)}
 .hrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.hname{font-size:12px;color:#9fc0dc;letter-spacing:1.5px}
+.hname{font-size:10.5px;color:#9fc0dc;letter-spacing:1.2px}
 .hdate{font-size:11px;color:#8fb0cc}
-h1{font-size:22px;font-weight:800;letter-spacing:.5px;margin:6px 0 2px}
-.hsub{font-size:11.5px;color:#a9c3dc}
-.hstat{display:flex;gap:6px;margin-top:12px}
-.hstat div{flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 2px 9px}
-.hstat b{display:block;font-size:16px;font-weight:800;line-height:1.25}
-.hstat span{display:block;font-size:9.5px;color:#a9c3dc;line-height:1.4;white-space:nowrap}
-/* 卡片 */
-.sec{margin-top:16px}
-.sec-h{display:flex;align-items:baseline;gap:8px;padding:0 2px 10px}
-.sec-h h2{font-size:13px;font-weight:800;color:var(--pri);display:flex;align-items:center;gap:6px}
-.sec-h h2::before{content:"";width:3px;height:13px;background:var(--gold);border-radius:2px}
-.sec-h span{margin-left:auto;font-size:10.5px;color:#6b7a90}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.ent{background:var(--card);border-radius:14px;padding:13px 13px 12px;box-shadow:var(--shadow);display:block;border:1px solid transparent}
-.ent:active{border-color:#cfe0ee}
-.ent .ic{font-size:19px;line-height:1}
-.ent .nm{font-size:14.5px;font-weight:700;margin-top:6px}
-.ent .ds{font-size:10.5px;color:var(--sub);line-height:1.5;margin-top:2px;min-height:31px}
-.ent .meta{font-size:10.5px;color:var(--acc);font-weight:600;margin-top:6px}
-.ent.hot .meta{color:var(--hot)}
-.subs{display:flex;gap:6px;margin-top:9px}
-.subs a{flex:1;text-align:center;font-size:11px;padding:7px 0;border-radius:9px;background:#eef4f9;color:var(--pri);font-weight:600;border:1px solid #dbe7f1}
-.subs a:active{background:#e3eef7}
-/* 列表 */
+h1{font-size:18px;font-weight:800;margin:3px 0 1px;letter-spacing:.3px}
+.hsub{font-size:10.5px;color:#a9c3dc;line-height:1.45}
+.hstat{display:flex;gap:5px;margin-top:8px}
+.hstat div{flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:9px;padding:5px 2px 6px}
+.hstat b{display:block;font-size:15px;font-weight:800;line-height:1.2;margin-bottom:1px}
+.hstat span{display:block;font-size:9px;color:#a9c3dc;white-space:nowrap;line-height:1.35}
+/* 入口条 */
+.bar{display:flex;gap:5px;margin-top:8px}
+.bar a{flex:1;text-align:center;font-size:10.5px;padding:6px 0;border-radius:9px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);color:#dbeaf7;white-space:nowrap}
+.sec{margin-top:13px}
+.sec-h{display:flex;align-items:baseline;gap:8px;padding:0 2px 8px}
+.sec-h h2{font-size:12.5px;font-weight:800;color:var(--pri);display:flex;align-items:center;gap:6px}
+.sec-h h2::before{content:"";width:3px;height:12px;background:var(--gold);border-radius:2px}
+.sec-h span{margin-left:auto;font-size:10px;color:var(--sub)}
 .card{background:var(--card);border-radius:13px;box-shadow:var(--shadow);padding:12px 13px}
-.row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line)}
+/* 周报 */
+.rep-head{display:flex;align-items:center;gap:8px}
+.rep-head .t{font-size:13px;font-weight:700}
+.btn{margin-left:auto;font-size:11.5px;padding:7px 13px;border-radius:9px;border:none;background:var(--pri);color:#fff;font-weight:600}
+.btn:active{opacity:.85}
+.rep-tip{font-size:10.5px;color:var(--sub);margin-top:5px;line-height:1.6}
+#repText{width:100%;margin-top:9px;border:1px dashed #cbd9e6;background:#f7fafc;border-radius:9px;padding:11px 12px;font-size:11.5px;line-height:1.75;color:#2c3e50;display:none;white-space:pre-wrap;word-break:break-word;font-family:inherit}
+/* 列表 */
+.row{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px dashed var(--line)}
 .row:last-child{border-bottom:0;padding-bottom:2px}
 .row .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);flex:0 0 auto}
 .row .dot.red{background:var(--hot);box-shadow:0 0 0 4px rgba(226,80,58,.12);animation:pl 1.8s infinite}
@@ -51,58 +49,37 @@ h1{font-size:22px;font-weight:800;letter-spacing:.5px;margin:6px 0 2px}
 .row .t1{font-size:12.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .row .t2{font-size:10.5px;color:var(--sub);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .row .tag{flex:0 0 auto;font-size:9.5px;padding:2px 7px;border-radius:5px;background:#eef4f9;color:var(--pri)}
-.row .tag.red{background:#fdece8;color:#c33}
 .row .am{flex:0 0 auto;font-size:11px;color:var(--gold);font-weight:700}
 .empty{font-size:11.5px;color:var(--sub);text-align:center;padding:14px 0}
-/* 短语 */
-details.phr{background:var(--card);border-radius:13px;box-shadow:var(--shadow);padding:10px 13px}
-details.phr summary{font-size:12.5px;font-weight:700;color:var(--pri);cursor:pointer;list-style:none;display:flex;align-items:center}
-details.phr summary::-webkit-details-marker{display:none}
-details.phr summary::after{content:"▾";margin-left:auto;font-size:10px;color:#adbccb;transition:.2s}
-details.phr[open] summary::after{transform:rotate(180deg)}
-.phr-b{padding-top:8px;font-size:11.5px;color:var(--sub);line-height:1.9}
-.phr-b b{color:var(--pri);background:#eef4f9;padding:1px 6px;border-radius:5px;font-weight:600;margin-right:5px;font-size:11px;white-space:nowrap}
-.foot{text-align:center;font-size:10px;color:#9fb0c0;padding:18px 0 4px;line-height:1.8}
+.foot{text-align:center;font-size:10px;color:#9fb0c0;padding:16px 0 4px;line-height:1.8}
+#toast{position:fixed;left:50%;bottom:70px;transform:translate(-50%,8px);background:#1e2b3a;color:#fff;font-size:12px;padding:8px 15px;border-radius:9px;opacity:0;pointer-events:none;transition:.2s;z-index:60}
+#toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
 <header>
   <div class="hrow"><div class="hname">TELECOM · 政企客户经理</div><div class="hdate" id="today"></div></div>
   <h1>我的工作台</h1>
-  <div class="hsub" id="hello">客户 · 商机 · 笔记 · 人事 · 日记</div>
+  <div class="hsub" id="hello"></div>
   <div class="hstat" id="hstat"></div>
+  <div class="bar">
+    <a href="changji.html">📇 常记</a>
+    <a href="biji.html">📘 笔记</a>
+    <a href="https://suzhou-renshi.github.io/suzhou-renshi/">🏛 人事</a>
+    <a href="riji.html">📖 日记</a>
+  </div>
 </header>
 
 <div class="wrap">
   <div class="sec">
-    <div class="sec-h"><h2>四个看板</h2><span>点开即用</span></div>
-    <div class="grid">
-      <a class="ent" href="changji.html">
-        <div class="ic">📇</div><div class="nm">常记看板</div>
-        <div class="ds">我的客户：联系人、商机、业务在用</div>
-        <div class="meta" id="m-changji">—</div>
-      </a>
-      <a class="ent" href="biji.html">
-        <div class="ic">📘</div><div class="nm">笔记看板</div>
-        <div class="ds">知识：纪要、心得、方案</div>
-        <div class="meta" id="m-biji">—</div>
-      </a>
-      <a class="ent" href="https://suzhou-renshi.github.io/suzhou-renshi/">
-        <div class="ic">🏛</div><div class="nm">人事看板</div>
-        <div class="ds">政府与国资重要人物（非我的客户）</div>
-        <div class="meta">拜访前查</div>
-      </a>
-      <a class="ent" href="riji.html">
-        <div class="ic">📖</div><div class="nm">日记看板</div>
-        <div class="ds">个人：生活、作息、餐厅</div>
-        <div class="meta">晚上翻</div>
-      </a>
-    </div>
-    <div class="subs">
-      <a href="changji.html#week">周行动</a>
-      <a href="changji.html#biz">商机</a>
-      <a href="changji.html#card">速查卡</a>
-      <a href="changji.html#map">关系图</a>
+    <div class="sec-h"><h2>本周汇报 · 一键复制</h2><span>发领导直接用</span></div>
+    <div class="card">
+      <div class="rep-head">
+        <span class="t">生成这周的客户进展</span>
+        <button class="btn" id="repBtn">生成并复制</button>
+      </div>
+      <div class="rep-tip">按常记看板自动汇总：本周有进展的商机、新签、待催重点、在跟总额。生成后直接粘到微信或周报里，改几句就能发。</div>
+      <div id="repText"></div>
     </div>
   </div>
 
@@ -116,72 +93,60 @@ details.phr[open] summary::after{transform:rotate(180deg)}
     <div class="card" id="notes"></div>
   </div>
 
-  <div class="sec">
-    <details class="phr">
-      <summary>📌 常用短语速查 · 怎么让我记录</summary>
-      <div class="phr-b">
-        <div><b>更新腾讯文档</b>同步最新商机</div>
-        <div><b>商机备忘-单位-商机-内容</b>记一条进展</div>
-        <div><b>联想</b>存个人助记</div>
-        <div><b>业务在用</b>报数量或月消费</div>
-        <div><b>笔记-分类-标题-内容</b>记工作心得</div>
-        <div><b>日常记录 …</b>记一条日记</div>
-      </div>
-    </details>
-  </div>
-
   <div class="foot">数据来源：常记 / 笔记 / 人事 / 日记四个看板（只读汇总）<br>内部资料 · 请勿外传</div>
 </div>
+<div id="toast"></div>
 
 <script src="kv_data.js"></script>
 <script>
 var DATA = KV_DATA;
-var NOTES = [{"cat": "纪要", "title": "名城拜访交流纪要（戴峰主任/黄主任 · 50分钟录音转写整理）", "d": "2026-11-27", "i": 0}, {"cat": "纪要", "title": "名城展厅展陈 · 会议结论（详细版）", "d": "2026-11-27", "i": 1}, {"cat": "TeleAgent", "title": "提示词 · 语音类会议纪要的事实整理", "d": "2026-11-28", "i": 2}, {"cat": "TeleAgent", "title": "笔记看板 vs 手机笔记软件：优势与边界", "d": "2026-11-28", "i": 3}, {"cat": "TeleAgent", "title": "常用入口（链接 · 持续补充）", "d": "2026-11-28", "i": 4}, {"cat": "TeleAgent", "title": "用法 · 实战速记", "d": "2026-11-27", "i": 5}];
+var NOTES = [{"cat": "TeleAgent", "title": "头像更换办法（自己传图，不经智能体）", "d": "2026-11-28", "i": 0}, {"cat": "纪要", "title": "名城拜访交流纪要（戴峰主任/黄主任 · 50分钟录音转写整理）", "d": "2026-11-27", "i": 1}, {"cat": "纪要", "title": "名城展厅展陈 · 会议结论（详细版）", "d": "2026-11-27", "i": 2}, {"cat": "TeleAgent", "title": "提示词 · 语音类会议纪要的事实整理", "d": "2026-11-28", "i": 3}, {"cat": "TeleAgent", "title": "笔记看板 vs 手机笔记软件：优势与边界", "d": "2026-11-28", "i": 4}, {"cat": "TeleAgent", "title": "常用入口（链接 · 持续补充）", "d": "2026-11-28", "i": 5}];
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function num(s){var m=/([\d.]+)/.exec(s||'');return m?parseFloat(m[1]):0;}
 function lastD(p){var a=[];(p.logs||[]).forEach(function(x){if(x.d)a.push(x.d);});(p.memo||[]).forEach(function(x){if(x.d)a.push(x.d);});a.sort();return a.length?a[a.length-1]:'';}
 function ago(d){if(!d)return 999;var t=new Date(String(d).replace(/[./]/g,'-')+'T00:00:00');if(isNaN(t))return 999;return Math.floor((Date.now()-t.getTime())/86400000);}
+function cut(s,n){s=String(s||'').replace(/\s+/g,' ').trim();return s.length>n?s.slice(0,n)+'…':s;}
 
-var opp=[],stale=[],units=0;
+var opp=[],stale=[],recent=[];
 DATA.forEach(function(u){
-  if(u.projects&&u.projects.length)units++;
   (u.projects||[]).forEach(function(p){
     if(p.st!=='opp')return;
-    var o={u:(u.short||u.title),t:p.t,amt:p.amt,a:num(p.amt),key:p.key,last:lastD(p)};
-    o.ag=ago(o.last);
+    var last=lastD(p),ag=ago(last);
+    var o={u:(u.short||u.title),t:p.t,amt:p.amt,a:num(p.amt),key:p.key,last:last,ag:ag,
+           txt:(p.memo&&p.memo[0]&&p.memo[0].t)||(p.logs&&p.logs[0]&&p.logs[0].t)||p.note||''};
     opp.push(o);
-    if(o.ag>14)stale.push(o);
+    if(ag>14)stale.push(o);
+    if(ag<=7)recent.push(o);
   });
 });
 var keyN=opp.filter(function(x){return x.key;}).length;
-var weekN=opp.filter(function(x){return x.ag<=7;}).length;
+var total=opp.reduce(function(s,x){return s+x.a;},0);
 
-var d=new Date(),wd='日一二三四五六'[d.getDay()];
-document.getElementById('today').textContent=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' 周'+wd;
+var d=new Date(),wd='日一二三四五六'[d.getDay()],mmm=(d.getMonth()+1);
+document.getElementById('today').textContent=d.getFullYear()+'-'+String(mmm).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' 周'+wd;
 var hh=d.getHours();
-document.getElementById('hello').textContent=(hh<6?'早':hh<11?'上午':hh<14?'中午':hh<18?'下午':'晚上')+'好，本周有 '+weekN+' 个客户有进展，'+stale.length+' 个重点商机待催';
+document.getElementById('hello').textContent=(hh<6?'早':hh<11?'上午':hh<14?'中午':hh<18?'下午':'晚上')+'好，本周 '+recent.length+' 个客户有进展，'+stale.length+' 个重点商机待催';
 
 document.getElementById('hstat').innerHTML=
- '<div><b>'+weekN+'</b><span>本周进展</span></div>'+
+ '<div><b>'+recent.length+'</b><span>本周进展</span></div>'+
  '<div><b>'+opp.length+'</b><span>在跟商机</span></div>'+
  '<div><b>'+keyN+'</b><span>重点</span></div>'+
  '<div><b>'+stale.length+'</b><span>待催</span></div>';
 
-document.getElementById('m-changji').textContent=units+' 家客户 · '+opp.length+' 个商机';
-document.getElementById('m-biji').textContent=NOTES.length?('共 '+NOTES.length+' 条 · 最新 '+NOTES[0].d):'—';
-
+/* 今天先动 */
 stale.sort(function(a,b){return b.ag-a.ag;});
 var h='';
-if(!stale.length){h='<div class="empty">重点商机都在推进</div>';}
+if(!stale.length)h='<div class="empty">重点商机都在推进</div>';
 stale.slice(0,4).forEach(function(x){
   h+='<a class="row" href="changji.html#week"><span class="dot red"></span><span class="tx"><div class="t1">'+esc(x.t)+'</div>'
    +'<div class="t2">'+esc(x.u)+' · '+(x.last?('停滞 '+x.ag+' 天'):'无进展记录')+'</div></span>'
    +'<span class="am">'+esc(x.amt||'')+'</span></a>';
 });
-h+='<a class="row" href="changji.html#week" style="border-bottom:0"><span class="tx" style="text-align:center;color:#0f766e;font-size:11.5px">查看全部 '+stale.length+' 个 ›</span></a>';
+h+='<a class="row" href="changji.html#week" style="border-bottom:0"><span class="tx" style="text-align:center;color:#0f766e;font-size:11px">查看全部 '+stale.length+' 个 ›</span></a>';
 document.getElementById('urgent').innerHTML=h;
 document.getElementById('urgent-n').textContent=stale.length+' 个';
 
+/* 最近笔记 */
 function paintNotes(list){
   var hn='';
   list.slice(0,4).forEach(function(n){
@@ -189,20 +154,49 @@ function paintNotes(list){
       +'<div class="t2">'+esc(n.d)+'</div></span><span class="tag">'+esc(n.cat)+'</span></a>';
   });
   document.getElementById('notes').innerHTML=hn;
-  document.getElementById('m-biji').textContent='共 '+list.length+' 条 · 最新 '+(list[0]?list[0].d:'—');
 }
 paintNotes(NOTES);
-
-/* 实时读笔记看板，比静态嵌入更新 */
 fetch('biji.html',{cache:'no-store'}).then(function(r){return r.text();}).then(function(t){
-  var i=t.indexOf('var NOTES=[');
-  if(i<0)return;
-  var j=t.indexOf('\n];',i);
-  var seg=t.slice(i,j);
+  var i=t.indexOf('var NOTES=['); if(i<0)return;
+  var j=t.indexOf('\n];',i),seg=t.slice(i,j);
   var re=/\{cat:"([^"]+)",(?: id:"[^"]*",)? title:"([^"]+)", d:"([^"]+)"/g,m,arr=[],k=0;
   while((m=re.exec(seg))){arr.push({cat:m[1],title:m[2],d:m[3],i:k++});}
   if(arr.length)paintNotes(arr);
 }).catch(function(){});
+
+/* 一键周报 */
+function buildReport(){
+  var lines=[];
+  lines.push('【本周客户进展】'+(mmm)+'/'+(d.getDate())+' 周'+wd);
+  recent.sort(function(a,b){return (b.last||'').localeCompare(a.last||'');});
+  if(recent.length){
+    recent.slice(0,6).forEach(function(x,k){
+      lines.push((k+1)+'. '+x.u+' · '+x.t+'（'+(x.amt||'金额待确认')+'）：'+cut(x.txt,42));
+    });
+  }else{
+    lines.push('本周暂无新增进展记录');
+  }
+  lines.push('');
+  lines.push('在跟商机 '+opp.length+' 个，合计约 '+(Math.round(total*10)/10)+' 万；重点 '+keyN+' 个。');
+  if(stale.length){
+    lines.push('需重点推进：'+stale.slice(0,3).map(function(x){return x.u+' '+x.t+'（'+(x.last?('停滞'+x.ag+'天'):'无进展')+'）';}).join('；')+'。');
+  }
+  return lines.join('\n');
+}
+document.getElementById('repBtn').onclick=function(){
+  var txt=buildReport();
+  var box=document.getElementById('repText');
+  box.textContent=txt; box.style.display='block';
+  function done(){var t=document.getElementById('toast');t.textContent='已复制，去微信粘贴';t.classList.add('on');setTimeout(function(){t.classList.remove('on');},1800);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done,function(){fallback();});
+  }else{fallback();}
+  function fallback(){
+    var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');done();}catch(e){var t=document.getElementById('toast');t.textContent='请长按文字手动复制';t.classList.add('on');setTimeout(function(){t.classList.remove('on');},2000);}
+    document.body.removeChild(ta);
+  }
+};
 </script>
 </body>
 </html>
